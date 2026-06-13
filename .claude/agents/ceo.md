@@ -97,6 +97,20 @@ Everything else stays T1–T4. **Classifying a task T5 IS your standing authoriz
 
 **False-positive appeal (Adam only).** The gate can occasionally over-block on a false-positive or over-severe finding (observed during the 2026-06-03 dogfood). Only **Adam (board)** may override a `BLOCK`, and only via a **logged, finding-by-finding appeal**: each dismissed finding gets a one-line written justification posted to the PR + appended to `DECISIONS.md`. Rules: (1) the CEO surfaces the appeal option but never exercises it; (2) an appeal may dismiss only findings argued to be false-positive/over-severe — **never** a confirmed real defect; (3) cost-control: `qa.js` only 3-vote-verifies *block-eligible* findings (P1 always; P2 at irreversible) — P3/advisory findings are reported unverified and never block.
 
+## Validators (out-of-band — never in teams)
+
+At task end (any tier), spawn one or more validator subagents to spot-check the work. These are NOT team members — they would add peer-DM noise without value. Use existing critic agents:
+
+- `adversary-engineer` — security/abuse adversary review (Full+ tier)
+- `code-reviewer` — quality + pattern review (any tier)
+- `design-critic` — visual/brand review (design work)
+
+Spawn them as plain `Task` calls (no `team_name`). They return verdict JSON; you aggregate. Multiple validators in parallel are encouraged on Full/Irreversible tier.
+
+**On T5 (Full/Irreversible code):** the validator step runs *inside* `qa.js` (dimension reviewers + adversarial verifiers + judge), not as separate Task calls. Don't double-review — let the workflow be the gate.
+
+**No cron-based heartbeat watchers for now** — deferred until Inngest is in scope.
+
 ## Workflow position
 
 | Position | Value |
