@@ -1,98 +1,113 @@
 import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { credentials } from "@/content/about";
-import { Eyebrow, IconCircle, Reveal } from "@/components/ui";
-import type { IconName } from "@/components/ui";
+import { InView } from "@/components/ui";
 
 /**
- * Detailed credentials — the trust moat. Rendered on the dark ink band for
- * gravitas (it breaks the page rhythm exactly like the Home trust band), structured
- * as a vertical timeline: each group is a node on a hairline spine, marked by an
- * inverse icon circle, with its credentials listed beneath. The spine + node
- * treatment turns a factual list into a considered "front of medicine" lineage
- * without inventing anything. Years render `dir="ltr"` so digits never reorder
- * under RTL. Accent text on ink uses the lighter accent for AA contrast per
- * ART-DIRECTION-V2.
+ * Professional record — the trust moat read in full, as the editorial LEDGER (v2
+ * "Quiet Authority"), matched to the Home credentials register. The grouped data is
+ * rendered as a structured table on bone: each group is a labelled block; within it
+ * every credential is a row with a mono numeral spine, the credential in the display
+ * serif, an optional qualifying detail, and a year set dir="ltr". Hairline rules
+ * carry the rhythm — no icon circles, no dark band, no decoration. Reads like the
+ * credentials page of an institution's annual report. RTL-correct via logical props.
  */
 export function AboutCredentials({ locale }: { locale: Locale }) {
   return (
-    <section className="relative overflow-hidden bg-ink px-4 py-20 text-paper sm:px-6 sm:py-24 lg:px-8 lg:py-32">
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -top-24 end-[-6%] h-[420px] w-[420px] rounded-full bg-accent/10 blur-3xl"
-      />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute bottom-[-20%] start-[-8%] h-[320px] w-[320px] rounded-full bg-accent-light/[0.08] blur-3xl"
-      />
-
-      <div className="relative mx-auto max-w-4xl">
-        <div className="max-w-2xl">
-          <Reveal>
-            <Eyebrow tone="inverse" withRule>
-              {t(credentials.eyebrow, locale)}
-            </Eyebrow>
-          </Reveal>
-          <Reveal delay={60}>
-            <h2 className="mt-5 text-balance text-display-lg text-paper">
+    <section className="bg-canvas px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+      <div className="mx-auto w-full max-w-[1240px]">
+        {/* Section head — label + a one-line framing statement, asymmetric. */}
+        <div className="grid gap-x-16 gap-y-6 border-b border-ink pb-10 lg:grid-cols-[1fr_1.1fr] lg:items-end">
+          <p className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow">
+            <span aria-hidden className="inline-block h-px w-8 bg-accent" />
+            {t(credentials.eyebrow, locale)}
+          </p>
+          <h2 className="max-w-[24ch] text-pretty font-editorial text-display-lg text-ink">
+            <InView as="span" className="block">
               {t(credentials.headline, locale)}
-            </h2>
-          </Reveal>
+            </InView>
+          </h2>
         </div>
 
-        {/* Timeline. A hairline spine runs along the start edge; each group hangs a
-            node (icon circle) off it. Logical insets keep the spine on the correct
-            side under RTL automatically. */}
-        <ol className="mt-14 space-y-12">
-          {credentials.groups.map((group, gi) => (
-            <Reveal as="li" key={group.key} delay={gi * 80}>
-              <div className="relative ps-16">
-                {/* Spine — drawn between this node and the next; the last node has none. */}
-                {gi < credentials.groups.length - 1 && (
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute start-[1.4375rem] top-12 bottom-[-3rem] w-px bg-accent-light/20"
-                  />
-                )}
-                {/* Node. */}
-                <span className="absolute start-0 top-0">
-                  <IconCircle name={group.icon as IconName} size="md" inverse />
-                </span>
-
-                <p className="text-eyebrow font-semibold uppercase tracking-[0.12em] text-accent-light eyebrow">
+        {/* The ledger — grouped blocks of label/value credential rows. */}
+        <div className="mt-2">
+          {credentials.groups.map((group) => (
+            <div key={group.key} className="border-b border-border last:border-b-0">
+              {/* Group label — a quiet register heading on a hairline-led row. */}
+              <div className="grid gap-x-16 gap-y-5 pt-12 lg:grid-cols-[1fr_1.1fr] lg:items-start">
+                <p className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.16em] text-slate eyebrow lg:sticky lg:top-28">
+                  <span aria-hidden className="inline-block h-px w-6 bg-border-strong" />
                   {t(group.label, locale)}
                 </p>
 
-                <ul className="mt-4 space-y-3">
-                  {group.items.map((item, ii) => (
-                    <li
-                      key={ii}
-                      className="flex flex-col gap-1 border-t border-accent-light/15 pt-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                {/* The credential rows for this group. */}
+                <dl className="border-t border-border">
+                  {group.items.map((item, i) => (
+                    <InView
+                      as="div"
+                      motion="fade-in-up"
+                      delay={i * 60}
+                      key={i}
+                      className="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-5 border-b border-border py-6 last:border-b-0 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-8 sm:py-7"
                     >
                       <span
+                        aria-hidden
+                        className="font-mono text-body-sm tabular-nums text-accent"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <dt
                         className={
                           item.pending
-                            ? "text-body-base text-paper/55"
-                            : "text-body-base text-paper/90"
+                            ? "font-editorial text-display-md leading-tight text-slate"
+                            : "font-editorial text-display-md leading-tight text-ink"
                         }
                       >
                         {t(item.title, locale)}
-                      </span>
-                      {item.year && (
-                        <span
-                          dir="ltr"
-                          className="shrink-0 font-mono text-body-sm tabular-nums text-accent-light"
+                      </dt>
+                      {item.year ? (
+                        <dd className="col-span-2 mt-2.5 font-mono text-body-sm tabular-nums text-slate sm:col-span-1 sm:mt-0 sm:pt-1.5">
+                          <span dir="ltr">{item.year}</span>
+                        </dd>
+                      ) : (
+                        <dd
+                          aria-hidden
+                          className="hidden text-body-sm text-slate-60 sm:block sm:pt-1.5"
                         >
-                          {item.year}
-                        </span>
+                          &mdash;
+                        </dd>
                       )}
-                    </li>
+                    </InView>
                   ))}
-                </ul>
+                </dl>
               </div>
-            </Reveal>
+            </div>
           ))}
-        </ol>
+        </div>
+
+        {/* Foot-rule — the qualifying detail, in quiet utility type (mirrors Home). */}
+        <InView
+          as="div"
+          motion="fade-in-up"
+          className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-caption uppercase tracking-[0.16em] text-slate eyebrow"
+        >
+          <span className="flex items-center gap-2.5">
+            <span aria-hidden className="inline-block h-px w-6 bg-border-strong" />
+            {t(
+              { he: "בוגר רפואה, אוניברסיטת תל אביב", en: "MD, Tel Aviv University" },
+              locale,
+            )}
+          </span>
+          <span className="flex items-center gap-2.5">
+            <span aria-hidden className="inline-block h-px w-6 bg-border-strong" />
+            <span className="normal-case">
+              {t({ he: "בעיסוק פרטי משנת", en: "In private practice since" }, locale)}{" "}
+              <span className="font-mono" dir="ltr">
+                2010
+              </span>
+            </span>
+          </span>
+        </InView>
       </div>
     </section>
   );

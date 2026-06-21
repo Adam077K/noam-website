@@ -8,7 +8,7 @@ import { AboutHero } from "@/components/sections/about/about-hero";
 import { AboutStory } from "@/components/sections/about/about-story";
 import { AboutCredentials } from "@/components/sections/about/about-credentials";
 import { AboutQuote } from "@/components/sections/about/about-quote";
-import { ContactCta } from "@/components/sections/shared/contact-cta";
+import { ContactClose } from "@/components/sections/home/contact-close";
 
 export async function generateMetadata({
   params,
@@ -38,9 +38,9 @@ export default async function AboutPage({
     <>
       <AboutHero locale={locale} />
       <AboutStory locale={locale} />
-      <AboutCredentials locale={locale} />
       <AboutQuote locale={locale} />
-      <ContactCta locale={locale} />
+      <AboutCredentials locale={locale} />
+      <ContactClose locale={locale} />
     </>
   );
 }
