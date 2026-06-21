@@ -1,6 +1,6 @@
 import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
-import type { Condition } from "@/content/expertise";
+import { founderReviewNote, type Condition } from "@/content/expertise";
 import { Card, IconCircle } from "@/components/ui";
 import type { IconName } from "@/components/ui";
 
@@ -37,13 +37,7 @@ export function ConditionCard({
       </div>
       {condition.founderReview && (
         <p className="mt-1 border-t border-border/70 pt-3 text-eyebrow font-medium uppercase tracking-[0.1em] text-slate/70">
-          {t(
-            {
-              he: "ניסוח בבדיקת מייסד ויועץ משפטי",
-              en: "Wording under founder & legal review",
-            },
-            locale,
-          )}
+          {t(founderReviewNote, locale)}
         </p>
       )}
     </Card>

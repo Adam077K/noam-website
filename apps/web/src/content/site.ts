@@ -8,7 +8,7 @@ import type { LocalizedString } from "./types";
 
 export const brand = {
   name: {
-    he: 'ד"ר נעם קיטרי',
+    he: 'ד"ר נעם כתרי',
     en: "Dr. Noam Kitrey",
   } satisfies LocalizedString,
   role: {
@@ -39,7 +39,7 @@ export const contact = {
   email: "Dr.Kitrey@gmail.com",
   address: {
     he: 'מגדל רסיטל, דרך מנחם בגין 156, תל אביב, קומה 17',
-    en: "Resital Tower, 156 Menachem Begin Rd, Tel Aviv, Floor 17",
+    en: "Recital Tower, 156 Menachem Begin Rd, Tel Aviv, Floor 17",
   } satisfies LocalizedString,
 };
 

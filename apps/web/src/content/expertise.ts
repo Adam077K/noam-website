@@ -39,11 +39,11 @@ export type ExpertiseGroup = {
 
 export const expertiseSeo = {
   title: {
-    he: 'תחומי טיפול — תפקוד מיני ואורולוגיה פונקציונלית · ד"ר נועם קיטרי',
+    he: 'תחומי טיפול — תפקוד מיני ואורולוגיה פונקציונלית · ד"ר נעם כתרי',
     en: "Areas of Care — Sexual & Functional Urology · Dr. Noam Kitrey",
   },
   description: {
-    he: "הפרעות זקפה, שפיכה מוקדמת, מחלת פירוני, אי-נקיטת שתן, כאב אגני ועוד. אבחון מדויק וטיפול דיסקרטי אצל ד\"ר נועם קיטרי, תל אביב.",
+    he: "הפרעות זקפה, שפיכה מוקדמת, מחלת פירוני, אי-נקיטת שתן, כאב אגני ועוד. אבחון מדויק וטיפול דיסקרטי אצל ד\"ר נעם כתרי, תל אביב.",
     en: "Erectile dysfunction, premature ejaculation, Peyronie's, incontinence, pelvic pain and more. Accurate diagnosis and discreet care with Dr. Noam Kitrey, Tel Aviv.",
   },
 } as const satisfies Record<"title" | "description", LocalizedString>;
@@ -58,13 +58,19 @@ export const expertiseHeader = {
     en: "Conditions that demand both technical precision and personal sensitivity.",
   },
   intro: {
-    he: 'התחומים שבהם ד"ר קיטרי מתמחה הם מהרגישים ברפואה. כאן תמצאו הסבר ברור על כל אחד מהם, ומה אפשר לעשות. אין שאלה "מביכה" מדי — יש רק מה שאפשר לטפל בו.',
+    he: 'התחומים שבהם ד"ר כתרי מתמחה הם מהרגישים ברפואה. כאן תמצאו הסבר ברור על כל אחד מהם, ומה אפשר לעשות. אין שאלה "מביכה" מדי — יש רק מה שאפשר לטפל בו.',
     en: "The fields Dr. Kitrey specializes in are among the most sensitive in medicine. Here you'll find a clear explanation of each one and what can be done about it. No question is too embarrassing — there's only what can be treated.",
   },
 } as const satisfies Record<"eyebrow" | "title" | "intro", LocalizedString>;
 
 /** Shared micro-CTA destination (the consultation request lives on /contact). */
 export const expertiseCtaHref = "/contact";
+
+/** Quiet note shown on condition cards whose copy is `founderReview`. */
+export const founderReviewNote = {
+  he: "ניסוח בבדיקת מייסד ויועץ משפטי",
+  en: "Wording under founder & legal review",
+} as const satisfies LocalizedString;
 
 export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
   {
@@ -110,7 +116,7 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
         icon: "compass",
         title: { he: "מחלת פירוני", en: "Peyronie's Disease" },
         body: {
-          he: "עיקול של איבר המין, לעיתים עם כאב, נגרם מרקמה צלקתית. ד\"ר קיטרי מעריך את מידת העיקול ואת השלב של המחלה, ומכוון לטיפול המתאים — שמרני או ניתוחי — לפי המצב האישי. אבחון מוקדם משפר את אפשרויות הטיפול.",
+          he: "עיקול של איבר המין, לעיתים עם כאב, נגרם מרקמה צלקתית. ד\"ר כתרי מעריך את מידת העיקול ואת השלב של המחלה, ומכוון לטיפול המתאים — שמרני או ניתוחי — לפי המצב האישי. אבחון מוקדם משפר את אפשרויות הטיפול.",
           en: "A curve in the penis, sometimes with pain, caused by scar tissue. Dr. Kitrey assesses the degree of curvature and the stage of the condition, then guides you to the right treatment — conservative or surgical — based on your specific situation. Early assessment widens your options.",
         },
       },
@@ -168,7 +174,7 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Overactive & Neurogenic Bladder",
         },
         body: {
-          he: "דחיפות פתאומית, תכיפות וקושי בשליטה יכולים לנבוע מפעילות-יתר של השלפוחית או מרקע נוירולוגי. ד\"ר קיטרי מתמחה בשני המצבים, כולל מצבים מורכבים, ומתאים טיפול שמחזיר שליטה ושגרת חיים.",
+          he: "דחיפות פתאומית, תכיפות וקושי בשליטה יכולים לנבוע מפעילות-יתר של השלפוחית או מרקע נוירולוגי. ד\"ר כתרי מתמחה בשני המצבים, כולל מצבים מורכבים, ומתאים טיפול שמחזיר שליטה ושגרת חיים.",
           en: "Sudden urgency, frequency, and trouble with control can come from an overactive bladder or a neurological cause. Dr. Kitrey treats both, including complex cases, with a plan that restores control and routine.",
         },
       },
@@ -180,7 +186,7 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Chronic Pelvic Pain & Interstitial Cystitis",
         },
         body: {
-          he: "כאב אגני ממושך הוא מהמצבים שהכי קשה לאבחן, והכי מתסכל לחיות איתם בלי תשובות. ד\"ר קיטרי עורך בירור יסודי כדי לזהות את המקור ולבנות תוכנית טיפול אמיתית, גם כשבדיקות קודמות לא נתנו מענה.",
+          he: "כאב אגני ממושך הוא מהמצבים שהכי קשה לאבחן, והכי מתסכל לחיות איתם בלי תשובות. ד\"ר כתרי עורך בירור יסודי כדי לזהות את המקור ולבנות תוכנית טיפול אמיתית, גם כשבדיקות קודמות לא נתנו מענה.",
           en: "Long-standing pelvic pain is among the hardest conditions to diagnose, and the most frustrating to live with without answers. Dr. Kitrey carries out a thorough workup to find the source and build a real treatment plan — even when earlier tests came back empty.",
         },
       },
@@ -213,7 +219,7 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Intermittent Catheterization",
         },
         body: {
-          he: "למי שמתקשה לרוקן את השלפוחית, צנתור עצמי לסירוגין הוא פתרון בטוח ושגרתי שמאפשר חיים מלאים. ד\"ר קיטרי מלווה את ההדרכה וההתאמה האישית, בסבלנות ובלי לחץ.",
+          he: "למי שמתקשה לרוקן את השלפוחית, צנתור עצמי לסירוגין הוא פתרון בטוח ושגרתי שמאפשר חיים מלאים. ד\"ר כתרי מלווה את ההדרכה וההתאמה האישית, בסבלנות ובלי לחץ.",
           en: "For those who can't fully empty the bladder, intermittent self-catheterization is a safe, routine solution that allows a full life. Dr. Kitrey guides the training and personal adjustment, patiently and without pressure.",
         },
       },
@@ -227,7 +233,7 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
       en: "Specialized Care",
     },
     intro: {
-      he: "לצד תחומי הליבה, ד\"ר קיטרי מביא מומחיות נדירה בתחומים שדורשים ניסיון מיוחד ורגישות.",
+      he: "לצד תחומי הליבה, ד\"ר כתרי מביא מומחיות נדירה בתחומים שדורשים ניסיון מיוחד ורגישות.",
       en: "Alongside the core fields, Dr. Kitrey brings rare expertise in areas that call for special experience and sensitivity.",
     },
     conditions: [
@@ -240,7 +246,7 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Gender-Affirming Urological Care",
         },
         body: {
-          he: "ד\"ר קיטרי חבר בוועדה הלאומית להתאמה מגדרית מטעם משרד הבריאות, ומספק ליווי אורולוגי מקצועי ומכבד כחלק מתהליך אישור מגדרי. הטיפול ניתן בדיסקרטיות מלאה ומתוך כבוד מלא לכל מטופל ומטופלת.",
+          he: "ד\"ר כתרי חבר בוועדה הלאומית להתאמה מגדרית מטעם משרד הבריאות, ומספק ליווי אורולוגי מקצועי ומכבד כחלק מתהליך אישור מגדרי. הטיפול ניתן בדיסקרטיות מלאה ומתוך כבוד מלא לכל מטופל ומטופלת.",
           en: "Dr. Kitrey is a member of Israel's National Committee for Gender Affirmation (Ministry of Health) and provides professional, respectful urological care as part of the gender-affirmation process. Care is delivered with full discretion and full respect for every patient.",
         },
       },
@@ -249,7 +255,7 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
         icon: "compass",
         title: { he: "חבלות אורולוגיות", en: "Urological Trauma" },
         body: {
-          he: "ד\"ר קיטרי הוא יו\"ר ועדת ההנחיות הקליניות של איגוד האורולוגיה האירופי בתחום החבלות האורולוגיות — סמכות מובילה בטיפול בפגיעות במערכת השתן ובאיברי המין. רמת מומחיות שמורגשת בכל מקרה, פשוט כמורכב.",
+          he: "ד\"ר כתרי הוא יו\"ר ועדת ההנחיות הקליניות של איגוד האורולוגיה האירופי בתחום החבלות האורולוגיות — סמכות מובילה בטיפול בפגיעות במערכת השתן ובאיברי המין. רמת מומחיות שמורגשת בכל מקרה, פשוט כמורכב.",
           en: "Dr. Kitrey chairs the European Urology Association's clinical-guidelines committee on urological trauma — a leading authority on injuries to the urinary tract and genitals. That depth of expertise shows in every case, simple or complex.",
         },
       },

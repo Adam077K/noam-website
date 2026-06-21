@@ -82,8 +82,8 @@ export const preferredContactLabel: Record<PreferredContact, LocalizedString> = 
 /** Auto-reply body sent to the submitter (COPY-DECK §5). */
 export const autoReplyCopy: Record<Locale, { subject: string; body: string }> = {
   he: {
-    subject: "תודה על פנייתך — המרפאה של ד״ר קיטרי",
-    body: "תודה על פנייתך. המרפאה של ד״ר קיטרי תיצור אתך קשר בהקדם. הפנייה נשמרת בסודיות מלאה.",
+    subject: "תודה על פנייתך — המרפאה של ד״ר כתרי",
+    body: "תודה על פנייתך. המרפאה של ד״ר כתרי תיצור אתך קשר בהקדם. הפנייה נשמרת בסודיות מלאה.",
   },
   en: {
     subject: "Thank you for your inquiry — Dr. Kitrey's office",

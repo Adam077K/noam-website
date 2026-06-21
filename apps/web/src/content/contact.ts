@@ -60,7 +60,7 @@ export const discretionGuarantee = {
   } satisfies LocalizedString,
   /** Body that follows the lead, same paragraph. */
   body: {
-    he: "הפרטים שתמסרו מגיעים ישירות לד\"ר קיטרי בלבד, ולא יועברו לעולם לאף גורם אחר. אין כאן תיק גלוי, אין רשימות, ואין שיתוף עם צד שלישי — רק שיחה דיסקרטית בינך לבין הרופא.",
+    he: "הפרטים שתמסרו מגיעים ישירות לד\"ר כתרי בלבד, ולא יועברו לעולם לאף גורם אחר. אין כאן תיק גלוי, אין רשימות, ואין שיתוף עם צד שלישי — רק שיחה דיסקרטית בינך לבין הרופא.",
     en: "The details you share go directly to Dr. Kitrey alone, and are never passed to anyone else. There's no open file, no list, no sharing with any third party — only a discreet conversation between you and the doctor.",
   } satisfies LocalizedString,
   /** Short form, used as the caption under the submit button. */

@@ -20,15 +20,15 @@ export const hero = {
   } satisfies LocalizedString,
   /** Personal intro, founder voice — pending founder approval, wired as-is. */
   intro: {
-    he: 'אני ד"ר נועם קיטרי, אורולוג בכיר העוסק בתפקוד מיני של הגבר ובאורולוגיה פונקציונלית. אני מאמין שהתחומים האלה, דווקא משום שקשה לדבר עליהם, מחייבים את הרפואה הטובה ביותר ואת היחס האנושי ביותר. במרפאה אתם פוגשים אותי, לא תור במערכת.',
+    he: 'אני ד"ר נעם כתרי, אורולוג בכיר העוסק בתפקוד מיני של הגבר ובאורולוגיה פונקציונלית. אני מאמין שהתחומים האלה, דווקא משום שקשה לדבר עליהם, מחייבים את הרפואה הטובה ביותר ואת היחס האנושי ביותר. במרפאה אתם פוגשים אותי, לא תור במערכת.',
     en: "I'm Dr. Noam Kitrey, a senior urologist focused on male sexual function and functional urology. I believe these fields — precisely because they're so hard to talk about — demand both the best medicine and the most human care. At the clinic you meet me, not a number in a system.",
   } satisfies LocalizedString,
   portraitCaption: {
-    he: 'ד"ר נועם קיטרי',
+    he: 'ד"ר נעם כתרי',
     en: "Dr. Noam Kitrey",
   } satisfies LocalizedString,
   portraitAlt: {
-    he: 'ד"ר נועם קיטרי — אורולוג בכיר, רפואה מינית ותפקודית, מרכז שיבא',
+    he: 'ד"ר נעם כתרי — אורולוג בכיר, רפואה מינית ותפקודית, מרכז שיבא',
     en: "Dr. Noam Kitrey — Senior Urologist, Sexual & Functional Medicine, Sheba Medical Center",
   } satisfies LocalizedString,
 } as const;
@@ -184,7 +184,7 @@ export const quote = {
     en: "A patient who feels heard and not judged is already halfway to getting better.",
   } satisfies LocalizedString,
   attribution: {
-    he: 'ד"ר נועם קיטרי',
+    he: 'ד"ר נעם כתרי',
     en: "Dr. Noam Kitrey",
   } satisfies LocalizedString,
   portraitCaption: {
@@ -192,7 +192,7 @@ export const quote = {
     en: "At the clinic — an unhurried, personal consultation",
   } satisfies LocalizedString,
   portraitAlt: {
-    he: 'ד"ר נועם קיטרי במרפאה — ייעוץ אישי ודיסקרטי',
+    he: 'ד"ר נעם כתרי במרפאה — ייעוץ אישי ודיסקרטי',
     en: "Dr. Noam Kitrey at the clinic — a personal, discreet consultation",
   } satisfies LocalizedString,
 } as const;
@@ -200,11 +200,11 @@ export const quote = {
 /** SEO — About. */
 export const seo = {
   title: {
-    he: 'אודות ד"ר נועם קיטרי — אורולוג בכיר, מנהל יחידה בשיבא',
+    he: 'אודות ד"ר נעם כתרי — אורולוג בכיר, מנהל יחידה בשיבא',
     en: "About Dr. Noam Kitrey — Senior Urologist, Head of Unit at Sheba",
   } satisfies LocalizedString,
   description: {
-    he: 'ד"ר נועם קיטרי, מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה בשיבא ויו"ר ועדת ההנחיות של ה-EAU לחבלות. גישה אישית ודיסקרטית.',
+    he: 'ד"ר נעם כתרי, מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה בשיבא ויו"ר ועדת ההנחיות של ה-EAU לחבלות. גישה אישית ודיסקרטית.',
     en: "Dr. Noam Kitrey, Head of Functional Urology & Andrology at Sheba and Chair of the EAU trauma-guidelines committee. A personal, discreet approach.",
   } satisfies LocalizedString,
 } as const;

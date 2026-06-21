@@ -82,7 +82,7 @@ export const contactSchema = z.object({
 
   // Honeypot: real users never fill this. Bots do. Must be empty.
   // Validated separately in the action so we can return a *silent success*.
-  company: z.string().optional(),
+  company: z.string().max(100).optional(),
 
   // Active UI locale, used to pick which template to send and which error
   // copy the UI resolves. Defaults to Hebrew (canonical default).

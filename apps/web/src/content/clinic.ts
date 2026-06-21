@@ -26,7 +26,7 @@ export const atmosphere = {
     en: "The clinic — Recital Tower, Tel Aviv",
   } satisfies LocalizedString,
   photoAlt: {
-    he: "המרפאה של ד\"ר נועם קיטרי — מגדל רסיטל, תל אביב",
+    he: "המרפאה של ד\"ר נעם כתרי — מגדל רסיטל, תל אביב",
     en: "Dr. Noam Kitrey's clinic — Recital Tower, Tel Aviv",
   } satisfies LocalizedString,
 } as const;
@@ -101,7 +101,7 @@ export const expect = {
       key: "first-consultation",
       title: { he: "הייעוץ הראשון", en: "First consultation" },
       blurb: {
-        he: "פגישה רגועה ולא ממהרת עם ד\"ר קיטרי. מקשיבים, בודקים, ומסבירים בשפה ברורה מה קורה ומה האפשרויות.",
+        he: "פגישה רגועה ולא ממהרת עם ד\"ר כתרי. מקשיבים, בודקים, ומסבירים בשפה ברורה מה קורה ומה האפשרויות.",
         en: "An unhurried, relaxed meeting with Dr. Kitrey. He listens, examines, and explains in plain language what's going on and what the options are.",
       },
     },
@@ -117,7 +117,7 @@ export const expect = {
       key: "ongoing-care",
       title: { he: "ליווי מתמשך", en: "Ongoing care" },
       blurb: {
-        he: "ד\"ר קיטרי מלווה את התהליך לאורך זמן, עוקב אחר ההתקדמות ומתאים את הטיפול לפי הצורך.",
+        he: "ד\"ר כתרי מלווה את התהליך לאורך זמן, עוקב אחר ההתקדמות ומתאים את הטיפול לפי הצורך.",
         en: "Dr. Kitrey stays with the process over time, follows your progress, and adjusts the treatment as needed.",
       },
     },
@@ -131,11 +131,11 @@ export const expect = {
 /** SEO — title + meta description from COPY-DECK.md §"SEO block — The Clinic". */
 export const seo = {
   title: {
-    he: "המרפאה — ד\"ר נועם קיטרי · מגדל רסיטל, תל אביב",
+    he: "המרפאה — ד\"ר נעם כתרי · מגדל רסיטל, תל אביב",
     en: "The Clinic — Dr. Noam Kitrey · Recital Tower, Tel Aviv",
   } satisfies LocalizedString,
   description: {
-    he: "מרפאה פרטית ודיסקרטית בדרך מנחם בגין 156, תל אביב. מה צפוי בפנייה ובייעוץ הראשון אצל ד\"ר נועם קיטרי, ואיך מגיעים.",
+    he: "מרפאה פרטית ודיסקרטית בדרך מנחם בגין 156, תל אביב. מה צפוי בפנייה ובייעוץ הראשון אצל ד\"ר נעם כתרי, ואיך מגיעים.",
     en: "A private, discreet clinic at 156 Menachem Begin Rd, Tel Aviv. What to expect at your first consultation with Dr. Noam Kitrey, and how to get here.",
   } satisfies LocalizedString,
 } as const;

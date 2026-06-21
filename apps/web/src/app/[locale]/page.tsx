@@ -11,7 +11,7 @@ import { ContactCta } from "@/components/sections/shared/contact-cta";
 
 const seo = {
   title: {
-    he: 'ד"ר נועם קיטרי — אורולוג בכיר, רפואה מינית ותפקודית · תל אביב',
+    he: 'ד"ר נעם כתרי — אורולוג בכיר, רפואה מינית ותפקודית · תל אביב',
     en: "Dr. Noam Kitrey — Senior Urologist, Sexual & Functional Medicine · Tel Aviv",
   },
   description: {

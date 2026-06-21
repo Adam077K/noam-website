@@ -42,10 +42,7 @@ type CommonProps = {
   className?: string;
 };
 
-function inner(
-  { children, variant = "primary", withArrow, arrowInCircle, size }: CommonProps,
-  isLink: boolean,
-) {
+function inner({ children, variant = "primary", withArrow, arrowInCircle, size }: CommonProps) {
   const solid = variant === "primary" || variant === "inverse";
   return (
     <span className={cn("inline-flex items-center", solid && arrowInCircle ? "gap-3" : "gap-2")}>
@@ -66,10 +63,7 @@ function inner(
           <Icon
             name="arrow"
             aria-hidden
-            className={cn(
-              "h-4 w-4 transition-transform duration-200 rtl:rotate-180",
-              isLink || true ? "group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5" : "",
-            )}
+            className="h-4 w-4 transition-transform duration-200 rtl:rotate-180 group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5"
           />
         ))}
     </span>
@@ -108,14 +102,14 @@ export function Button(
     // For the underlined link variant, render an animated underline rule.
     return (
       <Link href={href} className={classesFor(common)} {...linkRest}>
-        {variant === "link" ? <LinkInner common={common} /> : inner(common, true)}
+        {variant === "link" ? <LinkInner common={common} /> : inner(common)}
       </Link>
     );
   }
 
   return (
     <button className={classesFor(common)} {...(rest as ComponentProps<"button">)}>
-      {variant === "link" ? <LinkInner common={common} /> : inner(common, false)}
+      {variant === "link" ? <LinkInner common={common} /> : inner(common)}
     </button>
   );
 }

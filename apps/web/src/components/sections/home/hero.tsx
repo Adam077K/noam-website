@@ -13,12 +13,6 @@ import { Button, Eyebrow, MediaSlot, Reveal, Icon } from "@/components/ui";
  * dense credential copy). Motion: a single staggered fade-up, reduced-motion safe.
  */
 export function Hero({ locale }: { locale: Locale }) {
-  const microRow = [
-    { he: "מרכז שיבא", en: "Sheba Medical Center" },
-    { he: 'יו"ר ועדת EAU', en: "EAU Committee Chair" },
-    { he: "מנהל SHSQ", en: "SHSQ Director" },
-  ];
-
   return (
     <section className="relative overflow-hidden bg-wash">
       {/* Ambient soft-blue light, fixed depth — pointer-safe, never on a scroll layer. */}
@@ -85,7 +79,7 @@ export function Hero({ locale }: { locale: Locale }) {
             {/* Credential micro-row — three quiet authority chips. */}
             <Reveal delay={240}>
               <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border/70 pt-6 text-body-sm text-slate">
-                {microRow.map((item, i) => (
+                {hero.microRow.map((item, i) => (
                   <li key={i} className="inline-flex items-center gap-2">
                     <Icon
                       name="shieldCheck"

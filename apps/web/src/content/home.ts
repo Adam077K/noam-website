@@ -18,7 +18,7 @@ export const hero = {
     en: "Expert, discreet care for the conditions that are hardest to talk about.",
   } satisfies LocalizedString,
   subhead: {
-    he: 'ד"ר נועם קיטרי — מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה במרכז הרפואי שיבא, ומנהל המרכז לבריאות מינית (SHSQ).',
+    he: 'ד"ר נעם כתרי — מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה במרכז הרפואי שיבא, ומנהל המרכז לבריאות מינית (SHSQ).',
     en: "Dr. Noam Kitrey — Head of Functional Urology & Andrology at Sheba Medical Center, and Director of the Sexual Health Center (SHSQ).",
   } satisfies LocalizedString,
   primaryCta: {
@@ -26,17 +26,23 @@ export const hero = {
     en: "Request a Consultation",
   } satisfies LocalizedString,
   secondaryCta: {
-    he: "על ד\"ר קיטרי",
+    he: "על ד\"ר כתרי",
     en: "About Dr. Kitrey",
   } satisfies LocalizedString,
   portraitCaption: {
-    he: 'ד"ר נועם קיטרי',
+    he: 'ד"ר נעם כתרי',
     en: "Dr. Noam Kitrey",
   } satisfies LocalizedString,
   portraitAlt: {
-    he: 'ד"ר נועם קיטרי — אורולוג בכיר, רפואה מינית ותפקודית, מרכז שיבא',
+    he: 'ד"ר נעם כתרי — אורולוג בכיר, רפואה מינית ותפקודית, מרכז שיבא',
     en: "Dr. Noam Kitrey — Senior Urologist, Sexual & Functional Medicine, Sheba Medical Center",
   } satisfies LocalizedString,
+  /** Credential micro-row — three quiet authority chips below the CTAs. */
+  microRow: [
+    { he: "מרכז שיבא", en: "Sheba Medical Center" },
+    { he: 'יו"ר ועדת EAU', en: "EAU Committee Chair" },
+    { he: "מנהל SHSQ", en: "SHSQ Director" },
+  ] satisfies LocalizedString[],
 } as const;
 
 /** Credentials bar — the trust moat. Four authority items. */
@@ -96,7 +102,7 @@ export const services = {
     en: "One field of expertise, a wide range of care.",
   } satisfies LocalizedString,
   intro: {
-    he: 'ד"ר קיטרי מתמחה בתפקוד מיני של הגבר ובאורולוגיה פונקציונלית — שני תחומים שבהם נדרשים גם דיוק רפואי וגם רגישות אישית. כל פנייה מטופלת באותה רצינות ובאותה דיסקרטיות.',
+    he: 'ד"ר כתרי מתמחה בתפקוד מיני של הגבר ובאורולוגיה פונקציונלית — שני תחומים שבהם נדרשים גם דיוק רפואי וגם רגישות אישית. כל פנייה מטופלת באותה רצינות ובאותה דיסקרטיות.',
     en: "Dr. Kitrey specializes in male sexual function and functional urology — two fields that call for both technical precision and personal sensitivity. Every inquiry is treated with the same seriousness and the same discretion.",
   } satisfies LocalizedString,
   cta: {
@@ -165,7 +171,7 @@ export const video = {
     en: "Introduction",
   } satisfies LocalizedString,
   headline: {
-    he: 'כמה מילים מד"ר קיטרי.',
+    he: 'כמה מילים מד"ר כתרי.',
     en: "A few words from Dr. Kitrey.",
   } satisfies LocalizedString,
   quote: {
@@ -173,11 +179,11 @@ export const video = {
     en: "People come to me after years of hesitation. My job is to meet them without judgment, reach the right diagnosis, and help them get their lives back.",
   } satisfies LocalizedString,
   quoteAttribution: {
-    he: 'ד"ר נועם קיטרי',
+    he: 'ד"ר נעם כתרי',
     en: "Dr. Noam Kitrey",
   } satisfies LocalizedString,
   placeholderSubtitle: {
-    he: "בקרוב — סרטון היכרות קצר עם ד\"ר קיטרי.",
+    he: "בקרוב — סרטון היכרות קצר עם ד\"ר כתרי.",
     en: "Coming soon — a short introduction from Dr. Kitrey.",
   } satisfies LocalizedString,
 } as const;
@@ -210,7 +216,7 @@ export const trust = {
       key: "personal",
       title: { he: "אתם פוגשים אותי", en: "You meet me, not a system" },
       blurb: {
-        he: "במרפאה אתם פוגשים את ד\"ר קיטרי עצמו, לא תור במערכת.",
+        he: "במרפאה אתם פוגשים את ד\"ר כתרי עצמו, לא תור במערכת.",
         en: "At the clinic you meet Dr. Kitrey himself, not a number in a system.",
       },
     },
