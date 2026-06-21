@@ -293,6 +293,46 @@ html[lang="he"] .font-editorial {
   color: color-mix(in oklab, var(--color-ink) 36%, transparent);
 }
 
+/* ============================================================================
+   Clinic interior slot — same DESIGNED empty-state material as the hero portrait,
+   reused on The Clinic so the page degrades to a warm framed "The clinic" panel
+   (never a broken grey box). Drop a photo at /clinic/interior.jpg and add the
+   `::before` rule below to paint it; with no file the warm-cream field + label
+   show through, exactly like the portrait empty state.
+   ========================================================================== */
+.clinic-shot {
+  position: relative;
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(120% 80% at 50% 28%, var(--color-paper) 0%, var(--color-canvas) 72%, color-mix(in oklab, var(--color-canvas) 80%, var(--color-ink)) 100%);
+  isolation: isolate;
+}
+.clinic-shot__empty {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+.clinic-shot__monogram {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklab, var(--color-ink) 26%, transparent);
+}
+.clinic-shot__caption {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: color-mix(in oklab, var(--color-ink) 36%, transparent);
+}
+
 /* Numbers / phone / email regardless of locale */
 .font-mono,
 [dir="ltr"].tabular {

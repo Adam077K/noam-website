@@ -1,56 +1,56 @@
 import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { expect } from "@/content/clinic";
-import { Eyebrow, Reveal } from "@/components/ui";
+import { InView } from "@/components/ui";
 
 /**
- * "What to expect" process. Four calm, discreet steps on a soft wash band, laid
- * out as a connected path: a tabular step index sits in an accent-tinted medallion
- * with a hairline rail running through the column so the four steps read as one
- * continuous journey (first contact → ongoing care). The numerals are the only
- * accent flourish; everything else stays quiet to lower pre-visit anxiety. Each
- * step fades up on a short stagger. Stacks to a single column on mobile.
+ * "What to expect" — editorial conversion (v2 "Quiet Authority").
+ *
+ * The four-step journey (first contact → ongoing care) reads as a NUMBERED
+ * EDITORIAL SEQUENCE on bone, reusing the Home approach pattern: a hairline rule
+ * tops the list, each step is a row of mono index · serif title · grotesk blurb,
+ * separated by drawn hairline rules. No medallions, no accent-tint pills, no
+ * connecting-rail decoration — restraint as the point, to lower pre-visit anxiety.
+ *
+ * RTL-correct via logical props; rows stack to a single column on mobile.
  */
 export function WhatToExpect({ locale }: { locale: Locale }) {
   return (
-    <section className="bg-wash px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
-      <div className="mx-auto max-w-6xl">
-        <div className="max-w-2xl">
-          <Reveal>
-            <Eyebrow withRule>{t(expect.eyebrow, locale)}</Eyebrow>
-          </Reveal>
-          <Reveal delay={60}>
-            <h2 className="mt-5 text-balance text-display-lg text-ink">
+    <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+      <div className="mx-auto w-full max-w-[1240px]">
+        {/* Lead. */}
+        <div className="max-w-[28ch]">
+          <p className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow">
+            <span aria-hidden className="inline-block h-px w-8 bg-accent" />
+            {t(expect.eyebrow, locale)}
+          </p>
+          <h2 className="mt-6 text-pretty font-editorial text-display-lg text-ink">
+            <InView as="span" className="block">
               {t(expect.headline, locale)}
-            </h2>
-          </Reveal>
+            </InView>
+          </h2>
         </div>
 
-        <ol className="mt-14 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-x-6">
+        {/* Sequence — hairline-topped editorial rows. */}
+        <ol className="mt-14 border-t border-ink sm:mt-16">
           {expect.steps.map((step, i) => (
-            <Reveal key={step.key} as="li" delay={i * 80}>
-              <div className="group/step flex flex-col gap-4">
-                <div className="flex items-center gap-4">
-                  <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-pill bg-accent-tint text-display-md font-semibold tabular-nums text-accent ring-1 ring-accent-soft/70">
-                    {i + 1}
-                  </span>
-                  {/* Connecting rail to the next step — hidden on the last item and on
-                      single-column mobile, where the vertical stack carries the order. */}
-                  {i < expect.steps.length - 1 && (
-                    <span
-                      aria-hidden
-                      className="hidden h-px flex-1 bg-accent-soft/60 lg:block"
-                    />
-                  )}
-                </div>
-                <h3 className="text-display-md font-semibold text-ink">
-                  {t(step.title, locale)}
-                </h3>
-                <p className="text-body-base text-slate-strong">
-                  {t(step.blurb, locale)}
-                </p>
-              </div>
-            </Reveal>
+            <InView
+              as="li"
+              motion="fade-in-up"
+              delay={i * 80}
+              key={step.key}
+              className="grid gap-x-10 gap-y-3 border-b border-border py-9 sm:grid-cols-[auto_minmax(0,1fr)] sm:py-10 lg:grid-cols-[6rem_minmax(0,22ch)_minmax(0,1fr)] lg:gap-x-12"
+            >
+              <span className="font-mono text-index tabular-nums leading-none text-accent">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="font-editorial text-display-md text-ink">
+                {t(step.title, locale)}
+              </h3>
+              <p className="max-w-[52ch] text-body-lg text-slate-strong">
+                {t(step.blurb, locale)}
+              </p>
+            </InView>
           ))}
         </ol>
       </div>

@@ -7,7 +7,7 @@ import { seo } from "@/content/clinic";
 import { AtmosphereHero } from "@/components/sections/clinic/atmosphere-hero";
 import { LocationMap } from "@/components/sections/clinic/location-map";
 import { WhatToExpect } from "@/components/sections/clinic/what-to-expect";
-import { ContactCta } from "@/components/sections/shared/contact-cta";
+import { ContactClose } from "@/components/sections/home/contact-close";
 
 export async function generateMetadata({
   params,
@@ -38,7 +38,7 @@ export default async function ClinicPage({
       <AtmosphereHero locale={locale} />
       <LocationMap locale={locale} />
       <WhatToExpect locale={locale} />
-      <ContactCta locale={locale} />
+      <ContactClose locale={locale} />
     </>
   );
 }
