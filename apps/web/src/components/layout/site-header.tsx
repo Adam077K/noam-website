@@ -12,9 +12,12 @@ import { LanguageToggle } from "./language-toggle";
 import { MobileNav } from "./mobile-nav";
 
 /**
- * Sticky header. Logo on the start side, RTL-aware inline nav (lg+), language
- * toggle, and the primary accent CTA on the end side. A hairline bottom border
- * fades in after 40px of scroll. Below lg the inline nav collapses to MobileNav.
+ * Sticky header (v3 — professionalised). A wordmark lockup on the start side
+ * (name in the editorial serif + a discreet specialty role line on lg), an
+ * RTL-aware inline nav with an accent underline indicator, the language toggle,
+ * and a solid ink "Request a Consultation" button as the clear primary action. A
+ * permanent hairline rule reads institutional; it firms up after 40px of scroll.
+ * Below lg the inline nav collapses to MobileNav.
  */
 export function SiteHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
@@ -35,16 +38,22 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-40 border-b bg-paper/92 backdrop-blur-sm transition-colors duration-200",
-        scrolled ? "border-border" : "border-transparent",
+        "sticky top-0 z-40 border-b bg-paper/92 backdrop-blur-sm transition-shadow duration-200",
+        scrolled ? "border-border shadow-[0_1px_0_rgba(0,0,0,0.02)]" : "border-border/70",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-4 sm:px-6 lg:h-[76px] lg:px-8">
+      <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-4 sm:px-6 lg:h-[78px] lg:px-8">
+        {/* Wordmark lockup — name in the editorial serif, role line beneath (lg). */}
         <Link
           href={localeHref(locale, "")}
-          className="shrink-0 font-editorial text-[1.15rem] leading-none text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:text-[1.35rem]"
+          className="group/brand shrink-0 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
         >
-          {t(brand.name, locale)}
+          <span className="block font-editorial text-[1.15rem] leading-none text-ink transition-colors group-hover/brand:text-accent sm:text-[1.35rem]">
+            {t(brand.name, locale)}
+          </span>
+          <span className="mt-1 hidden text-[0.62rem] uppercase tracking-[0.18em] text-slate eyebrow lg:block">
+            {t({ he: "אורולוגיה תפקודית · רפואה מינית", en: "Functional Urology · Sexual Medicine" }, locale)}
+          </span>
         </Link>
 
         <nav
@@ -79,7 +88,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           </div>
           <Link
             href={localeHref(locale, "/contact")}
-            className="group/cta hidden items-center gap-2 border-b border-ink pb-1 text-body-sm font-medium text-ink transition-colors duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper lg:inline-flex"
+            className="group/cta hidden items-center gap-2.5 bg-ink px-5 py-2.5 text-body-sm font-medium text-paper transition-colors duration-300 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper lg:inline-flex"
           >
             {t(cta.consult, locale)}
             <span aria-hidden className="transition-transform duration-300 group-hover/cta:translate-x-0.5 rtl:rotate-180 rtl:group-hover/cta:-translate-x-0.5">

@@ -6,94 +6,185 @@ import { contact } from "@/content/site";
 import { InView } from "@/components/ui";
 
 /**
- * Masthead hero — a pure typographic statement (v2 "Quiet Authority").
+ * Masthead hero — v3 "Quiet Authority, professionalised".
  *
- * No image, no wash panel, no chips. Near-full-viewport bone paper carrying a
- * massive editorial serif headline that mask-reveals line-by-line, one precise
- * positioning line, a single discreet primary action, and the credentials as a
- * fine hairline-separated masthead lockup — accreditations on a journal masthead,
- * not trust badges. A single blue signature hairline draws across on entry.
+ * An asymmetric editorial spread: a massive bilingual serif headline anchored to a
+ * strict type column (start), and a real WARM-DUOTONE portrait of Dr. Kitrey as a
+ * hairline-framed editorial column (end). The two are in considered interplay, not
+ * a headline floating in a void. A precise utility line, a refined positioning
+ * paragraph, two clear CTAs, and an elevated credential register give the page the
+ * professional sub-structure of an established, top-of-field specialist.
  *
- * Asymmetric: copy is pinned to the start edge with a deliberate end-side void.
- * RTL-correct (logical props, mirrored rule origin); phone renders dir="ltr".
+ * The portrait is a CSS background-image (`.portrait`), so a missing file degrades
+ * gracefully to the bone surface + hairline frame — never a broken image. Swap the
+ * source by changing `portrait--1` → `portrait--2` on the portrait element.
+ *
+ * RTL-correct throughout (logical props, mirrored rule + arrow origins); phone and
+ * the practice/since line render dir="ltr".
  */
 export function Hero({ locale }: { locale: Locale }) {
-  // The masthead lockup — fine type, hairline-separated, like accreditations.
-  const masthead = [
-    { he: "המרכז הרפואי שיבא", en: "Sheba Medical Center" },
-    { he: 'יו"ר ועדת ההנחיות EAU', en: "EAU Guidelines Chair" },
-    { he: "מנהל SHSQ", en: "SHSQ Director" },
-    { he: 'בוגר רפואה, אונ׳ ת"א', en: "MD, Tel Aviv University" },
+  // The credential register — serious, verifiable, top-of-field. Not a thin eyebrow.
+  const register: Array<{ label: { he: string; en: string }; value: { he: string; en: string } }> = [
+    {
+      label: { he: "מוסד", en: "Institution" },
+      value: { he: "המרכז הרפואי שיבא", en: "Sheba Medical Center" },
+    },
+    {
+      label: { he: "תפקיד", en: "Appointment" },
+      value: {
+        he: "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה",
+        en: "Head of Functional Urology & Andrology",
+      },
+    },
+    {
+      label: { he: "ועדה", en: "Committee" },
+      value: { he: 'יו"ר ועדת ההנחיות, EAU', en: "Chair, EAU Guidelines" },
+    },
+    {
+      label: { he: "מרכז", en: "Center" },
+      value: { he: "מנהל המרכז לבריאות מינית (SHSQ)", en: "Director, Sexual Health Center (SHSQ)" },
+    },
   ];
 
   return (
-    <section className="relative flex min-h-[88vh] flex-col justify-center overflow-x-clip bg-paper px-4 pb-16 pt-12 sm:px-6 sm:pb-20 lg:min-h-[92vh] lg:px-8 lg:pt-16">
-      <div className="mx-auto w-full max-w-[1240px]">
-        {/* Eyebrow — small grotesk counterpoint to the big serif below. */}
-        <InView as="p" motion="fade-in-up" className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow">
-          <span aria-hidden className="inline-block h-px w-8 bg-accent" />
-          {t(hero.eyebrow, locale)}
-        </InView>
-
-        {/* The masthead headline — editorial serif at dramatic scale, mask-revealed. */}
-        <h1 className="mt-7 max-w-[20ch] text-pretty font-editorial text-masthead text-ink sm:mt-9 sm:max-w-[16ch]">
-          <InView as="span" className="block" delay={60}>
-            {t(hero.headline, locale)}
-          </InView>
-        </h1>
-
-        {/* The drawn signature hairline — the recurring motif, here in blue accent. */}
+    <section className="relative overflow-x-clip bg-paper">
+      <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8">
+        {/* Utility line — a precise, professional masthead rule above the fold. */}
         <InView
           as="div"
-          motion="rule-draw"
-          delay={420}
-          className="mt-9 h-px w-full max-w-[680px] bg-accent sm:mt-11"
-        />
+          motion="fade-in-up"
+          className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-border py-4 text-caption uppercase tracking-[0.2em] text-slate eyebrow"
+        >
+          <span className="flex items-center gap-2.5">
+            <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+            {t(hero.eyebrow, locale)}
+          </span>
+          <span className="font-mono normal-case tracking-[0.08em] text-slate-strong">
+            <span dir="ltr">Tel Aviv · Est. 2010</span>
+          </span>
+        </InView>
 
-        {/* One precise positioning line + the single discreet action, asymmetric. */}
-        <div className="mt-9 grid gap-x-12 gap-y-8 sm:mt-11 lg:grid-cols-[1.35fr_1fr] lg:items-end">
-          <InView as="p" motion="fade-in-up" delay={120} className="max-w-[52ch] text-body-lg text-slate-strong">
-            {t(hero.subhead, locale)}
-          </InView>
+        {/* The spread: type column (start) + portrait column (end). */}
+        <div className="grid items-center gap-x-12 gap-y-10 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:grid-cols-[1.12fr_0.88fr] lg:gap-x-16 lg:pb-24 lg:pt-20">
+          {/* Type column. */}
+          <div className="order-2 lg:order-1">
+            <h1 className="max-w-[18ch] text-pretty font-editorial text-ink [font-size:clamp(2.25rem,4.4vw,4rem)] [line-height:1.04] [letter-spacing:-0.02em] sm:max-w-[15ch]">
+              <InView as="span" className="block">
+                {t(hero.headline, locale)}
+              </InView>
+            </h1>
 
-          <InView as="div" motion="fade-in-up" delay={200} className="flex flex-col gap-5 lg:items-end">
-            <a
-              href={localeHref(locale, "/contact")}
-              className="group/cta inline-flex items-center gap-3 self-start rounded-none border-b border-ink pb-1.5 text-body-base font-medium text-ink transition-colors duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-paper lg:self-end"
+            {/* Drawn signature hairline — the recurring blue motif. */}
+            <InView
+              as="div"
+              motion="rule-draw"
+              delay={360}
+              className="mt-8 h-px w-28 bg-accent sm:mt-10"
+            />
+
+            <InView
+              as="p"
+              motion="fade-in-up"
+              delay={120}
+              className="mt-7 max-w-[46ch] text-body-lg text-slate-strong sm:mt-8"
             >
-              {t(hero.primaryCta, locale)}
+              {t(hero.subhead, locale)}
+            </InView>
+
+            {/* CTAs — clear and confident: one solid-weight primary, one call. */}
+            <InView
+              as="div"
+              motion="fade-in-up"
+              delay={200}
+              className="mt-9 flex flex-col gap-x-8 gap-y-4 sm:mt-10 sm:flex-row sm:items-center"
+            >
+              <a
+                href={localeHref(locale, "/contact")}
+                className="group/cta inline-flex items-center justify-center gap-3 bg-ink px-7 py-3.5 text-body-sm font-medium text-paper transition-colors duration-300 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+              >
+                {t(hero.primaryCta, locale)}
+                <span
+                  aria-hidden
+                  className="transition-transform duration-300 group-hover/cta:translate-x-1 rtl:rotate-180 rtl:group-hover/cta:-translate-x-1"
+                >
+                  &#8594;
+                </span>
+              </a>
+              <a
+                href={`tel:${contact.phone.replace(/-/g, "")}`}
+                className="group/tel inline-flex items-center gap-2.5 text-body-sm text-slate-strong transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+              >
+                <span className="text-caption uppercase tracking-[0.18em] text-slate eyebrow">
+                  {t({ he: "או חייגו", en: "Or call" }, locale)}
+                </span>
+                <span className="font-mono font-medium text-ink">
+                  <span dir="ltr">{contact.phone}</span>
+                </span>
+              </a>
+            </InView>
+          </div>
+
+          {/* Portrait column — warm duotone, hairline-framed editorial element. */}
+          <InView
+            as="figure"
+            motion="fade-in-up"
+            delay={160}
+            className="order-1 lg:order-2"
+          >
+            <div className="relative mx-auto w-full max-w-[360px] lg:max-w-none">
+              {/* Hairline frame offset — gives the portrait an art-directed mat. */}
               <span
                 aria-hidden
-                className="text-lg leading-none transition-transform duration-300 group-hover/cta:translate-x-1 rtl:rotate-180 rtl:group-hover/cta:-translate-x-1"
-              >
-                &#8594;
+                className="pointer-events-none absolute -inset-2.5 border border-border"
+              />
+              <div className="portrait portrait--1 relative aspect-[4/5] w-full" role="img" aria-label={t(hero.portraitAlt, locale)} />
+            </div>
+            <figcaption className="mt-4 flex items-center justify-between gap-3 text-caption text-slate">
+              <span className="font-editorial text-body-base normal-case tracking-normal text-ink">
+                {t(hero.portraitCaption, locale)}
               </span>
-            </a>
-            <a
-              href={`tel:${contact.phone.replace(/-/g, "")}`}
-              className="self-start font-mono text-body-sm text-slate transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:self-end"
-            >
-              <span dir="ltr">{contact.phone}</span>
-            </a>
+              <span className="uppercase tracking-[0.18em] eyebrow">
+                {t({ he: "אורולוג בכיר", en: "Senior Urologist" }, locale)}
+              </span>
+            </figcaption>
           </InView>
         </div>
       </div>
 
-      {/* Credential masthead lockup, pinned to the foot of the viewport. */}
-      <div className="mx-auto mt-14 w-full max-w-[1240px] sm:mt-20 lg:mt-24">
-        <InView as="div" motion="fade-in-up" delay={280}>
-          <p className="mb-4 text-caption uppercase tracking-[0.22em] text-slate eyebrow">
-            {t({ he: "רקע מקצועי", en: "Credentials" }, locale)}
-          </p>
-          <ul className="flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-border pt-4 text-body-sm text-slate-strong">
-            {masthead.map((item, i) => (
-              <li key={i} className="flex items-center gap-x-5">
-                {i > 0 && <span aria-hidden className="text-border-strong">/</span>}
-                <span>{t(item, locale)}</span>
-              </li>
+      {/* Elevated credential register — the trust moat, with gravitas. A structured
+          label/value ledger on a hairline grid, not a wrapping eyebrow row. */}
+      <div className="border-t border-ink bg-canvas">
+        <div className="mx-auto w-full max-w-[1240px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+          <InView
+            as="p"
+            motion="fade-in-up"
+            className="mb-7 flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow"
+          >
+            <span aria-hidden className="inline-block h-px w-8 bg-accent" />
+            {t({ he: "רקע מקצועי מאומת", en: "Verified Background" }, locale)}
+          </InView>
+          <dl className="grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {register.map((item, i) => (
+              <InView
+                as="div"
+                motion="fade-in-up"
+                delay={i * 70}
+                key={i}
+                className="flex flex-col gap-2 bg-canvas p-5 sm:p-6"
+              >
+                <dt className="flex items-center gap-2 text-caption uppercase tracking-[0.18em] text-slate eyebrow">
+                  <span className="font-mono text-[0.65rem] text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {t(item.label, locale)}
+                </dt>
+                <dd className="text-body-sm font-medium leading-snug text-ink">
+                  {t(item.value, locale)}
+                </dd>
+              </InView>
             ))}
-          </ul>
-        </InView>
+          </dl>
+        </div>
       </div>
     </section>
   );

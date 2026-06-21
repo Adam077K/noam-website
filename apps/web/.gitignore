@@ -42,3 +42,8 @@ next-env.d.ts
 
 # local design QA screenshots
 /.design-screens
+
+# hero portraits: real founder photos are dropped here by the founder and are
+# intentionally NOT committed from the design worktree (synthetic test placeholders
+# live here locally only). When the real assets land, `git add -f` them or relax this.
+/public/portraits/*.png

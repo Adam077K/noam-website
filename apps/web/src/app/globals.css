@@ -212,6 +212,52 @@ html[lang="he"] .font-editorial {
   font-weight: 500;
 }
 
+/* ============================================================================
+   Hero portrait — art-directed WARM DUOTONE (ink #16140f → bone #faf7f1).
+   Rendered as a CSS background-image (NOT next/image) so a MISSING file degrades
+   gracefully to the bone surface + hairline frame — never a broken-image icon,
+   and the build never fails on an absent asset. Two layers compose the duotone:
+     1) a warm ink→bone gradient (the tint),
+     2) the grayscale-able photo beneath, fused via `luminosity` blend so the
+        photo contributes only its tonal values onto the warm gradient.
+   The element also gets a faint paper-side gradient mask so the image melts into
+   the layout edge rather than sitting in a hard box. Swap kitrey-1 ⇄ kitrey-2 by
+   toggling the `portrait--1` / `portrait--2` class on the element.
+   ========================================================================== */
+.portrait {
+  position: relative;
+  /* The ONLY always-painted layer is the bone surface — so a MISSING photo file
+     degrades to clean warm bone (never a dark box, never a broken-image icon). */
+  background-color: var(--color-paper);
+  background-repeat: no-repeat;
+  background-position: center 14%;
+  background-size: cover;
+  /* Grayscale + slight contrast turns any colour photo into the duotone's tonal
+     base; the warm tint is applied by the ::after overlay (also bone-safe). */
+  filter: grayscale(1) contrast(1.04) brightness(1.01);
+  -webkit-filter: grayscale(1) contrast(1.04) brightness(1.01);
+}
+.portrait--1 {
+  background-image: url("/portraits/kitrey-1.png");
+}
+.portrait--2 {
+  background-image: url("/portraits/kitrey-2.png");
+}
+/* Warm duotone overlay — a whisper of warm tint + a bottom edge-melt, multiplied
+   so the photo's tones warm toward the palette and bleed into the bone at the
+   foot. Deliberately faint: with NO photo the panel stays a clean warm-bone
+   surface inside its hairline frame (the brief's graceful-degradation rule). */
+.portrait::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background:
+    linear-gradient(180deg, transparent 64%, color-mix(in oklab, var(--color-paper) 55%, transparent) 100%),
+    color-mix(in oklab, var(--color-accent) 5%, var(--color-paper));
+}
+
 /* Numbers / phone / email regardless of locale */
 .font-mono,
 [dir="ltr"].tabular {
