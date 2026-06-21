@@ -43,7 +43,7 @@ export function TrustBand({ locale }: { locale: Locale }) {
         <div className="mt-12 grid gap-8 sm:grid-cols-3 sm:gap-6">
           {trust.pillars.map((pillar, i) => (
             <Reveal key={pillar.key} delay={i * 80}>
-              <div className="flex flex-col gap-3 border-t border-ink-80 pt-6">
+              <div className="flex flex-col gap-3 border-t border-accent-light/20 pt-6">
                 <IconCircle name={PILLAR_ICONS[pillar.key] ?? "spark"} size="md" inverse />
                 <h3 className="text-display-md font-semibold text-paper">
                   {t(pillar.title, locale)}

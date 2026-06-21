@@ -59,17 +59,24 @@ export function Hero({ locale }: { locale: Locale }) {
               </p>
             </Reveal>
             <Reveal delay={180}>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <Button
                   href={localeHref(locale, "/contact")}
                   size="lg"
                   variant="primary"
                   withArrow
                   arrowInCircle
+                  className="[--focus-offset:theme(colors.wash)]"
                 >
                   {t(hero.primaryCta, locale)}
                 </Button>
-                <Button href={localeHref(locale, "/about")} variant="link" size="lg" withArrow>
+                <Button
+                  href={localeHref(locale, "/about")}
+                  variant="ghost"
+                  size="lg"
+                  withArrow
+                  className="[--focus-offset:theme(colors.wash)]"
+                >
                   {t(hero.secondaryCta, locale)}
                 </Button>
               </div>
@@ -92,7 +99,7 @@ export function Hero({ locale }: { locale: Locale }) {
                   <Icon name="phone" aria-hidden className="h-4 w-4 text-accent" />
                   <a
                     href={`tel:${contact.phone.replace(/-/g, "")}`}
-                    className="font-mono text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="font-mono text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-wash"
                   >
                     <span dir="ltr">{contact.phone}</span>
                   </a>

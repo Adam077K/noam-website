@@ -85,7 +85,7 @@ export const credentials = {
   }>,
 } as const;
 
-/** Service overview — eyebrow, title, intro, six teaser cards, CTA to Areas of Care. */
+/** Service overview — eyebrow, title, intro, four teaser cards, CTA to Areas of Care. */
 export const services = {
   eyebrow: {
     he: "תחומי הטיפול",
@@ -103,7 +103,11 @@ export const services = {
     he: "לכל תחומי הטיפול",
     en: "See All Areas of Care",
   } satisfies LocalizedString,
-  /** Six representative cards (the home teaser subset). `anchor` links to the Expertise page. */
+  /**
+   * The four strongest teaser cards (the home subset) in a calm 2×2 preview; the
+   * full catalogue lives on Expertise so the "See all areas of care" CTA has a real
+   * job. `anchor` links to each section on the Expertise page.
+   */
   cards: [
     {
       key: "ed",
@@ -126,16 +130,6 @@ export const services = {
       },
     },
     {
-      key: "peyronie",
-      anchor: "/expertise#peyronie",
-      icon: "shield",
-      title: { he: "מחלת פירוני", en: "Peyronie's Disease" },
-      blurb: {
-        he: "הערכה והכוונה לטיפול בעיקול ובכאב.",
-        en: "Assessment and a clear path for curvature and pain.",
-      },
-    },
-    {
       key: "incontinence",
       anchor: "/expertise#incontinence",
       icon: "drop",
@@ -143,16 +137,6 @@ export const services = {
       blurb: {
         he: "פתרונות לנשים ולגברים, מותאמים למקור הבעיה.",
         en: "Solutions for women and men, matched to the cause.",
-      },
-    },
-    {
-      key: "bladder",
-      anchor: "/expertise#overactive-bladder",
-      icon: "waves",
-      title: { he: "שלפוחית רגיזה / נוירוגנית", en: "Overactive / Neurogenic Bladder" },
-      blurb: {
-        he: "טיפול בדחיפות, בתכיפות ובאיבוד שליטה.",
-        en: "Care for urgency, frequency, and loss of control.",
       },
     },
     {

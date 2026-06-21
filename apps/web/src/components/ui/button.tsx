@@ -25,8 +25,11 @@ const VARIANT: Record<Variant, string> = {
     "bg-accent text-paper shadow-card hover:bg-accent-light hover:-translate-y-px active:translate-y-0 active:scale-[0.98]",
 };
 
+// Offset color defaults to the paper surface so the ring reads as a crisp gap;
+// on tinted/dark sections pass `className="[--focus-offset:theme(colors.wash)]"`
+// (or `ink`) so the offset still matches the local surface, not transparent.
 const focusRing =
-  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent";
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--focus-offset,theme(colors.paper))]";
 
 type CommonProps = {
   children: ReactNode;
@@ -52,7 +55,7 @@ function inner(
           <span
             aria-hidden
             className={cn(
-              "inline-flex items-center justify-center rounded-pill bg-paper/15 transition-transform duration-200",
+              "inline-flex items-center justify-center rounded-pill bg-paper/25 transition-transform duration-200",
               size === "lg" ? "h-7 w-7" : "h-6 w-6",
               "group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5",
             )}
@@ -78,7 +81,9 @@ function classesFor(props: CommonProps) {
   const isLinkVariant = variant === "link";
   return cn(
     "group/btn relative inline-flex items-center justify-center font-medium transition-[background-color,transform,box-shadow,color] duration-200 ease-premium",
-    isLinkVariant ? "rounded-xs" : "rounded-pill",
+    // Solid + ghost buttons share the card system's rounded-lg so the page reads as
+    // one design language; only the inline text-link keeps the tight rounded-xs.
+    isLinkVariant ? "rounded-xs" : "rounded-lg",
     isLinkVariant ? "" : SIZE[size],
     VARIANT[variant],
     focusRing,
