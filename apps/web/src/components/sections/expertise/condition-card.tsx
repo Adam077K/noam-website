@@ -36,7 +36,7 @@ export function ConditionCard({
         </p>
       </div>
       {condition.founderReview && (
-        <p className="mt-1 border-t border-border/70 pt-3 text-eyebrow font-medium uppercase tracking-[0.1em] text-slate/70">
+        <p className="mt-1 border-t border-border/70 pt-3 text-eyebrow font-medium uppercase tracking-[0.1em] text-slate">
           {t(founderReviewNote, locale)}
         </p>
       )}

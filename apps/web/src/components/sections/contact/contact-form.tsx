@@ -61,17 +61,20 @@ export function ContactForm({ locale }: { locale: Locale }) {
 
   const isSuccess = result?.ok === true;
 
+  const hasFieldErrors = Object.keys(fieldErrors).length > 0;
+
   // After a server round-trip: move focus to the success panel, or to the
-  // error summary, so keyboard / screen-reader users land on the outcome.
-  // On success the whole form unmounts (the panel replaces it), so there is no
-  // form state to reset here — only focus the announced result.
+  // error summary (top-level or validation), so keyboard / screen-reader users
+  // land on the outcome rather than staying on the submit button. On success
+  // the whole form unmounts (the panel replaces it), so there is no form state
+  // to reset here — only focus the announced result.
   useEffect(() => {
     if (isSuccess) {
       successRef.current?.focus();
-    } else if (result && !result.ok) {
+    } else if (topLevelErrorKey || hasFieldErrors) {
       errorSummaryRef.current?.focus();
     }
-  }, [result, isSuccess]);
+  }, [result, isSuccess, topLevelErrorKey, hasFieldErrors]);
 
   if (isSuccess) {
     return (
@@ -105,6 +108,23 @@ export function ContactForm({ locale }: { locale: Locale }) {
           <p className="font-medium">{t(contactForm.errorTitle, locale)}</p>
           <p className="mt-1 text-error/90">
             {t(resultCopy[topLevelErrorKey], locale)}
+          </p>
+        </div>
+      )}
+
+      {/* Validation summary — renders when the server rejects on field errors.
+          Shares `errorSummaryRef` so focus moves here after submit, routing the
+          user to the problems before the per-field messages below. */}
+      {!topLevelErrorKey && hasFieldErrors && (
+        <div
+          ref={errorSummaryRef}
+          tabIndex={-1}
+          role="alert"
+          className="rounded-lg border border-error/30 bg-error/5 px-4 py-3 text-body-sm text-error focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-error/40 focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+        >
+          <p className="font-medium">{t(contactForm.errorTitle, locale)}</p>
+          <p className="mt-1 text-error/90">
+            {t(contactForm.validationSummary, locale)}
           </p>
         </div>
       )}
@@ -248,7 +268,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
             aria-live="polite"
             className={cn(
               "font-mono text-caption tabular-nums",
-              messageLength > MESSAGE_MAX ? "text-error" : "text-slate-60",
+              messageLength > MESSAGE_MAX ? "text-error" : "text-slate",
             )}
           >
             {t(contactForm.message.counter, locale).replace(
@@ -333,7 +353,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
 
       <div className="flex flex-col gap-3 pt-1">
         <SubmitButton locale={locale} />
-        <p className="text-center text-caption text-slate-60">
+        <p className="text-center text-caption text-slate">
           {t(discretionGuarantee.short, locale)}
         </p>
       </div>
@@ -424,7 +444,7 @@ function SuccessPanel({
       <p className="mt-3 max-w-md text-body-base text-slate">
         {t(resultCopy.success, locale)}
       </p>
-      <p className="mt-4 text-body-sm text-slate-60">
+      <p className="mt-4 text-body-sm text-slate">
         {t(contactForm.autoReplyNote, locale)}
       </p>
     </div>
@@ -436,7 +456,7 @@ function SuccessPanel({
 const labelClass = "text-body-sm font-medium text-ink";
 
 const controlClass =
-  "h-12 w-full rounded-lg border border-border bg-paper px-4 text-body-base text-ink shadow-[inset_0_1px_0_rgba(20,32,46,0.02)] transition-[border-color,box-shadow] duration-200 placeholder:text-slate-60 hover:border-border-accent focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper";
+  "h-12 w-full rounded-lg border border-border bg-paper px-4 text-body-base text-ink shadow-[inset_0_1px_0_rgba(20,32,46,0.02)] transition-[border-color,box-shadow] duration-200 placeholder:text-slate hover:border-border-accent focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper";
 
 const errorControlClass =
   "border-error focus-visible:border-error focus-visible:ring-error/40";

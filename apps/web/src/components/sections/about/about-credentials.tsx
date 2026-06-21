@@ -72,7 +72,7 @@ export function AboutCredentials({ locale }: { locale: Locale }) {
                       <span
                         className={
                           item.pending
-                            ? "text-body-base text-paper/45"
+                            ? "text-body-base text-paper/55"
                             : "text-body-base text-paper/90"
                         }
                       >

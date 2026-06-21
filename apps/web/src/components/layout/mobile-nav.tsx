@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import { localeHref } from "@/i18n/routing";
@@ -14,10 +14,19 @@ import { LanguageToggle } from "./language-toggle";
  * Links stagger-fade in (translateY + opacity). Closes on route change, Escape,
  * and backdrop. Locks body scroll while open. Hidden at lg+ (header shows the
  * inline nav there).
+ *
+ * The overlay is a modal dialog (`role="dialog"` + `aria-modal`): on open focus
+ * moves to the first nav link, Tab is trapped to cycle within the overlay, and
+ * on close focus is restored to the hamburger trigger so keyboard users never
+ * land behind the backdrop.
  */
 export function MobileNav({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
+
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const firstLinkRef = useRef<HTMLAnchorElement>(null);
 
   // Escape to close + scroll lock while open.
   useEffect(() => {
@@ -34,9 +43,43 @@ export function MobileNav({ locale }: { locale: Locale }) {
     };
   }, [open]);
 
+  // Move focus into the overlay on open; restore it to the trigger on close.
+  // `wasOpen` guards the restore so it never fires on initial mount (when the
+  // overlay was never open) and only steals focus back after a real close.
+  const wasOpen = useRef(false);
+  useEffect(() => {
+    if (open) {
+      firstLinkRef.current?.focus();
+      wasOpen.current = true;
+    } else if (wasOpen.current) {
+      triggerRef.current?.focus();
+      wasOpen.current = false;
+    }
+  }, [open]);
+
+  // Trap Tab within the overlay, cycling first↔last focusable element.
+  const onOverlayKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Tab") return;
+    const focusables = overlayRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    if (!focusables || focusables.length === 0) return;
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    const active = document.activeElement;
+    if (e.shiftKey && active === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && active === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  };
+
   return (
     <div className="lg:hidden">
       <button
+        ref={triggerRef}
         type="button"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
@@ -71,7 +114,12 @@ export function MobileNav({ locale }: { locale: Locale }) {
 
       {open && (
         <div
+          ref={overlayRef}
           id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t(brand.name, locale)}
+          onKeyDown={onOverlayKeyDown}
           className="fixed inset-0 z-50 flex flex-col bg-paper/96 backdrop-blur-sm [animation:fade-in_250ms_ease-out]"
         >
           <div className="flex h-16 items-center justify-between border-b border-border px-4">
@@ -94,6 +142,7 @@ export function MobileNav({ locale }: { locale: Locale }) {
             {nav.map((item, i) => (
               <Link
                 key={item.key}
+                ref={i === 0 ? firstLinkRef : undefined}
                 href={localeHref(locale, item.href)}
                 onClick={close}
                 style={{ "--index": i } as React.CSSProperties}

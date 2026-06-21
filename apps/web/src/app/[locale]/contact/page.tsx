@@ -193,7 +193,7 @@ function ContactDetail({
         {icon}
       </span>
       <span className="flex min-w-0 flex-col">
-        <span className="text-caption font-medium uppercase tracking-[0.08em] text-slate-60">
+        <span className="text-caption font-medium uppercase tracking-[0.08em] text-slate">
           {label}
         </span>
         <span

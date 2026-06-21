@@ -153,6 +153,11 @@ export const contactForm = {
     he: "השליחה לא הושלמה",
     en: "We couldn't send that",
   } satisfies LocalizedString,
+  /** Summary shown above the form when one or more fields need fixing. */
+  validationSummary: {
+    he: "יש לתקן את השדות המסומנים למטה ולשלוח שוב.",
+    en: "Please fix the highlighted fields below and submit again.",
+  } satisfies LocalizedString,
   /** Required-field marker, read out by screen readers. */
   requiredLabel: {
     he: "שדה חובה",
