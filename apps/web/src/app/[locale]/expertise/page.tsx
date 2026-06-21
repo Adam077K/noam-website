@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 import { expertiseGroups, expertiseSeo } from "@/content/expertise";
 import { ExpertiseHeader } from "@/components/sections/expertise/page-header";
 import { ExpertiseGroup } from "@/components/sections/expertise/expertise-group";
-import { ContactCta } from "@/components/sections/shared/contact-cta";
+import { ContactClose } from "@/components/sections/home/contact-close";
 
 export async function generateMetadata({
   params,
@@ -35,15 +35,10 @@ export default async function ExpertisePage({
   return (
     <>
       <ExpertiseHeader locale={locale} />
-      {expertiseGroups.map((group, i) => (
-        <ExpertiseGroup
-          key={group.anchor}
-          group={group}
-          locale={locale}
-          tinted={i % 2 === 1}
-        />
+      {expertiseGroups.map((group) => (
+        <ExpertiseGroup key={group.anchor} group={group} locale={locale} />
       ))}
-      <ContactCta locale={locale} />
+      <ContactClose locale={locale} />
     </>
   );
 }
