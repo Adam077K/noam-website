@@ -39,16 +39,16 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         scrolled ? "border-border" : "border-transparent",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:h-[72px] lg:px-8">
+      <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-4 sm:px-6 lg:h-[76px] lg:px-8">
         <Link
           href={localeHref(locale, "")}
-          className="shrink-0 text-body-base font-semibold text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="shrink-0 font-editorial text-[1.15rem] leading-none text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:text-[1.35rem]"
         >
           {t(brand.name, locale)}
         </Link>
 
         <nav
-          className="hidden items-center gap-1 lg:flex"
+          className="hidden items-center gap-7 lg:flex"
           aria-label="Primary"
         >
           {nav.map((item) => (
@@ -57,24 +57,34 @@ export function SiteHeader({ locale }: { locale: Locale }) {
               href={localeHref(locale, item.href)}
               aria-current={isActive(item.href) ? "page" : undefined}
               className={cn(
-                "rounded-md px-3 py-2 text-body-sm transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                isActive(item.href) ? "font-medium text-accent" : "text-ink",
+                "group/nav relative py-2 text-body-sm transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper",
+                isActive(item.href) ? "text-ink" : "text-slate",
               )}
             >
               {t(item.label, locale)}
+              <span
+                aria-hidden
+                className={cn(
+                  "absolute inset-x-0 -bottom-0.5 h-px origin-[var(--ul,left)] bg-accent transition-transform duration-300 ease-premium rtl:[--ul:right]",
+                  isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover/nav:scale-x-100",
+                )}
+              />
             </Link>
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-5">
           <div className="hidden lg:block">
             <LanguageToggle locale={locale} />
           </div>
           <Link
             href={localeHref(locale, "/contact")}
-            className="hidden h-10 items-center justify-center rounded-lg bg-accent px-5 text-body-sm font-medium text-paper transition-colors duration-200 hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:inline-flex"
+            className="group/cta hidden items-center gap-2 border-b border-ink pb-1 text-body-sm font-medium text-ink transition-colors duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper lg:inline-flex"
           >
             {t(cta.consult, locale)}
+            <span aria-hidden className="transition-transform duration-300 group-hover/cta:translate-x-0.5 rtl:rotate-180 rtl:group-hover/cta:-translate-x-0.5">
+              &#8594;
+            </span>
           </Link>
           <MobileNav locale={locale} />
         </div>

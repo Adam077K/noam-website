@@ -6,58 +6,83 @@
    ========================================================================== */
 
 @theme {
-  /* ---- Base / canvas ---- */
-  --color-paper: #ffffff;
-  --color-canvas: #fbfcfe;
-  --color-wash: #eaf1fe;
-  --color-wash-deep: #dce9ff;
-  --color-surface: #f5f8fd;
+  /* ============================================================================
+     v2 "QUIET AUTHORITY" — warm editorial palette.
+     Bone paper + deep ink. Blue (#1463E6) survives ONLY as a precise hairline
+     accent: a rule, an index numeral, an underline-on-hover, a single drawn line.
+     Legacy token NAMES are preserved (other pages consume them) but their values
+     are re-pointed onto the warm system so the whole site reads coherently.
+     ========================================================================== */
 
-  /* ---- Accent (bright medical blue) ---- */
-  --color-accent: #1463e6;
-  --color-accent-hover: #0e4fbf;
-  --color-accent-light: #5b92f0;
-  --color-accent-soft: #bbd5fa;
-  --color-accent-tint: #d6e6fc;
-  --color-ring: #9dc0f7;
+  /* ---- Base / canvas (warm bone paper, near-black ink) ---- */
+  --color-paper: #faf7f1;        /* warm bone — the page */
+  --color-paper-pure: #fffdf9;   /* lifted bone — raised surfaces */
+  --color-canvas: #f4efe6;       /* deeper bone — alternating bands */
+  --color-wash: #efe9dd;         /* warm neutral, replaces the cold blue wash */
+  --color-wash-deep: #e6ddcd;
+  --color-surface: #f1ebe0;
 
-  /* ---- Ink / text ---- */
-  --color-ink: #14202e;
-  --color-ink-80: #2c3d4f;
-  --color-ink-10: #e7ecf1;
-  --color-slate: #5a6b7b;
-  --color-slate-strong: #44535f;
-  --color-slate-60: #9aa7b2;
+  /* ---- Accent (precise blue — hairline / numeral / underline only) ---- */
+  --color-accent: #1257cf;       /* slightly deepened for AA on bone */
+  --color-accent-hover: #0e47ab;
+  --color-accent-light: #6f9bf0;
+  --color-accent-soft: #c4d6f5;
+  --color-accent-tint: #dce7fa;
+  --color-ring: #6f9bf0;
+
+  /* ---- Ink / text (deep warm near-black) ---- */
+  --color-ink: #16140f;          /* deep warm near-black ink */
+  --color-ink-80: #34302a;
+  --color-ink-10: #e7e1d6;
+  --color-slate: #6c645a;        /* warm muted */
+  --color-slate-strong: #4a443c;
+  --color-slate-60: #9b9286;
 
   /* ---- Lines / semantic ---- */
-  --color-border: #d5dde6;
-  --color-border-accent: #bbd5fa;
+  --color-border: #ddd4c5;       /* warm hairline */
+  --color-border-strong: #cabfac;
+  --color-border-accent: #c4d6f5;
   --color-success: #2e7d52;
-  --color-error: #c2403d;
+  --color-error: #b23c39;
 
   /* ---- Fonts ---- */
   --font-heebo: var(--font-heebo), "Arial Hebrew", sans-serif;
   --font-inter: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-mono), monospace;
-  /* Convenience aliases — both EN heading + body resolve to Inter; differentiate by weight/size */
+  /* Editorial display serifs — set per-lang on the body element below. */
+  --font-frank: var(--font-frank), "Frank Ruhl Libre", serif;
+  --font-fraunces: var(--font-fraunces), Georgia, serif;
+  /* Aliases consumed by utilities/components. `display` is wired per-lang. */
   --font-display: var(--font-inter), system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, serif;
 
-  /* ---- Type scale (clamp, ART-DIRECTION-V2 §B.4) ---- */
-  --text-display-xl: clamp(2.5rem, 5vw, 4rem);
+  /* ---- Editorial type scale — DRAMATIC. Serif display dominates the page.
+     Mobile floor kept modest so long Hebrew words never overflow narrow widths. ---- */
+  --text-masthead: clamp(2.25rem, 8vw, 6rem);
+  --text-masthead--line-height: 1.04;
+  --text-masthead--letter-spacing: -0.022em;
+  --text-masthead--font-weight: 400;
+
+  --text-display-xl: clamp(2.5rem, 5.5vw, 4.5rem);
   --text-display-xl--line-height: 1.05;
   --text-display-xl--letter-spacing: -0.02em;
-  --text-display-xl--font-weight: 700;
+  --text-display-xl--font-weight: 400;
 
-  --text-display-lg: clamp(2rem, 4vw, 3rem);
-  --text-display-lg--line-height: 1.1;
-  --text-display-lg--letter-spacing: -0.02em;
-  --text-display-lg--font-weight: 600;
+  --text-display-lg: clamp(2rem, 4vw, 3.25rem);
+  --text-display-lg--line-height: 1.08;
+  --text-display-lg--letter-spacing: -0.018em;
+  --text-display-lg--font-weight: 400;
 
-  --text-display-md: clamp(1.5rem, 3vw, 2.25rem);
-  --text-display-md--line-height: 1.15;
-  --text-display-md--letter-spacing: -0.01em;
-  --text-display-md--font-weight: 500;
+  --text-display-md: clamp(1.625rem, 3vw, 2.5rem);
+  --text-display-md--line-height: 1.12;
+  --text-display-md--letter-spacing: -0.012em;
+  --text-display-md--font-weight: 400;
+
+  /* Index numerals + big editorial list rows. */
+  --text-index: clamp(1.75rem, 3.5vw, 3rem);
+  --text-index--line-height: 1.0;
+  --text-index--letter-spacing: -0.02em;
 
   --text-body-lg: 1.125rem;
   --text-body-lg--line-height: 1.7;
@@ -142,18 +167,49 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Hebrew is primary/canonical → Heebo drives both heading + body in RTL */
+/* Whisper-quiet paper grain over the whole document — fixed + pointer-safe so it
+   never repaints on scroll. Gives the bone a physical, printed-page tactility. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+/* Keep real UI above the grain. */
+body > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hebrew is primary/canonical → Heebo drives body/UI in RTL */
 html[lang="he"] {
   font-family: var(--font-heebo);
 }
-/* NEVER track Hebrew — spacing governed by font metrics */
-html[lang="he"] * {
+/* NEVER track Hebrew BODY/UI — spacing governed by font metrics. The editorial
+   serif headings get a hair of negative tracking re-enabled below. */
+html[lang="he"] *:not(.font-editorial):not(.font-editorial *) {
   letter-spacing: 0 !important;
 }
 
-/* English secondary → Inter */
+/* English secondary → Inter for body/UI */
 html[lang="en"] {
   font-family: var(--font-inter);
+}
+
+/* ---- Editorial display — THE design's voice. Per-language serif. ---- */
+.font-editorial {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+}
+html[lang="he"] .font-editorial {
+  font-family: var(--font-frank), "Frank Ruhl Libre", serif;
+  /* Frank Ruhl is high-contrast; a faint negative track tightens the big cuts. */
+  letter-spacing: -0.01em;
+  font-weight: 500;
 }
 
 /* Numbers / phone / email regardless of locale */
@@ -193,21 +249,88 @@ html[lang="he"] .eyebrow {
   }
 }
 
+/* Reveal classes are PROGRESSIVE ENHANCEMENT: their resting (no-JS) state is the
+   final, visible state. Only when the document is JS-capable (html[data-js], set before
+   paint) do we hide the not-yet-revealed element, then animate it in. This keeps
+   content visible for crawlers / JS-off and prevents any "blank headline" race. */
 .fade-in-up {
-  opacity: 0;
-  transform: translateY(16px);
   transition:
     opacity 600ms var(--ease-premium),
     transform 600ms var(--ease-premium);
 }
-.fade-in-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+html[data-js] .fade-in-up:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+/* ---- Signature hairline: a single fine rule that DRAWS on scroll-entry.
+   The recurring motif — hero accent, section dividers, the index spine. ---- */
+.rule-draw {
+  transform-origin: var(--rule-origin, left);
+  transition: transform 1100ms var(--ease-premium);
+}
+html[dir="rtl"] .rule-draw {
+  --rule-origin: right;
+}
+html[data-js] .rule-draw:not(.is-visible) {
+  transform: scaleX(0);
+}
+/* Vertical variant for the index spine. */
+.rule-draw-y {
+  transform-origin: top;
+  transition: transform 1100ms var(--ease-premium);
+}
+html[data-js] .rule-draw-y:not(.is-visible) {
+  transform: scaleY(0);
+}
+
+/* ---- Editorial mask-reveal: headline lines wipe up from behind a clip edge.
+   Quiet and expensive — no bouncy fade-up. Resting state is fully visible; the
+   clipped initial state applies only under html[data-js] (progressive enhancement). ---- */
+.mask-reveal {
+  transition:
+    clip-path 1000ms var(--ease-premium),
+    transform 1000ms var(--ease-premium);
+}
+html[data-js] .mask-reveal:not(.is-visible) {
+  clip-path: inset(0 0 110% 0);
+  transform: translateY(0.18em);
+}
+.mask-reveal.is-visible {
+  clip-path: inset(-0.12em 0 -0.12em 0);
+}
+
+/* Hover-draw underline for the editorial index rows (origin flips under RTL). */
+.index-underline {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 480ms var(--ease-premium);
+}
+html[dir="rtl"] .index-underline {
+  transform-origin: right;
+}
+.group\/row:hover .index-underline,
+.group\/row:focus-visible .index-underline {
+  transform: scaleX(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* Reduced motion wins over the data-js initial-hidden states: content is shown
+     immediately, never clipped/translated/scaled, regardless of reveal status.
+     Matched/higher specificity than `html[data-js] .x:not(.is-visible)`. */
   .fade-in-up {
     transition: opacity 150ms ease-out;
+  }
+  html[data-js] .fade-in-up:not(.is-visible) {
+    opacity: 1;
+    transform: none;
+  }
+  html[data-js] .rule-draw:not(.is-visible),
+  html[data-js] .rule-draw-y:not(.is-visible) {
+    transform: none;
+  }
+  html[data-js] .mask-reveal:not(.is-visible) {
+    clip-path: none;
     transform: none;
   }
   *,

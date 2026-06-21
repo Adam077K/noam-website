@@ -8,5 +8,6 @@ export { CredentialBadge } from "./credential-badge";
 export { IconCircle } from "./icon-circle";
 export { MediaSlot, VideoSlot } from "./media-slot";
 export { Reveal } from "./reveal";
+export { InView } from "./in-view";
 export { Icon } from "./icons";
 export type { IconName } from "./icons";

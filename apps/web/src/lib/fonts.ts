@@ -1,10 +1,15 @@
-import { Heebo, Inter, Geist_Mono } from "next/font/google";
+import { Heebo, Inter, Geist_Mono, Frank_Ruhl_Libre, Fraunces } from "next/font/google";
 
 /**
- * Self-hosted via next/font/google. Hebrew-first bilingual pairing (ART-DIRECTION-V2 §B).
- * - Heebo drives Hebrew (RTL) headings + body.
- * - Inter drives Latin (LTR) headings + body — metric kinship with Heebo keeps locales consistent.
- * - Geist Mono carries numbers, phone, email, tabular data regardless of locale.
+ * Editorial bilingual type system (v2 "Quiet Authority").
+ *
+ * DISPLAY (the design's voice) — high-contrast serifs, used at dramatic scale:
+ * - Frank Ruhl Libre drives Hebrew (RTL) editorial headings.
+ * - Fraunces drives Latin (LTR) editorial headings — optical sizing on for the big cuts.
+ *
+ * TEXT / UI (the counterpoint) — clean grotesks, small, for legibility:
+ * - Heebo (HE) and Inter (EN) carry body, eyebrows, nav, captions.
+ * - Geist Mono carries numbers, phone, email, the index numerals, tabular data.
  */
 export const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -17,6 +22,21 @@ export const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+export const frankRuhl = Frank_Ruhl_Libre({
+  subsets: ["hebrew", "latin"],
+  weight: ["300", "400", "500", "700", "900"],
+  variable: "--font-frank",
+  display: "swap",
+});
+
+export const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-fraunces",
   display: "swap",
 });
 

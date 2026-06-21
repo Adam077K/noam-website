@@ -4,11 +4,11 @@ import { isLocale, type Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
 import { Hero } from "@/components/sections/home/hero";
-import { CredentialsBar } from "@/components/sections/home/credentials-bar";
-import { ServiceGrid } from "@/components/sections/home/service-grid";
-import { VideoIntro } from "@/components/sections/home/video-intro";
-import { TrustBand } from "@/components/sections/home/trust-band";
-import { ContactCta } from "@/components/sections/shared/contact-cta";
+import { Credentials } from "@/components/sections/home/credentials";
+import { ServicesIndex } from "@/components/sections/home/services-index";
+import { QuoteBand } from "@/components/sections/home/quote-band";
+import { Approach } from "@/components/sections/home/approach";
+import { ContactClose } from "@/components/sections/home/contact-close";
 
 const seo = {
   title: {
@@ -48,11 +48,11 @@ export default async function HomePage({
   return (
     <>
       <Hero locale={locale} />
-      <CredentialsBar locale={locale} />
-      <ServiceGrid locale={locale} />
-      <VideoIntro locale={locale} />
-      <TrustBand locale={locale} />
-      <ContactCta locale={locale} />
+      <Credentials locale={locale} />
+      <ServicesIndex locale={locale} />
+      <QuoteBand locale={locale} />
+      <Approach locale={locale} />
+      <ContactClose locale={locale} />
     </>
   );
 }

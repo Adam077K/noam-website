@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { notFound } from "next/navigation";
-import { heebo, inter, geistMono } from "@/lib/fonts";
+import { heebo, inter, frankRuhl, fraunces, geistMono } from "@/lib/fonts";
 import { dirForLocale, isLocale, locales, type Locale } from "@/i18n/config";
 import { brand, a11y } from "@/content/site";
 import { t } from "@/content/types";
@@ -48,8 +48,21 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={dir}
-      className={`${heebo.variable} ${inter.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${heebo.variable} ${inter.variable} ${frankRuhl.variable} ${fraunces.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/* Mark the document JS-capable BEFORE first paint via a data-attribute
+            (not className, which React owns), so scroll-reveal initial states
+            (mask-reveal / draw) only hide content when motion can actually run.
+            No-JS + crawlers see fully-rendered content. suppressHydrationWarning
+            covers the intentional pre-hydration mutation. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: "document.documentElement.setAttribute('data-js','');",
+          }}
+        />
+      </head>
       <body className="flex min-h-full flex-col bg-paper text-ink">
         <a
           href="#main"
