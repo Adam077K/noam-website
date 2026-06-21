@@ -19,7 +19,7 @@ import { InView } from "@/components/ui";
  */
 export function ServicesIndex({ locale }: { locale: Locale }) {
   return (
-    <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+    <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
       <div className="mx-auto w-full max-w-[1240px]">
         {/* Section masthead — asymmetric: label + title start-side, intro end-side. */}
         <div className="grid gap-x-16 gap-y-8 border-b border-ink pb-10 lg:grid-cols-[1fr_1fr] lg:items-end">

@@ -14,7 +14,7 @@ import { InView } from "@/components/ui";
  */
 export function QuoteBand({ locale }: { locale: Locale }) {
   return (
-    <section className="relative overflow-hidden bg-ink px-4 py-28 text-paper sm:px-6 sm:py-32 lg:px-8 lg:py-40">
+    <section className="relative overflow-hidden bg-ink px-4 py-24 text-paper sm:px-6 sm:py-28 lg:px-8 lg:py-32">
       <div className="mx-auto w-full max-w-[1100px]">
         <InView as="p" motion="fade-in-up" className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-accent-light eyebrow">
           <span aria-hidden className="inline-block h-px w-8 bg-accent-light" />

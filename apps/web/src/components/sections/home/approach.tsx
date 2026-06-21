@@ -14,7 +14,7 @@ import { InView } from "@/components/ui";
  */
 export function Approach({ locale }: { locale: Locale }) {
   return (
-    <section className="bg-canvas px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+    <section className="bg-canvas px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
       <div className="mx-auto w-full max-w-[1240px]">
         {/* Lead — the approach stated as an editorial line. */}
         <div className="max-w-[26ch]">

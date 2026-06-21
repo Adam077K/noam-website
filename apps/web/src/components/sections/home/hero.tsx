@@ -53,10 +53,15 @@ export function Hero({ locale }: { locale: Locale }) {
         <InView
           as="div"
           motion="fade-in-up"
-          className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-border py-4 text-caption uppercase tracking-[0.2em] text-slate eyebrow"
+          className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1.5 border-b border-border py-4 text-caption uppercase tracking-[0.2em] text-slate eyebrow"
         >
-          <span className="flex items-center gap-2.5">
-            <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-accent" />
+          {/* Bullet stays attached: it's an inline ::before-style marker glued to the
+              first word via a non-breaking flow, so the label never orphans it. */}
+          <span className="max-w-full">
+            <span
+              aria-hidden
+              className="me-2.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent align-middle"
+            />
             {t(hero.eyebrow, locale)}
           </span>
           <span className="font-mono normal-case tracking-[0.08em] text-slate-strong">
@@ -65,11 +70,11 @@ export function Hero({ locale }: { locale: Locale }) {
         </InView>
 
         {/* The spread: type column (start) + portrait column (end). */}
-        <div className="grid items-center gap-x-12 gap-y-10 pb-16 pt-12 sm:pb-20 sm:pt-16 lg:grid-cols-[1.12fr_0.88fr] lg:gap-x-16 lg:pb-24 lg:pt-20">
-          {/* Type column. */}
-          <div className="order-2 lg:order-1">
-            <h1 className="max-w-[18ch] text-pretty font-editorial text-ink [font-size:clamp(2.25rem,4.4vw,4rem)] [line-height:1.04] [letter-spacing:-0.02em] sm:max-w-[15ch]">
-              <InView as="span" className="block">
+        <div className="grid items-center gap-x-12 gap-y-8 pb-16 pt-10 sm:pb-20 sm:pt-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-x-16 lg:pb-24 lg:pt-16">
+          {/* Type column — FIRST on mobile (text-first), start side on lg. */}
+          <div className="order-1">
+            <h1 className="max-w-[18ch] text-pretty font-editorial text-ink [font-size:clamp(2.15rem,4vw,3.625rem)] [line-height:1.05] [letter-spacing:-0.018em] sm:max-w-[15ch]">
+              <InView as="span" className="block pb-[0.12em]">
                 {t(hero.headline, locale)}
               </InView>
             </h1>
@@ -86,7 +91,7 @@ export function Hero({ locale }: { locale: Locale }) {
               as="p"
               motion="fade-in-up"
               delay={120}
-              className="mt-7 max-w-[46ch] text-body-lg text-slate-strong sm:mt-8"
+              className="mt-7 max-w-[46ch] text-body-lg text-ink-80 sm:mt-8"
             >
               {t(hero.subhead, locale)}
             </InView>
@@ -124,20 +129,35 @@ export function Hero({ locale }: { locale: Locale }) {
             </InView>
           </div>
 
-          {/* Portrait column — warm duotone, hairline-framed editorial element. */}
+          {/* Portrait column — warm duotone, hairline-framed editorial element.
+              BELOW the text on mobile; capped so it never dominates screen one. */}
           <InView
             as="figure"
             motion="fade-in-up"
             delay={160}
-            className="order-1 lg:order-2"
+            className="order-2"
           >
-            <div className="relative mx-auto w-full max-w-[360px] lg:max-w-none">
+            <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[360px] lg:max-w-none">
               {/* Hairline frame offset — gives the portrait an art-directed mat. */}
               <span
                 aria-hidden
                 className="pointer-events-none absolute -inset-2.5 border border-border"
               />
-              <div className="portrait portrait--1 relative aspect-[4/5] w-full" role="img" aria-label={t(hero.portraitAlt, locale)} />
+              {/* Capped to ~42vh on mobile (3:4-ish crop) so the text leads screen one;
+                  on lg it grows to the full editorial column ratio. Houses the
+                  designed empty state (monogram + caption) shown until a photo lands. */}
+              <div
+                className="portrait portrait--1 relative h-[42vh] max-h-[420px] w-full overflow-hidden lg:aspect-[4/5] lg:h-auto lg:max-h-none"
+                role="img"
+                aria-label={t(hero.portraitAlt, locale)}
+              >
+                <span aria-hidden className="portrait__empty">
+                  <span className="portrait__monogram">NK</span>
+                  <span className="portrait__caption eyebrow">
+                    {t({ he: "דיוקן", en: "Portrait" }, locale)}
+                  </span>
+                </span>
+              </div>
             </div>
             <figcaption className="mt-4 flex items-center justify-between gap-3 text-caption text-slate">
               <span className="font-editorial text-body-base normal-case tracking-normal text-ink">

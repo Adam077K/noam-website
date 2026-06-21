@@ -213,49 +213,84 @@ html[lang="he"] .font-editorial {
 }
 
 /* ============================================================================
-   Hero portrait — art-directed WARM DUOTONE (ink #16140f → bone #faf7f1).
-   Rendered as a CSS background-image (NOT next/image) so a MISSING file degrades
-   gracefully to the bone surface + hairline frame — never a broken-image icon,
-   and the build never fails on an absent asset. Two layers compose the duotone:
-     1) a warm ink→bone gradient (the tint),
-     2) the grayscale-able photo beneath, fused via `luminosity` blend so the
-        photo contributes only its tonal values onto the warm gradient.
-   The element also gets a faint paper-side gradient mask so the image melts into
-   the layout edge rather than sitting in a hard box. Swap kitrey-1 ⇄ kitrey-2 by
-   toggling the `portrait--1` / `portrait--2` class on the element.
+   Hero portrait — art-directed WARM DUOTONE with a DESIGNED empty state.
+
+   The PHOTO is painted by the `::before` pseudo as a background-image (NOT
+   next/image). When the file is MISSING the pseudo simply paints nothing, so the
+   element's own warm-cream fill + monogram show through — an intentional framed
+   "Portrait" placeholder, never a broken-image icon, and the build never fails.
+   When a real photo exists, `::before` covers the placeholder with the grayscale
+   duotone, and `::after` adds the warm multiply tint + bottom edge-melt so it
+   reads as one editorial material. Swap kitrey-1 ⇄ kitrey-2 via portrait--1/--2.
    ========================================================================== */
 .portrait {
   position: relative;
-  /* The ONLY always-painted layer is the bone surface — so a MISSING photo file
-     degrades to clean warm bone (never a dark box, never a broken-image icon). */
-  background-color: var(--color-paper);
+  /* Empty state = a WARM CREAM panel (not cold grey), with a faint vertical sheen
+     so the framed placeholder reads as deliberate. */
+  background-color: var(--color-canvas);
+  background-image:
+    radial-gradient(120% 80% at 50% 28%, var(--color-paper) 0%, var(--color-canvas) 72%, color-mix(in oklab, var(--color-canvas) 80%, var(--color-ink)) 100%);
+  isolation: isolate;
+}
+/* The photo layer — covers the placeholder when the file resolves; paints nothing
+   when it's absent (graceful degradation). Grayscale → the duotone tonal base. */
+.portrait::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background-repeat: no-repeat;
   background-position: center 14%;
   background-size: cover;
-  /* Grayscale + slight contrast turns any colour photo into the duotone's tonal
-     base; the warm tint is applied by the ::after overlay (also bone-safe). */
   filter: grayscale(1) contrast(1.04) brightness(1.01);
   -webkit-filter: grayscale(1) contrast(1.04) brightness(1.01);
 }
-.portrait--1 {
+.portrait--1::before {
   background-image: url("/portraits/kitrey-1.png");
 }
-.portrait--2 {
+.portrait--2::before {
   background-image: url("/portraits/kitrey-2.png");
 }
-/* Warm duotone overlay — a whisper of warm tint + a bottom edge-melt, multiplied
-   so the photo's tones warm toward the palette and bleed into the bone at the
-   foot. Deliberately faint: with NO photo the panel stays a clean warm-bone
-   surface inside its hairline frame (the brief's graceful-degradation rule). */
+/* Warm duotone overlay — sits above the photo (multiply): a whisper of warm tint
+   + a bottom edge-melt so the photo warms toward the palette and bleeds into bone.
+   Faint, so it never muddies the empty cream state. */
 .portrait::after {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   mix-blend-mode: multiply;
   background:
     linear-gradient(180deg, transparent 64%, color-mix(in oklab, var(--color-paper) 55%, transparent) 100%),
-    color-mix(in oklab, var(--color-accent) 5%, var(--color-paper));
+    color-mix(in oklab, var(--color-accent) 4%, var(--color-paper));
+}
+/* The designed empty-state mark (monogram + caption). It sits at z-0, BENEATH the
+   photo layer, so a real photo hides it; with no photo it's the visible content. */
+.portrait__empty {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  pointer-events: none;
+}
+.portrait__monogram {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 3.75rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: color-mix(in oklab, var(--color-ink) 26%, transparent);
+}
+.portrait__caption {
+  font-size: var(--text-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: color-mix(in oklab, var(--color-ink) 36%, transparent);
 }
 
 /* Numbers / phone / email regardless of locale */
@@ -339,11 +374,15 @@ html[data-js] .rule-draw-y:not(.is-visible) {
     transform 1000ms var(--ease-premium);
 }
 html[data-js] .mask-reveal:not(.is-visible) {
-  clip-path: inset(0 0 110% 0);
+  /* Hidden: wipe in from a top clip edge. Generous side insets are negative so the
+     edge only ever crosses the block vertically, never slicing glyph side-bearings. */
+  clip-path: inset(0 -0.3em 110% -0.3em);
   transform: translateY(0.18em);
 }
 .mask-reveal.is-visible {
-  clip-path: inset(-0.12em 0 -0.12em 0);
+  /* Revealed: a deliberately OVERSIZED inset on all sides so serif descenders,
+     ascenders and ink overshoot are never clipped (the EN multi-line headline bug). */
+  clip-path: inset(-0.6em -0.3em -0.6em -0.3em);
 }
 
 /* Hover-draw underline for the editorial index rows (origin flips under RTL). */

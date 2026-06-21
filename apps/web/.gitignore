@@ -40,8 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local design QA screenshots
+# local design QA screenshots + the local Playwright capture helpers
 /.design-screens
+/scripts
 
 # hero portraits: real founder photos are dropped here by the founder and are
 # intentionally NOT committed from the design worktree (synthetic test placeholders

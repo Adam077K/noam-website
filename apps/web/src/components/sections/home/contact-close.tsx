@@ -13,7 +13,7 @@ import { InView } from "@/components/ui";
  */
 export function ContactClose({ locale }: { locale: Locale }) {
   return (
-    <section className="bg-paper px-4 pb-28 pt-8 sm:px-6 sm:pb-32 lg:px-8 lg:pb-40">
+    <section className="bg-paper px-4 pb-24 pt-8 sm:px-6 sm:pb-28 lg:px-8 lg:pb-32">
       <div className="mx-auto w-full max-w-[1240px]">
         <InView
           as="div"
