@@ -9,7 +9,9 @@ const ICONS = ["shieldCheck", "compass", "spark", "user"] as const;
  * Credentials belt — the trust moat. Four authority items rendered as flat badges
  * on a paper surface, framed by hairline rules so it reads as a deliberate "belt"
  * between the hero and the service grid. Two columns on tablet, four on desktop;
- * each badge fades in on a short stagger.
+ * each badge fades in on a short stagger. The rarest credential (the EAU Clinical
+ * Guidelines Committee chair) is `featured` so the row reads as a hierarchy with a
+ * clear lead, not four interchangeable chips.
  */
 export function CredentialsBar({ locale }: { locale: Locale }) {
   return (
@@ -28,6 +30,7 @@ export function CredentialsBar({ locale }: { locale: Locale }) {
                 title={t(item.title, locale)}
                 icon={ICONS[i] ?? "shieldCheck"}
                 tone="light"
+                featured={item.key === "eau"}
                 className="h-full"
               />
             </Reveal>

@@ -182,7 +182,9 @@ export function ContactForm({ locale }: { locale: Locale }) {
             defaultValue=""
             className={cn(
               controlClass,
-              "appearance-none pe-11 text-ink",
+              // Reserve a caret gutter so option text never collides with the
+              // chevron (which sits at end-4, ~2rem of inline-end reach) in RTL or LTR.
+              "appearance-none pe-12 text-ink",
             )}
           >
             <option value="" disabled>

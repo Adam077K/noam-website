@@ -37,35 +37,33 @@ type CommonProps = {
   size?: Size;
   /** Show a trailing directional arrow that mirrors under RTL. */
   withArrow?: boolean;
-  /** Nest the arrow inside its own circle (premium "button-in-button"). Solid variants only. */
+  /**
+   * On solid variants, render the arrow slightly larger as the button's lead
+   * accent. Retained for call-site compatibility; no longer draws a pale disc
+   * (that artifact read as a perpetual loading spinner at rest).
+   */
   arrowInCircle?: boolean;
   className?: string;
 };
 
 function inner({ children, variant = "primary", withArrow, arrowInCircle, size }: CommonProps) {
   const solid = variant === "primary" || variant === "inverse";
+  // Solid CTAs get a slightly larger, crisp arrow for presence; no enclosing
+  // circle — a directional arrow alone reads as premium and never as a spinner.
+  const emphatic = solid && arrowInCircle;
   return (
-    <span className={cn("inline-flex items-center", solid && arrowInCircle ? "gap-3" : "gap-2")}>
+    <span className={cn("inline-flex items-center", emphatic ? "gap-2.5" : "gap-2")}>
       <span>{children}</span>
-      {withArrow &&
-        (solid && arrowInCircle ? (
-          <span
-            aria-hidden
-            className={cn(
-              "inline-flex items-center justify-center rounded-pill bg-paper/25 transition-transform duration-200",
-              size === "lg" ? "h-7 w-7" : "h-6 w-6",
-              "group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5",
-            )}
-          >
-            <Icon name="arrow" className="h-3.5 w-3.5 rtl:rotate-180" />
-          </span>
-        ) : (
-          <Icon
-            name="arrow"
-            aria-hidden
-            className="h-4 w-4 transition-transform duration-200 rtl:rotate-180 group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5"
-          />
-        ))}
+      {withArrow && (
+        <Icon
+          name="arrow"
+          aria-hidden
+          className={cn(
+            "transition-transform duration-200 rtl:rotate-180 group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5",
+            emphatic && size === "lg" ? "h-[1.125rem] w-[1.125rem]" : "h-4 w-4",
+          )}
+        />
+      )}
     </span>
   );
 }

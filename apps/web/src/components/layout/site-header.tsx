@@ -74,7 +74,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
             href={localeHref(locale, "/contact")}
             className="hidden h-10 items-center justify-center rounded-lg bg-accent px-5 text-body-sm font-medium text-paper transition-colors duration-200 hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:inline-flex"
           >
-            {t(cta.book, locale)}
+            {t(cta.consult, locale)}
           </Link>
           <MobileNav locale={locale} />
         </div>

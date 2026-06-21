@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { t } from "@/content/types";
+import { pageMetadata } from "@/lib/seo";
 import { expertiseGroups, expertiseSeo } from "@/content/expertise";
 import { ExpertiseHeader } from "@/components/sections/expertise/page-header";
 import { ExpertiseGroup } from "@/components/sections/expertise/expertise-group";
@@ -14,10 +15,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return {
+  return pageMetadata({
+    locale,
+    path: "/expertise",
     title: t(expertiseSeo.title, locale),
     description: t(expertiseSeo.description, locale),
-  };
+  });
 }
 
 export default async function ExpertisePage({

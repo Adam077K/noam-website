@@ -27,9 +27,11 @@ export const nav: ReadonlyArray<{ key: string; href: string; label: LocalizedStr
 ];
 
 export const cta = {
-  book: {
-    he: "קביעת תור",
-    en: "Book Appointment",
+  // The site runs a discreet inquiry flow — there is no public booking calendar.
+  // Header/mobile CTA uses consultation language consistent with Home/Contact.
+  consult: {
+    he: "לפנייה לייעוץ",
+    en: "Request a Consultation",
   } satisfies LocalizedString,
 };
 

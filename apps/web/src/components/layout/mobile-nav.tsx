@@ -160,7 +160,7 @@ export function MobileNav({ locale }: { locale: Locale }) {
               onClick={close}
               className="inline-flex h-11 items-center justify-center rounded-lg bg-accent px-6 text-body-sm font-medium text-paper transition-colors hover:bg-accent-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
             >
-              {t(cta.book, locale)}
+              {t(cta.consult, locale)}
             </Link>
           </div>
         </div>

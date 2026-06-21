@@ -8,6 +8,7 @@ import {
   contactForm,
   discretionGuarantee,
 } from "@/content/contact";
+import { pageMetadata } from "@/lib/seo";
 import { Section, Eyebrow, Reveal, Icon } from "@/components/ui";
 import { ContactForm } from "@/components/sections/contact/contact-form";
 import { cn } from "@/lib/utils";
@@ -34,7 +35,12 @@ export async function generateMetadata({
     he: "לפנייה דיסקרטית לד\"ר נעם כתרי: טלפון 054-7181718, מייל, או טופס. כל פנייה נשמרת בסודיות מלאה. מרפאה פרטית בתל אביב.",
     en: "Reach Dr. Noam Kitrey discreetly: phone 054-7181718, email, or form. Every inquiry kept in full confidence. Private clinic in Tel Aviv.",
   };
-  return { title: t(title, locale), description: t(description, locale) };
+  return pageMetadata({
+    locale,
+    path: "/contact",
+    title: t(title, locale),
+    description: t(description, locale),
+  });
 }
 
 export default async function ContactPage({

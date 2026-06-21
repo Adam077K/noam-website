@@ -5,6 +5,7 @@ import { heebo, inter, geistMono } from "@/lib/fonts";
 import { dirForLocale, isLocale, locales, type Locale } from "@/i18n/config";
 import { brand, a11y } from "@/content/site";
 import { t } from "@/content/types";
+import { metadataBase } from "@/lib/seo";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 
@@ -19,7 +20,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
+  // Root locale metadata. Pages set their own absolute title + canonical/OG via
+  // `pageMetadata`; here we only anchor `metadataBase` so all absolute URLs
+  // (canonical, OG) resolve, and provide a sensible site-wide default.
   return {
+    metadataBase,
     title: t(brand.name, locale),
     description: t(brand.role, locale),
   };

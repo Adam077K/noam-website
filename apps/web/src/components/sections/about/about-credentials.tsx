@@ -11,8 +11,8 @@ import type { IconName } from "@/components/ui";
  * inverse icon circle, with its credentials listed beneath. The spine + node
  * treatment turns a factual list into a considered "front of medicine" lineage
  * without inventing anything. Years render `dir="ltr"` so digits never reorder
- * under RTL. The languages node is an honest "to be confirmed" pending state.
- * Accent text on ink uses the lighter accent for AA contrast per ART-DIRECTION-V2.
+ * under RTL. Accent text on ink uses the lighter accent for AA contrast per
+ * ART-DIRECTION-V2.
  */
 export function AboutCredentials({ locale }: { locale: Locale }) {
   return (

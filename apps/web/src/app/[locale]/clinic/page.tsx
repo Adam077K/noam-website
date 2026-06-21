@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { t } from "@/content/types";
+import { pageMetadata } from "@/lib/seo";
 import { seo } from "@/content/clinic";
 import { AtmosphereHero } from "@/components/sections/clinic/atmosphere-hero";
 import { LocationMap } from "@/components/sections/clinic/location-map";
@@ -15,10 +16,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return {
+  return pageMetadata({
+    locale,
+    path: "/clinic",
     title: t(seo.title, locale),
     description: t(seo.description, locale),
-  };
+  });
 }
 
 export default async function ClinicPage({

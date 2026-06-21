@@ -159,21 +159,9 @@ export const credentials: {
         },
       ],
     },
-    {
-      key: "languages",
-      icon: "user",
-      label: { he: "שפות", en: "Languages" } satisfies LocalizedString,
-      items: [
-        {
-          // [FOUNDER-REVIEW: founder to confirm languages] — honest pending state.
-          title: {
-            he: "יתעדכן בהמשך",
-            en: "To be confirmed",
-          },
-          pending: true,
-        },
-      ],
-    },
+    // [FOUNDER-REVIEW] A Languages node is omitted until the founder supplies the
+    // list — a live "to be confirmed" undercut the credibility section. Re-add a
+    // group here (key: "languages", icon: "user") once the languages are known.
   ],
 };
 
