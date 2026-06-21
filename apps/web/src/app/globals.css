@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Dr. Noam Kitrey — Design tokens (ART-DIRECTION-V2 LOCKED + DESIGN-SYSTEM §1)
+   Tailwind v4: tokens declared in @theme become utilities (bg-accent, text-ink…).
+   ========================================================================== */
+
+@theme {
+  /* ---- Base / canvas ---- */
+  --color-paper: #ffffff;
+  --color-canvas: #fbfcfe;
+  --color-wash: #eaf1fe;
+  --color-wash-deep: #dce9ff;
+  --color-surface: #f5f8fd;
+
+  /* ---- Accent (bright medical blue) ---- */
+  --color-accent: #1463e6;
+  --color-accent-hover: #0e4fbf;
+  --color-accent-light: #5b92f0;
+  --color-accent-soft: #bbd5fa;
+  --color-accent-tint: #d6e6fc;
+  --color-ring: #9dc0f7;
+
+  /* ---- Ink / text ---- */
+  --color-ink: #14202e;
+  --color-ink-80: #2c3d4f;
+  --color-ink-10: #e7ecf1;
+  --color-slate: #5a6b7b;
+  --color-slate-strong: #44535f;
+  --color-slate-60: #9aa7b2;
+
+  /* ---- Lines / semantic ---- */
+  --color-border: #d5dde6;
+  --color-border-accent: #bbd5fa;
+  --color-success: #2e7d52;
+  --color-error: #c2403d;
+
+  /* ---- Fonts ---- */
+  --font-heebo: var(--font-heebo), "Arial Hebrew", sans-serif;
+  --font-inter: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-mono), monospace;
+  /* Convenience aliases — both EN heading + body resolve to Inter; differentiate by weight/size */
+  --font-display: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+
+  /* ---- Type scale (clamp, ART-DIRECTION-V2 §B.4) ---- */
+  --text-display-xl: clamp(2.5rem, 5vw, 4rem);
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-xl--font-weight: 700;
+
+  --text-display-lg: clamp(2rem, 4vw, 3rem);
+  --text-display-lg--line-height: 1.1;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 600;
+
+  --text-display-md: clamp(1.5rem, 3vw, 2.25rem);
+  --text-display-md--line-height: 1.15;
+  --text-display-md--letter-spacing: -0.01em;
+  --text-display-md--font-weight: 500;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.7;
+
+  --text-body-base: 1rem;
+  --text-body-base--line-height: 1.65;
+
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.6;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1.5;
+  --text-caption--letter-spacing: 0.05em;
+
+  --text-eyebrow: 0.6875rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.14em;
+  --text-eyebrow--font-weight: 600;
+
+  /* ---- Spacing: 8px grid (DESIGN-SYSTEM §1.2) ---- */
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+  --spacing-5: 40px;
+  --spacing-6: 48px;
+  --spacing-7: 56px;
+  --spacing-8: 64px;
+  --spacing-10: 80px;
+  --spacing-12: 96px;
+  --spacing-16: 128px;
+  --spacing-20: 160px;
+  --spacing-24: 192px;
+  --spacing-32: 256px;
+
+  /* ---- Radii ---- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 9999px;
+
+  /* ---- Shadows (focus re-tinted to new accent) ---- */
+  --shadow-card: 0 2px 12px rgba(20, 32, 46, 0.06);
+  --shadow-card-hover: 0 4px 24px rgba(20, 32, 46, 0.1);
+  --shadow-focus: 0 0 0 3px rgba(20, 99, 230, 0.45);
+
+  /* ---- Easing ---- */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---- Semantic role variables (consumed by component CSS) ---- */
+:root {
+  --bg-page: var(--color-paper);
+  --bg-tinted: var(--color-wash);
+  --bg-dark-section: var(--color-ink);
+  --surface: var(--color-surface);
+  --text-primary: var(--color-ink);
+  --text-secondary: var(--color-slate);
+  --text-inverse: var(--color-paper);
+  --border-subtle: var(--color-border);
+  --border-hover: var(--color-border-accent);
+  --accent: var(--color-accent);
+  --accent-hover: var(--color-accent-hover);
+  --focus-ring: var(--color-ring);
+}
+
+/* ============================================================================
+   Base element + per-language font assignment (ART-DIRECTION-V2 §B.3)
+   ========================================================================== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  text-align: start;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hebrew is primary/canonical → Heebo drives both heading + body in RTL */
+html[lang="he"] {
+  font-family: var(--font-heebo);
+}
+/* NEVER track Hebrew — spacing governed by font metrics */
+html[lang="he"] * {
+  letter-spacing: 0 !important;
+}
+
+/* English secondary → Inter */
+html[lang="en"] {
+  font-family: var(--font-inter);
+}
+
+/* Numbers / phone / email regardless of locale */
+.font-mono,
+[dir="ltr"].tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Eyebrow: UPPERCASE + tracked in LTR; normal-case + untracked in HE (no case in Hebrew) */
+html[lang="he"] .eyebrow {
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ============================================================================
+   Motion — scroll-reveal + reduced-motion (DESIGN-SYSTEM §6)
+   ========================================================================== */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes stagger-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms var(--ease-premium),
+    transform 600ms var(--ease-premium);
+}
+.fade-in-up.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up {
+    transition: opacity 150ms ease-out;
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 100ms !important;
+    scroll-behavior: auto !important;
+  }
+}
