@@ -29,6 +29,8 @@ export type IconName =
   | "compass"
   | "arrow"
   | "phone"
+  | "mail"
+  | "mapPin"
   | "play"
   | "shieldCheck"
   | "user"
@@ -106,6 +108,24 @@ function Phone(props: IconProps) {
   );
 }
 
+function Mail(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <rect x="3" y="5.5" width="18" height="13" rx="2" />
+      <path d="M3.5 7l8.5 6 8.5-6" />
+    </svg>
+  );
+}
+
+function MapPin(props: IconProps) {
+  return (
+    <svg {...base} {...props}>
+      <path d="M12 21c4-4 6.5-7.2 6.5-10.5a6.5 6.5 0 10-13 0C5.5 13.8 8 17 12 21z" />
+      <circle cx="12" cy="10.5" r="2.5" />
+    </svg>
+  );
+}
+
 function Play(props: IconProps) {
   return (
     <svg {...base} {...props}>
@@ -149,6 +169,8 @@ const ICONS: Record<IconName, (p: IconProps) => React.JSX.Element> = {
   compass: Compass,
   arrow: Arrow,
   phone: Phone,
+  mail: Mail,
+  mapPin: MapPin,
   play: Play,
   shieldCheck: ShieldCheck,
   user: User,

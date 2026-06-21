@@ -8,7 +8,7 @@ import {
   contactForm,
   discretionGuarantee,
 } from "@/content/contact";
-import { Section, Eyebrow, Reveal } from "@/components/ui";
+import { Section, Eyebrow, Reveal, Icon } from "@/components/ui";
 import { ContactForm } from "@/components/sections/contact/contact-form";
 import { cn } from "@/lib/utils";
 
@@ -76,7 +76,7 @@ export default async function ContactPage({
             >
               <span className="flex items-center gap-4">
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-pill bg-accent text-paper shadow-card transition-transform duration-200 group-hover/call:scale-105">
-                  <PhoneIcon className="h-7 w-7" />
+                  <Icon name="phone" className="h-7 w-7" />
                 </span>
                 <span className="flex flex-col">
                   <span className="text-body-sm font-medium text-slate">
@@ -103,21 +103,21 @@ export default async function ContactPage({
             <ul className="grid gap-4 sm:grid-cols-3">
               <ContactDetail
                 href={`tel:${telSecondary}`}
-                icon={<PhoneIcon className="h-5 w-5" />}
+                icon={<Icon name="phone" className="h-5 w-5" />}
                 label={t(contactIntro.phoneLabel, locale)}
                 value={contactFacts.phoneSecondary}
                 ltr
               />
               <ContactDetail
                 href={`mailto:${contactFacts.email}`}
-                icon={<MailIcon className="h-5 w-5" />}
+                icon={<Icon name="mail" className="h-5 w-5" />}
                 label={t(contactIntro.emailLabel, locale)}
                 value={contactFacts.email}
                 ltr
                 breakValue
               />
               <ContactDetail
-                icon={<PinIcon className="h-5 w-5" />}
+                icon={<Icon name="mapPin" className="h-5 w-5" />}
                 label={t(contactIntro.addressLabel, locale)}
                 value={t(contactFacts.address, locale)}
               />
@@ -134,7 +134,7 @@ export default async function ContactPage({
             <div className="lg:sticky lg:top-28">
               <div className="rounded-2xl border border-border-accent bg-wash/50 p-6 sm:p-8">
                 <span className="flex h-12 w-12 items-center justify-center rounded-pill bg-accent-tint text-accent ring-1 ring-accent-soft/70">
-                  <ShieldIcon className="h-6 w-6" />
+                  <Icon name="shieldCheck" className="h-6 w-6" />
                 </span>
                 <Eyebrow className="mt-5" tone="accent">
                   {t(discretionGuarantee.eyebrow, locale)}
@@ -229,52 +229,5 @@ function ContactDetail({
         <div className={shell}>{body}</div>
       )}
     </li>
-  );
-}
-
-/* ---- Local inline icons (server-safe; not promoted to the shared set) ----- */
-
-type IconProps = { className?: string };
-const stroke = {
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.5,
-  strokeLinecap: "round" as const,
-  strokeLinejoin: "round" as const,
-  "aria-hidden": true,
-};
-
-function PhoneIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" {...stroke} className={className}>
-      <path d="M6.5 4h3l1.5 4-2 1.5a11 11 0 005 5l1.5-2 4 1.5v3a2 2 0 01-2.2 2A16 16 0 014.5 6.2 2 2 0 016.5 4z" />
-    </svg>
-  );
-}
-
-function MailIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" {...stroke} className={className}>
-      <rect x="3" y="5.5" width="18" height="13" rx="2" />
-      <path d="M3.5 7l8.5 6 8.5-6" />
-    </svg>
-  );
-}
-
-function PinIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" {...stroke} className={className}>
-      <path d="M12 21c4-4 6.5-7.2 6.5-10.5a6.5 6.5 0 10-13 0C5.5 13.8 8 17 12 21z" />
-      <circle cx="12" cy="10.5" r="2.5" />
-    </svg>
-  );
-}
-
-function ShieldIcon({ className }: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" {...stroke} className={className}>
-      <path d="M12 3l7 2.5v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10v-5L12 3z" />
-      <path d="M9 12l2 2 4-4.5" />
-    </svg>
   );
 }

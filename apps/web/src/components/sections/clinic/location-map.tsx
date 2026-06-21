@@ -43,7 +43,7 @@ export function LocationMap({ locale }: { locale: Locale }) {
           <Reveal>
             <div className="flex h-full flex-col gap-7 rounded-2xl border border-border bg-surface p-7 sm:p-8">
               <div className="flex items-start gap-4">
-                <IconCircle name="compass" size="md" />
+                <IconCircle name="mapPin" size="md" />
                 <div className="min-w-0">
                   <p className="text-eyebrow font-semibold uppercase tracking-[0.14em] text-slate eyebrow">
                     {t(location.addressLabel, locale)}
@@ -112,7 +112,7 @@ export function LocationMap({ locale }: { locale: Locale }) {
 
                 {/* Soft-blue pin medallion. */}
                 <span className="relative flex h-16 w-16 items-center justify-center rounded-pill bg-paper/85 shadow-card ring-1 ring-accent-soft/60 backdrop-blur-[1px] transition-transform duration-200 ease-premium group-hover/map:scale-105">
-                  <Icon name="compass" aria-hidden className="h-7 w-7 text-accent" />
+                  <Icon name="mapPin" aria-hidden className="h-7 w-7 text-accent" />
                 </span>
 
                 <p className="relative mt-5 inline-flex items-center gap-2 text-body-sm font-medium text-accent">
