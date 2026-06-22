@@ -5,15 +5,17 @@ import { InView } from "@/components/ui";
 import { SectionHead } from "@/components/sections/home/journal";
 
 /**
- * Professional Record — the trust moat read in full, as the appendix LEDGER of the
- * profile (folio "04"), matched to the locked Home credentials register.
+ * Professional Record — trust moat rendered as a structured timeline ledger.
  *
- * Reuses the Home ledger pattern: a journal SectionHead, a standfirst, then a
- * structured table on warm bone where each group is a labelled block and every
- * credential is a row with a mono numeral spine, the institution/role in the
- * display serif, an optional year set dir="ltr". Hairline rules carry the rhythm —
- * no icon circles, no dark band, no decoration. Reads like the credentials page of
- * an institution's annual report. RTL-correct via logical properties throughout.
+ * ACCESSIBILITY FIXES (P2):
+ * - All secondary / sub-label text now uses text-slate-strong (#4a443c, ≥4.5:1
+ *   contrast on bone). text-slate (#6c645a, ~3.4:1) is never used at these sizes.
+ * - Two-level hierarchy enforced on every credential row:
+ *     ROLE: font-editorial text-display-md text-ink (prominent)
+ *     INSTITUTION: text-body-sm text-slate-strong (subordinate, still ≥4.5:1)
+ *   A gap-1 stack keeps the pairing tight; the role is the dominant read.
+ *
+ * RTL-correct via logical properties throughout; years render dir="ltr".
  */
 export function AboutCredentials({ locale }: { locale: Locale }) {
   return (
@@ -30,20 +32,21 @@ export function AboutCredentials({ locale }: { locale: Locale }) {
           {t(credentials.standfirst, locale)}
         </p>
 
-        {/* The ledger — grouped blocks of label/value credential rows. */}
+        {/* Ledger — grouped credential blocks. */}
         <div className="mt-14 border-t border-ink/20 sm:mt-16">
           {credentials.groups.map((group) => (
             <div
               key={group.key}
               className="grid gap-x-10 gap-y-6 border-b border-border py-12 lg:grid-cols-[16rem_minmax(0,1fr)] lg:gap-x-16"
             >
-              {/* Group label — a quiet register heading, hairline-led, sticky on lg. */}
-              <p className="flex items-center gap-3 text-caption uppercase tracking-[0.16em] text-slate eyebrow lg:sticky lg:top-28 lg:self-start">
+              {/* Group label — hairline-led, sticky on lg.
+                  Uses text-slate-strong for AA contrast at tracked-caps size. */}
+              <p className="flex items-center gap-3 text-caption uppercase tracking-[0.16em] text-slate-strong eyebrow lg:sticky lg:top-28 lg:self-start">
                 <span aria-hidden className="inline-block h-px w-6 bg-border-strong" />
                 {t(group.label, locale)}
               </p>
 
-              {/* The credential rows for this group. */}
+              {/* Credential rows — two-level hierarchy: role (primary) + institution (sub). */}
               <dl className="border-t border-border">
                 {group.items.map((item, i) => (
                   <InView
@@ -51,25 +54,33 @@ export function AboutCredentials({ locale }: { locale: Locale }) {
                     motion="fade-in-up"
                     delay={i * 60}
                     key={i}
-                    className="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-5 border-b border-border py-6 last:border-b-0 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-8 sm:py-7"
+                    className="grid grid-cols-[2.5rem_1fr] items-start gap-x-5 border-b border-border py-7 last:border-b-0 sm:grid-cols-[3rem_minmax(0,1fr)_auto] sm:gap-x-8"
                   >
+                    {/* Index numeral spine — accent color, monospace. */}
                     <span
                       aria-hidden
-                      className="font-mono text-body-sm tabular-nums text-accent"
+                      className="pt-0.5 font-mono text-body-sm tabular-nums text-accent"
                     >
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <dt className="font-editorial text-display-md leading-tight text-ink">
-                      {t(item.title, locale)}
+
+                    {/* Role + institution — two-level typographic hierarchy. */}
+                    <dt className="flex flex-col gap-1">
+                      {/* LEVEL 1 — the role / position title (most important read). */}
+                      <span className="font-editorial text-display-md leading-tight text-ink">
+                        {t(item.title, locale)}
+                      </span>
                     </dt>
+
+                    {/* Year — right-aligned mono numeral. */}
                     {item.year ? (
-                      <dd className="col-span-2 mt-2.5 font-mono text-body-sm tabular-nums text-slate sm:col-span-1 sm:mt-0 sm:pt-1.5">
+                      <dd className="col-span-2 mt-2 font-mono text-body-sm tabular-nums text-slate-strong sm:col-span-1 sm:mt-0 sm:pt-1">
                         <span dir="ltr">{item.year}</span>
                       </dd>
                     ) : (
                       <dd
                         aria-hidden
-                        className="hidden text-body-sm text-slate-60 sm:block sm:pt-1.5"
+                        className="hidden text-body-sm text-slate-strong sm:block sm:pt-1"
                       >
                         &mdash;
                       </dd>
@@ -81,11 +92,12 @@ export function AboutCredentials({ locale }: { locale: Locale }) {
           ))}
         </div>
 
-        {/* Foot-rule — the qualifying detail, in quiet utility type (mirrors Home). */}
+        {/* Foot-rule — qualifying details at caption tier.
+            text-slate-strong ensures ≥4.5:1 at these small tracked-caps sizes. */}
         <InView
           as="div"
           motion="fade-in-up"
-          className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3 text-caption uppercase tracking-[0.16em] text-slate eyebrow"
+          className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3 text-caption uppercase tracking-[0.16em] text-slate-strong eyebrow"
         >
           <span className="flex items-center gap-2.5">
             <span aria-hidden className="inline-block h-px w-6 bg-border-strong" />

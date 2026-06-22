@@ -22,12 +22,12 @@ import { cn } from "@/lib/utils";
  * (top-level message, plus per-field errors mapped from the action's stable
  * keys on validation).
  *
- * v2 "Quiet Authority" editorial styling: hairline-ruled inputs on the warm bone
- * surface (no shadowed rounded cards, no pill toggles, no icon chips), labels set
- * above, an accent focus hairline, and generous vertical rhythm. The wiring and
- * accessibility are unchanged: `aria-invalid` + `aria-describedby` link each
- * control to its error, and focus moves to the first invalid field (or the
- * success panel) after a submit.
+ * v3 "Quiet Authority" refinements:
+ * - Bordered inputs for clear affordance (not underline-only)
+ * - Labels at body-sm (14px) for AA legibility ≥ 12px
+ * - Styled native select with branded focus ring (min-h 44px)
+ * - Char counter removed; friendly guidance shown in label
+ * - Design-system focus-visible ring everywhere (no raw browser-blue)
  */
 
 const MESSAGE_MAX = 500;
@@ -49,7 +49,6 @@ export function ContactForm({ locale }: { locale: Locale }) {
     area: useId(),
     preferred: useId(),
     message: useId(),
-    counter: useId(),
     privacy: useId(),
   };
 
@@ -68,10 +67,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
   const hasFieldErrors = Object.keys(fieldErrors).length > 0;
 
   // After a server round-trip: move focus to the success panel, or to the
-  // error summary (top-level or validation), so keyboard / screen-reader users
-  // land on the outcome rather than staying on the submit button. On success
-  // the whole form unmounts (the panel replaces it), so there is no form state
-  // to reset here — only focus the announced result.
+  // error summary, so keyboard / screen-reader users land on the outcome.
   useEffect(() => {
     if (isSuccess) {
       successRef.current?.focus();
@@ -81,17 +77,18 @@ export function ContactForm({ locale }: { locale: Locale }) {
   }, [result, isSuccess, topLevelErrorKey, hasFieldErrors]);
 
   if (isSuccess) {
-    return (
-      <SuccessPanel locale={locale} ref={successRef} />
-    );
+    return <SuccessPanel locale={locale} ref={successRef} />;
   }
 
   return (
-    <form action={formAction} noValidate className="flex flex-col gap-8">
+    <form action={formAction} noValidate className="flex flex-col gap-7">
       {/* Hidden plumbing: locale drives auto-reply + error language. */}
       <input type="hidden" name="locale" value={locale} />
       {/* Honeypot — visually & a11y hidden; real users never fill it. */}
-      <div aria-hidden className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+      <div
+        aria-hidden
+        className="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+      >
         <label htmlFor={`${ids.name}-company`}>Company</label>
         <input
           id={`${ids.name}-company`}
@@ -102,6 +99,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         />
       </div>
 
+      {/* Top-level error */}
       {topLevelErrorKey && (
         <div
           ref={errorSummaryRef}
@@ -116,9 +114,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         </div>
       )}
 
-      {/* Validation summary — renders when the server rejects on field errors.
-          Shares `errorSummaryRef` so focus moves here after submit, routing the
-          user to the problems before the per-field messages below. */}
+      {/* Validation summary */}
       {!topLevelErrorKey && hasFieldErrors && (
         <div
           ref={errorSummaryRef}
@@ -145,7 +141,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         locale={locale}
       />
 
-      <div className="grid gap-6 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <Field
           id={ids.phone}
           name="phone"
@@ -174,7 +170,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         />
       </div>
 
-      {/* Area of interest — native select for reliable mobile + a11y. */}
+      {/* Area of interest — styled native select (no Radix dep), min-h 44px */}
       <div className="flex flex-col gap-2">
         <label htmlFor={ids.area} className={labelClass}>
           {t(contactForm.area.label, locale)}
@@ -185,10 +181,9 @@ export function ContactForm({ locale }: { locale: Locale }) {
             name="areaOfInterest"
             defaultValue=""
             className={cn(
-              controlClass,
-              // Reserve a caret gutter so option text never collides with the
-              // chevron (which sits at end-2, ~1.5rem of inline-end reach) in RTL or LTR.
-              "appearance-none pe-8 text-ink",
+              selectClass,
+              // Reserve end gutter for the custom chevron
+              "appearance-none pe-10",
             )}
           >
             <option value="" disabled>
@@ -200,9 +195,10 @@ export function ContactForm({ locale }: { locale: Locale }) {
               </option>
             ))}
           </select>
+          {/* Custom chevron — purely decorative, pointer-events-none */}
           <span
             aria-hidden
-            className="pointer-events-none absolute inset-y-0 end-1 flex items-center text-slate"
+            className="pointer-events-none absolute inset-y-0 end-3 flex items-center text-slate"
           >
             <svg
               viewBox="0 0 24 24"
@@ -219,7 +215,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* Preferred contact — radio group. */}
+      {/* Preferred contact — radio group */}
       <fieldset className="flex flex-col gap-2">
         <legend className={labelClass}>
           {t(contactForm.preferredContact.label, locale)}{" "}
@@ -235,7 +231,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
           {preferredContactOptions.map((opt, i) => (
             <label
               key={opt.value}
-              className="group/radio flex flex-1 cursor-pointer items-center gap-3 border-b-2 border-border-strong py-3 text-body-base text-ink transition-colors duration-300 hover:border-slate-60 has-[:checked]:border-accent has-[:focus-visible]:border-accent"
+              className="group/radio flex flex-1 cursor-pointer items-center gap-3 border border-border-strong px-4 py-3 text-body-base text-ink transition-colors duration-300 hover:border-slate-60 has-[:checked]:border-accent has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring has-[:focus-visible]:ring-offset-1"
             >
               <input
                 type="radio"
@@ -250,7 +246,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-accent opacity-0 transition-opacity duration-300 peer-checked:opacity-100" />
               </span>
-              <span className="transition-colors duration-300 peer-checked:text-ink peer-checked:font-medium">
+              <span className="text-body-sm transition-colors duration-300 peer-checked:font-medium peer-checked:text-ink">
                 {t(opt.label, locale)}
               </span>
             </label>
@@ -265,25 +261,31 @@ export function ContactForm({ locale }: { locale: Locale }) {
         )}
       </fieldset>
 
-      {/* Message + live char counter. */}
+      {/* Message — friendly guidance replaces the raw counter */}
       <div className="flex flex-col gap-2">
         <div className="flex items-baseline justify-between gap-2">
           <label htmlFor={ids.message} className={labelClass}>
             {t(contactForm.message.label, locale)}
           </label>
-          <span
-            id={ids.counter}
-            aria-live="polite"
-            className={cn(
-              "font-mono text-caption tabular-nums",
-              messageLength > MESSAGE_MAX ? "text-error" : "text-slate",
-            )}
-          >
-            {t(contactForm.message.counter, locale).replace(
-              "{n}",
-              String(messageLength),
-            )}
-          </span>
+          {/* Friendly guidance: shown when typing, replaces "0/188" counter */}
+          {messageLength > 0 && messageLength > MESSAGE_MAX - 100 && (
+            <span
+              aria-live="polite"
+              className={cn(
+                "font-mono text-caption tabular-nums",
+                messageLength > MESSAGE_MAX ? "text-error" : "text-slate-strong",
+              )}
+            >
+              {MESSAGE_MAX - messageLength >= 0
+                ? `${MESSAGE_MAX - messageLength}`
+                : "—"}
+            </span>
+          )}
+          {messageLength === 0 && (
+            <span className="text-caption text-slate-strong">
+              {locale === "he" ? "הערה קצרה מספיקה" : "A brief note is enough"}
+            </span>
+          )}
         </div>
         <textarea
           id={ids.message}
@@ -291,19 +293,12 @@ export function ContactForm({ locale }: { locale: Locale }) {
           rows={4}
           maxLength={MESSAGE_MAX}
           placeholder={t(contactForm.message.placeholder, locale)}
-          aria-describedby={
-            fieldErrors.message
-              ? `${ids.message}-error ${ids.counter}`
-              : ids.counter
-          }
+          aria-describedby={fieldErrors.message ? `${ids.message}-error` : undefined}
           aria-invalid={fieldErrors.message ? true : undefined}
           onChange={(e) => setMessageLength(e.target.value.length)}
           className={cn(
-            // Textarea wants a full hairline frame (a bottom-rule-only box reads
-            // broken); reset the underline control's height + border for a framed
-            // editorial field that still draws to the accent on focus.
-            "min-h-[140px] w-full resize-y border border-border-strong bg-transparent px-3 py-3 text-body-base leading-relaxed text-ink transition-colors duration-300 placeholder:text-slate-60 hover:border-slate-60 focus-visible:outline-none focus-visible:border-accent",
-            fieldErrors.message && errorControlClass,
+            "min-h-[120px] w-full resize-y border border-border-strong bg-transparent px-3 py-3 text-body-base leading-relaxed text-ink transition-colors duration-300 placeholder:text-slate-60 hover:border-slate-60 focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-0",
+            fieldErrors.message && "border-error focus-visible:border-error focus-visible:ring-error/30",
           )}
         />
         {fieldErrors.message && (
@@ -315,7 +310,7 @@ export function ContactForm({ locale }: { locale: Locale }) {
         )}
       </div>
 
-      {/* Privacy acknowledgment. */}
+      {/* Privacy acknowledgment */}
       <div className="flex flex-col gap-2">
         <label className="flex cursor-pointer items-start gap-3">
           <input
@@ -361,9 +356,9 @@ export function ContactForm({ locale }: { locale: Locale }) {
         )}
       </div>
 
-      <div className="flex flex-col gap-4 border-t border-border pt-8">
+      <div className="flex flex-col gap-4 border-t border-border pt-7">
         <SubmitButton locale={locale} />
-        <p className="max-w-[48ch] text-caption text-slate">
+        <p className="max-w-[48ch] text-caption text-slate-strong">
           {t(discretionGuarantee.short, locale)}
         </p>
       </div>
@@ -464,7 +459,7 @@ function SuccessPanel({
       <p className="mt-5 max-w-[52ch] text-body-lg text-slate-strong">
         {t(resultCopy.success, locale)}
       </p>
-      <p className="mt-4 max-w-[52ch] text-body-sm text-slate">
+      <p className="mt-4 max-w-[52ch] text-body-sm text-slate-strong">
         {t(contactForm.autoReplyNote, locale)}
       </p>
     </div>
@@ -473,18 +468,23 @@ function SuccessPanel({
 
 /* ---- Shared field primitives ---------------------------------------------- */
 
+// Labels: text-body-sm = 14px, well above the 12px minimum, at slate-strong
+// for ≥4.5:1 contrast ratio on bone paper.
 const labelClass =
-  "text-eyebrow font-semibold uppercase tracking-[0.14em] text-slate eyebrow";
+  "text-body-sm font-semibold text-slate-strong";
 
-// Editorial control: a hairline-ruled field on bone — no rounding, no shadow, no
-// fill. A single 2px baseline rule carries the input; on focus the baseline draws
-// to the accent (the recurring blue hairline motif). The slim inline padding keeps
-// glyphs off the edge without reading as a boxed control.
+// Bordered input control: visible border for clear affordance.
+// A 2px top accent bar on focus replaces the raw browser focus outline.
+// min-h 44px for touch targets.
 const controlClass =
-  "h-12 w-full border-0 border-b-2 border-border-strong bg-transparent px-1 text-body-base text-ink transition-colors duration-300 placeholder:text-slate-60 hover:border-slate-60 focus-visible:outline-none focus-visible:border-accent";
+  "h-11 min-h-[44px] w-full border border-border-strong bg-transparent px-3 text-body-base text-ink transition-colors duration-300 placeholder:text-slate-60 hover:border-slate-60 focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-0";
+
+// Select gets the same treatment, matching min-h 44px
+const selectClass =
+  "h-11 min-h-[44px] w-full border border-border-strong bg-paper-pure px-3 text-body-base text-ink transition-colors duration-300 hover:border-slate-60 focus-visible:outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:ring-offset-0 cursor-pointer";
 
 const errorControlClass =
-  "border-error focus-visible:border-error";
+  "border-error focus-visible:border-error focus-visible:ring-error/30";
 
 function RequiredMark({ label }: { label: string }) {
   return (

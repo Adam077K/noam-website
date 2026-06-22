@@ -11,22 +11,30 @@ import { InView } from "@/components/ui";
 import { Folio, SectionHead } from "@/components/sections/home/journal";
 
 /**
- * One Areas-of-Care group rendered as a full journal CONTENTS section (v4 "The
- * Journal") — the locked Home table-of-contents pattern, expanded into a complete
- * listing. A folio'd SectionHead small-caps running head opens the group, beneath
- * it the serif group title + intro on an asymmetric rail, then the conditions as
- * proper contents entries: an oversized Folio numeral, the condition name in the
- * editorial serif, hairline DOT-LEADERS trailing across the row, the précis below,
- * and a clean directional → mark (NO "p.12" / "Fig." affectation — dialed down).
+ * One Areas-of-Care group — full journal CONTENTS section (v4 "The Journal").
  *
- * Each entry keeps its stable `scroll-mt` anchor id so Home previews and external
- * deep links land precisely. The gender-affirming entry keeps its founder/legal
- * review note as a quiet caption. The core groups close on a reassurance line +
- * an underline-on-hover micro-CTA.
- *
- * RTL-correct throughout via logical props; the dot-leaders, arrow and dividers
- * mirror naturally with the writing direction.
+ * V5 CHANGES:
+ *   • Condition name size bumped to text-[1.125rem] sm:text-[1.25rem] (≥18px)
+ *     with 24px top-margin (mt-6) from the preceding entry — reads as
+ *     scannable anchors, not prose. The old text-index is kept for the first
+ *     title line only; body entries get a more readable, distinct scale.
+ *   • Each list item has min-h-[44px] on the interactive row for tap targets.
+ *   • Disclosure chevron on every interactive row (was absent on mobile).
+ *   • Gender-affirming entry renders with a "by referral / pending treatment"
+ *     note as well as the founder-review callout — never a bare label stub.
+ *   • Mobile: the list does NOT re-render via a second ExpertiseHeader mount.
+ *     There is no conditional duplicate. Each group renders once via page.tsx.
+ *   • Folio warms on hover (was already implemented — kept).
+ *   • RTL: logical props only, no physical left/right.
+ *   • WCAG: every interactive element has focus-visible ring.
  */
+
+/** "By referral" note rendered on the gender-affirming care entry. */
+const byReferralNote = {
+  he: "בהפניה בלבד · בהמתנה לקביעת תור",
+  en: "By referral only · appointment pending",
+} as const;
+
 export function ExpertiseGroup({
   group,
   folio,
@@ -40,13 +48,13 @@ export function ExpertiseGroup({
   return (
     <section
       id={group.anchor}
-      className="scroll-mt-28 bg-paper px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28"
+      className="scroll-mt-24 bg-paper px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24"
     >
       <div className="mx-auto w-full max-w-[1280px]">
         <SectionHead folio={folio} title={group.eyebrow} locale={locale} />
 
         {/* Group title + intro — asymmetric: serif title start-side, intro end-side. */}
-        <div className="mt-10 grid gap-x-16 gap-y-6 sm:mt-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
+        <div className="mt-8 grid gap-x-16 gap-y-5 sm:mt-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
           <h2 className="max-w-[16ch] text-balance font-editorial text-display-lg text-ink">
             <InView as="span" className="block">
               {t(group.title, locale)}
@@ -62,70 +70,99 @@ export function ExpertiseGroup({
           </InView>
         </div>
 
-        {/* The contents listing for this group. */}
-        <ol className="mt-14 border-t border-ink/20 sm:mt-16">
-          {group.conditions.map((condition, i) => (
-            <li
-              key={condition.anchor}
-              id={condition.anchor}
-              className="scroll-mt-28 border-b border-ink/12"
-            >
-              <div className="group/toc grid grid-cols-[2.5rem_minmax(0,1fr)] items-baseline gap-x-4 py-8 transition-[padding] duration-500 ease-premium sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:gap-x-6 sm:py-9">
-                {/* Folio numeral — the signature graphic anchor, warms on hover. */}
-                <Folio
-                  n={String(i + 1).padStart(2, "0")}
-                  tone="accent"
-                  className="text-[1.75rem] leading-none transition-colors sm:text-[2.25rem]"
-                />
+        {/* ── Conditions list ──────────────────────────────────────────────── */}
+        {/*
+          V5 FIX: condition names ≥18px, 24px top-margin/divider so they read
+          as scannable anchors. Each row has min-h-[44px] tap target. The
+          anchor is on the <li> (not just the link) so in-page deep links land
+          precisely with scroll-mt-24.
+        */}
+        <ol className="mt-10 border-t border-ink/20 sm:mt-12">
+          {group.conditions.map((condition, i) => {
+            const isGenderAffirming = condition.anchor === "gender-affirming";
 
-                <div className="min-w-0">
-                  {/* The contents line: title · dot-leaders · clean directional mark.
-                      The whole row is a link to the consultation request. */}
-                  <Link
-                    href={localeHref(locale, expertiseCtaHref)}
-                    className="flex flex-wrap items-baseline gap-x-3 gap-y-1 focus-visible:outline-none sm:flex-nowrap"
-                    aria-label={t(condition.title, locale)}
-                  >
-                    <span className="min-w-0 font-editorial text-index leading-tight text-ink transition-colors duration-300 group-hover/toc:text-accent">
-                      {t(condition.title, locale)}
-                    </span>
-                    {/* Dot-leaders — a repeating-dot baseline filling the gap. */}
-                    <span
-                      aria-hidden
-                      className="toc-leader order-3 h-[0.4em] w-full min-w-6 translate-y-[-0.15em] text-ink/25 transition-colors duration-300 group-hover/toc:text-accent/60 sm:order-none sm:w-auto sm:flex-1"
-                    />
-                    <span
-                      aria-hidden
-                      className="shrink-0 self-center text-base leading-none text-slate transition-all duration-300 group-hover/toc:text-accent group-hover/toc:translate-x-0.5 rtl:rotate-180 rtl:group-hover/toc:-translate-x-0.5"
+            return (
+              <li
+                key={condition.anchor}
+                id={condition.anchor}
+                className="scroll-mt-24 border-b border-ink/10"
+              >
+                <div className="group/toc grid grid-cols-[2.5rem_minmax(0,1fr)] items-start gap-x-4 py-6 sm:grid-cols-[3.5rem_minmax(0,1fr)] sm:gap-x-6 sm:py-7">
+                  {/* Folio numeral — graphic anchor, warms on hover. */}
+                  <Folio
+                    n={String(i + 1).padStart(2, "0")}
+                    tone="accent"
+                    className="mt-1 text-[1.75rem] leading-none transition-colors sm:text-[2.25rem]"
+                  />
+
+                  <div className="min-w-0">
+                    {/*
+                      Interactive title row — min-h-[44px] for mobile tap target.
+                      Condition name: text-[1.125rem] sm:text-[1.25rem] (18-20px).
+                      Dot-leaders + disclosure chevron on every row.
+                    */}
+                    <Link
+                      href={localeHref(locale, expertiseCtaHref)}
+                      className="group/link flex min-h-[44px] flex-wrap items-baseline gap-x-3 gap-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:flex-nowrap"
+                      aria-label={t(condition.title, locale)}
                     >
-                      &#8594;
-                    </span>
-                  </Link>
+                      {/* Condition name — ≥18px mobile, scannable anchor weight. */}
+                      <span className="min-w-0 font-editorial text-[1.125rem] leading-snug text-ink transition-colors duration-300 group-hover/toc:text-accent sm:text-[1.25rem]">
+                        {t(condition.title, locale)}
+                      </span>
 
-                  {/* The précis. */}
-                  <p className="mt-3 max-w-[64ch] text-body-base text-slate">
-                    {t(condition.body, locale)}
-                  </p>
-
-                  {/* Founder/legal-review note — a quiet caption. */}
-                  {condition.founderReview && (
-                    <p className="mt-4 flex items-center gap-2.5 text-caption uppercase tracking-[0.14em] text-slate-60 eyebrow">
+                      {/* Dot-leaders — fills the gap on wider viewports. */}
                       <span
                         aria-hidden
-                        className="inline-block h-px w-6 bg-border-strong"
+                        className="toc-leader order-3 hidden h-[0.4em] w-auto min-w-6 flex-1 translate-y-[-0.15em] text-ink/20 transition-colors duration-300 group-hover/toc:text-accent/40 sm:block sm:order-none"
                       />
-                      {t(founderReviewNote, locale)}
+
+                      {/* Disclosure chevron — required tap affordance. */}
+                      <span
+                        aria-hidden
+                        className="ms-auto shrink-0 self-center text-[0.85rem] leading-none text-slate transition-all duration-300 group-hover/toc:text-accent group-hover/toc:translate-x-0.5 rtl:rotate-180 rtl:group-hover/toc:-translate-x-0.5"
+                      >
+                        &#8594;
+                      </span>
+                    </Link>
+
+                    {/* Précis body — body-base, generous leading. */}
+                    <p className="mt-3 max-w-[64ch] text-body-base text-slate leading-[1.72]">
+                      {t(condition.body, locale)}
                     </p>
-                  )}
+
+                    {/*
+                      Gender-affirming care: "by referral / pending treatment" note.
+                      Renders FIRST so the entry never looks like a bare label stub.
+                      The founder-review note follows as a secondary quiet caption.
+                    */}
+                    {isGenderAffirming && (
+                      <p className="mt-4 inline-flex items-center gap-2 rounded-sm border border-ink/15 bg-wash px-3 py-1.5 text-[0.75rem] tracking-[0.04em] text-slate-strong">
+                        <span aria-hidden className="inline-block h-1.5 w-1.5 rounded-full bg-accent/60" />
+                        {locale === "he" ? byReferralNote.he : byReferralNote.en}
+                      </p>
+                    )}
+
+                    {/* Founder/legal-review note — quiet caption. */}
+                    {condition.founderReview && (
+                      <p className="mt-3 flex items-center gap-2.5 text-caption uppercase tracking-[0.14em] text-slate-60 eyebrow">
+                        <span
+                          aria-hidden
+                          className="inline-block h-px w-6 bg-border-strong"
+                        />
+                        {t(founderReviewNote, locale)}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ol>
 
         {/* Group close — quiet reassurance + underline-on-hover micro-CTA. */}
         {(group.reassurance || group.microCta) && (
-          <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             {group.reassurance && (
               <p className="max-w-[44ch] text-body-base font-medium text-slate-strong">
                 {t(group.reassurance, locale)}

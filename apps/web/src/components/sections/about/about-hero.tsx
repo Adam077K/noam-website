@@ -1,90 +1,185 @@
+"use client";
+
 import type { Locale } from "@/i18n/config";
 import { localeHref } from "@/i18n/routing";
 import { t } from "@/content/types";
 import { hero, folio as aboutFolio } from "@/content/about";
 import { brand, contact } from "@/content/site";
 import { InView } from "@/components/ui";
-import { Folio, SectionHead } from "@/components/sections/home/journal";
 
 /**
- * About masthead — the opening of a long-form journal PROFILE ("The Physician").
+ * About masthead — REDESIGNED: trust + bio above the fold at 1366×768 and 1440×820.
  *
- * Reuses the locked Home journal vocabulary — running head ("Vol. I · Profile"),
- * an oversized folio "01" graphic anchor, a small-caps SectionHead on a hairline,
- * the warm editorial serif at dramatic scale, and the grid-breaking warm-duotone
- * portrait with its designed cream/NK empty state (lit by /portraits/kitrey-1.png).
+ * One structural change drives everything:
+ *   - The left/margin column that was a dead "NK Portrait" box now carries the
+ *     CREDENTIAL CAPSULE: physician name + verified positions as a typographic panel.
+ *     This is the page's signature asymmetric element that no other page reuses.
+ *   - The right/primary column carries the DISPLAY H1 (the profile thesis) + the
+ *     personal intro standfirst + CTAs — all composing the first 650 px.
+ *   - ONE portrait slot only (mobile). No mid-scroll portrait duplicate.
+ *   - "01" is demoted to a ghost watermark at z-0 behind everything.
+ *   - Triple-label collapsed: ONE breadcrumb index, ONE display H1. The "01"
+ *     SectionHead folio + large "THE PHYSICIAN" label + ghost "01" visual-H1
+ *     are replaced by: breadcrumb band (just the running head) + display H1.
  *
- * Distinct from Home's hero: this is a single-subject PROFILE opening — the
- * headline is the thesis of the profile, the intro is the standfirst, and the
- * portrait is the subject of the piece, not a supporting figure. The credential
- * moat lives further down in the Professional Record ledger, so the masthead stays
- * a clean editorial opening. RTL-correct via logical props; phone renders dir="ltr".
+ * RTL-correct: logical CSS props only (ps/pe/ms/me/start/end). Phone/number
+ * spans carry dir="ltr". No physical left/right. No italics in Hebrew.
  */
 export function AboutHero({ locale }: { locale: Locale }) {
+  const isHe = locale === "he";
+
   return (
     <section className="relative overflow-x-clip bg-paper">
-      {/* Running head — the journal volume line + clinical-record masthead. */}
+      {/* Running head — the journal volume line + clinical-record masthead.
+          This is now the ONLY breadcrumb-style label on this page. */}
       <div className="border-b border-ink/15">
         <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
-          <p className="text-caption uppercase tracking-[0.2em] text-slate eyebrow" dir="ltr">
+          <p
+            className="text-caption uppercase tracking-[0.2em] text-slate-strong eyebrow"
+            dir="ltr"
+          >
             {t(aboutFolio, locale)}
           </p>
-          <p className="hidden text-caption uppercase tracking-[0.2em] text-slate-60 eyebrow sm:block">
+          <p className="hidden text-caption uppercase tracking-[0.2em] text-slate-strong eyebrow sm:block">
             {t(brand.masthead, locale)}
           </p>
         </div>
       </div>
 
-      <div className="mx-auto w-full max-w-[1280px] px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
-        <SectionHead folio="01" title={{ he: "הרופא", en: "The Physician" }} locale={locale} />
+      {/* Ghost watermark "01" — absolute z-0, purely decorative, never competes. */}
+      <span
+        aria-hidden
+        className="ghost-numeral pointer-events-none absolute inset-inline-end-[2%] top-8 select-none sm:top-12"
+        style={{ opacity: 0.06 }}
+      >
+        <span dir="ltr">01</span>
+      </span>
 
-        {/* Primary type column (wide) + margin column (the profile portrait). */}
-        <div className="mt-10 grid gap-x-10 gap-y-12 sm:mt-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-x-16">
-          {/* PRIMARY. */}
-          <div className="relative order-1">
-            {/* Oversized folio anchor, bleeding off the start edge behind the type. */}
-            <Folio
-              n="01"
-              className="pointer-events-none absolute -top-6 -z-0 text-[7rem] -start-2 sm:text-[10rem] lg:-top-10 lg:text-[13rem]"
-            />
+      {/* MAIN GRID — two columns on lg:
+          LTR: [credential capsule (20rem)] | [display H1 + intro + CTAs]
+          RTL: same — logical grid, columns flip automatically. */}
+      <div className="mx-auto w-full max-w-[1280px] px-4 pt-8 pb-14 sm:px-6 sm:pt-10 sm:pb-16 lg:px-8 lg:pt-12 lg:pb-20">
+        <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-x-20 xl:gap-x-24">
 
-            <p className="relative mb-6 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
-              {t(hero.eyebrow, locale)}
-            </p>
+          {/* ── LEFT / START COLUMN — CREDENTIAL CAPSULE (signature element) ──
+              A typographic authority panel: vertical stack of verified positions
+              separated by hairline rules. This is the trust anchor for the page;
+              nothing else on the site shares this layout. */}
+          <aside className="order-2 lg:order-1 lg:border-e lg:border-ink/12 lg:pe-14 xl:pe-20">
+            <InView
+              as="div"
+              motion="none"
+              delay={80}
+              className="flex flex-col gap-0"
+            >
+              {/* Physician name — display serif, the largest element in this column. */}
+              <div className="border-b border-ink/12 pb-6">
+                <p
+                  className="mb-1.5 text-caption uppercase tracking-[0.16em] text-slate-strong eyebrow"
+                >
+                  {isHe ? "רופא בכיר" : "Physician"}
+                </p>
+                <p className="font-editorial text-[clamp(1.5rem,2.8vw,2.25rem)] leading-[1.1] text-ink [letter-spacing:-0.015em]">
+                  {t(brand.name, locale)}
+                </p>
+              </div>
 
-            <h1 className="relative max-w-[20ch] text-balance font-editorial text-ink [font-size:clamp(1.75rem,5.2vw,3.75rem)] [line-height:1.08] [letter-spacing:-0.02em] sm:max-w-[18ch] sm:text-pretty">
-              <InView as="span" className="block pb-[0.12em]">
-                {t(hero.headline, locale)}
-              </InView>
+              {/* Position 1 — Head of unit */}
+              <div className="border-b border-ink/12 py-5">
+                <p className="mb-1 text-caption uppercase tracking-[0.14em] text-slate-strong eyebrow">
+                  {isHe ? "תפקיד ראשי" : "Primary role"}
+                </p>
+                <p className="text-body-sm font-medium leading-snug text-ink">
+                  {isHe
+                    ? "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה"
+                    : "Head, Functional Urology & Andrology Unit"}
+                </p>
+                <p className="mt-0.5 text-body-sm leading-snug text-slate-strong">
+                  {isHe ? "המרכז הרפואי שיבא" : "Sheba Medical Center"}
+                </p>
+              </div>
+
+              {/* Position 2 — Director SHSQ */}
+              <div className="border-b border-ink/12 py-5">
+                <p className="mb-1 text-caption uppercase tracking-[0.14em] text-slate-strong eyebrow">
+                  {isHe ? "מנהל" : "Director"}
+                </p>
+                <p className="text-body-sm font-medium leading-snug text-ink">
+                  {isHe ? "מנהל המרכז לבריאות מינית (SHSQ)" : "Director, Sexual Health Center (SHSQ)"}
+                </p>
+                <p className="mt-0.5 text-body-sm leading-snug text-slate-strong">
+                  {isHe ? "שיבא" : "Sheba"}
+                </p>
+              </div>
+
+              {/* Position 3 — EAU Chair */}
+              <div className="pt-5">
+                <p className="mb-1 text-caption uppercase tracking-[0.14em] text-slate-strong eyebrow">
+                  {isHe ? "ועדה בינלאומית" : "International committee"}
+                </p>
+                <p className="text-body-sm font-medium leading-snug text-ink">
+                  {isHe
+                    ? 'יו"ר ועדת ההנחיות הקליניות — חבלות אורולוגיות'
+                    : "Chair, EAU Clinical Guidelines — Urological Trauma"}
+                </p>
+                <p className="mt-0.5 text-body-sm leading-snug text-slate-strong">
+                  {isHe
+                    ? "איגוד האורולוגיה האירופי (EAU)"
+                    : "European Association of Urology (EAU)"}
+                </p>
+              </div>
+
+              {/* Quiet accent rule at the bottom of the capsule — draws on scroll. */}
+              <InView
+                as="div"
+                motion="rule-draw"
+                delay={500}
+                className="mt-6 h-px w-16 bg-accent"
+              />
+            </InView>
+          </aside>
+
+          {/* ── RIGHT / END COLUMN — DISPLAY H1 + BIO + CTAs ── */}
+          <div className="order-1 lg:order-2 lg:pt-2">
+            {/* DISPLAY H1 — the profile thesis. Single h1 per page.
+                No InView wrapper: this is above-fold content and must be
+                visible immediately without waiting for IO. */}
+            <h1 className="max-w-[22ch] text-balance font-editorial text-ink [font-size:clamp(2rem,4.8vw,3.75rem)] [line-height:1.08] [letter-spacing:-0.02em]">
+              {t(hero.headline, locale)}
             </h1>
 
+            {/* Accent rule — the signature hairline, draws on scroll. */}
             <InView
               as="div"
               motion="rule-draw"
-              delay={360}
-              className="mt-8 h-px w-28 bg-accent sm:mt-10"
+              delay={340}
+              className="mt-7 h-px w-24 bg-accent sm:mt-8"
             />
 
+            {/* Personal intro — the standfirst / opening paragraph of the profile.
+                [FOUNDER-REVIEW] — wired as-is from copy deck, pending approval. */}
             <InView
               as="p"
               motion="fade-in-up"
               delay={120}
-              className="mt-7 max-w-[52ch] text-body-lg text-ink-80 sm:mt-8"
+              className="mt-6 max-w-[52ch] text-body-lg leading-relaxed text-ink-80 sm:mt-7"
             >
               {t(hero.intro, locale)}
             </InView>
 
+            {/* CTAs */}
             <InView
               as="div"
               motion="fade-in-up"
               delay={200}
-              className="mt-9 flex flex-col gap-x-8 gap-y-4 sm:mt-10 sm:flex-row sm:items-center"
+              className="mt-8 flex flex-col gap-x-8 gap-y-4 sm:mt-9 sm:flex-row sm:items-center"
             >
               <a
                 href={localeHref(locale, "/contact")}
-                className="group/cta inline-flex items-center justify-center gap-3 bg-ink px-7 py-3.5 text-body-sm font-medium text-paper transition-colors duration-300 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                className="group/cta inline-flex min-h-[48px] items-center justify-center gap-3 bg-ink px-7 text-body-sm font-medium text-paper transition-colors duration-300 hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               >
                 {t({ he: "לקביעת ייעוץ", en: "Book a consultation" }, locale)}
+                {/* Arrow mirrors in RTL via rtl:rotate-180. */}
                 <span
                   aria-hidden
                   className="transition-transform duration-300 group-hover/cta:translate-x-1 rtl:rotate-180 rtl:group-hover/cta:-translate-x-1"
@@ -94,9 +189,9 @@ export function AboutHero({ locale }: { locale: Locale }) {
               </a>
               <a
                 href={`tel:${contact.phone.replace(/-/g, "")}`}
-                className="group/tel inline-flex items-center gap-2.5 text-body-sm text-slate-strong transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                className="group/tel inline-flex min-h-[44px] items-center gap-2.5 text-body-sm text-slate-strong transition-colors hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
               >
-                <span className="text-caption uppercase tracking-[0.18em] text-slate eyebrow">
+                <span className="text-caption uppercase tracking-[0.18em] text-slate-strong eyebrow">
                   {t({ he: "או חייגו", en: "Or call" }, locale)}
                 </span>
                 <span className="font-mono font-medium text-ink">
@@ -104,63 +199,41 @@ export function AboutHero({ locale }: { locale: Locale }) {
                 </span>
               </a>
             </InView>
-          </div>
 
-          {/* MARGIN — the grid-breaking profile portrait (lg only). */}
-          <aside className="relative order-2 hidden lg:block">
-            <InView as="figure" motion="fade-in-up" delay={160} className="relative">
-              <div className="relative -mt-44 w-[150%] max-w-none lg:-me-[max(0px,calc((100vw-1280px)/2+2rem))] xl:-mt-52">
+            {/* MOBILE PORTRAIT — one instance only; appears below CTAs on sm, hidden on lg
+                (no mid-scroll portrait elsewhere on this page). */}
+            <InView
+              as="figure"
+              motion="fade-in-up"
+              delay={160}
+              className="mt-10 lg:hidden"
+            >
+              <div className="relative mx-auto w-full max-w-[320px]">
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -inset-x-3 -inset-y-3 border border-ink/25"
-                />
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-3 -start-3 h-16 w-px bg-accent"
+                  className="pointer-events-none absolute -inset-2 border border-ink/20"
                 />
                 <div
-                  className="portrait portrait--1 relative aspect-[3/4] w-full overflow-hidden"
+                  className="portrait portrait--1 relative h-[38vh] max-h-[380px] w-full overflow-hidden"
                   role="img"
                   aria-label={t(hero.portraitAlt, locale)}
                 >
                   <span aria-hidden className="portrait__empty">
                     <span className="portrait__monogram">NK</span>
-                    <span className="portrait__caption eyebrow">
-                      {t({ he: "דיוקן", en: "Portrait" }, locale)}
-                    </span>
+                  </span>
+                  {/* Credential micro-label inside portrait empty state */}
+                  <span aria-hidden className="portrait__credential">
+                    {isHe
+                      ? "אורולוגיה פונקציונלית · שיבא"
+                      : "Functional Urology · Sheba"}
                   </span>
                 </div>
-                <figcaption className="mt-3.5 font-editorial text-body-sm normal-case tracking-normal text-ink">
+                <figcaption className="mt-3 font-editorial text-body-sm normal-case tracking-normal text-ink">
                   {t(hero.portraitCaption, locale)}
                 </figcaption>
               </div>
             </InView>
-          </aside>
-
-          {/* Portrait — MOBILE (below text, capped). */}
-          <InView as="figure" motion="fade-in-up" delay={160} className="order-3 lg:hidden">
-            <div className="relative mx-auto w-full max-w-[340px]">
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -inset-2 border border-ink/20"
-              />
-              <div
-                className="portrait portrait--1 relative h-[42vh] max-h-[420px] w-full overflow-hidden"
-                role="img"
-                aria-label={t(hero.portraitAlt, locale)}
-              >
-                <span aria-hidden className="portrait__empty">
-                  <span className="portrait__monogram">NK</span>
-                  <span className="portrait__caption eyebrow">
-                    {t({ he: "דיוקן", en: "Portrait" }, locale)}
-                  </span>
-                </span>
-              </div>
-              <figcaption className="mt-3 font-editorial text-body-sm normal-case tracking-normal text-ink">
-                {t(hero.portraitCaption, locale)}
-              </figcaption>
-            </div>
-          </InView>
+          </div>
         </div>
       </div>
     </section>
