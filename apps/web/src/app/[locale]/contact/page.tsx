@@ -41,12 +41,12 @@ export async function generateMetadata({
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   const title = {
-    he: 'יצירת קשר — ד"ר נעם כתרי · אורולוגיה ורפואה מינית, תל אביב',
-    en: "Contact — Dr. Noam Kitrey · Urology & Sexual Medicine, Tel Aviv",
+    he: 'פנייה — ד"ר נעם כתרי · אורולוגיה ורפואה מינית, תל אביב',
+    en: "Enquiries — Dr. Noam Kitrey · Urology & Sexual Medicine, Tel Aviv",
   };
   const description = {
-    he: 'לפנייה דיסקרטית לד"ר נעם כתרי: טלפון 054-7181718, מייל, או טופס. כל פנייה נשמרת בסודיות מלאה. מרפאה פרטית בתל אביב.',
-    en: "Reach Dr. Noam Kitrey discreetly: phone 054-7181718, email, or form. Every inquiry kept in full confidence. Private clinic in Tel Aviv.",
+    he: 'פנייה דיסקרטית לד"ר נעם כתרי: 054-7181718, דוא"ל, או טופס. כל פנייה בסודיות מלאה. מרפאה פרטית בתל אביב.',
+    en: "Reach Dr. Noam Kitrey discreetly: 054-7181718, email, or form. Every enquiry in full confidence. Private clinic in Tel Aviv.",
   };
   return pageMetadata({
     locale,

@@ -29,19 +29,19 @@ export const contactFacts = {
 
 /** Section 1 — contact options (the phone-primary header). */
 export const contactIntro = {
-  eyebrow: { he: "יצירת קשר", en: "Contact" } satisfies LocalizedString,
+  eyebrow: { he: "פנייה", en: "Enquiries" } satisfies LocalizedString,
   /** Small-caps section running-head for the journal masthead. */
   sectionTitle: {
     he: "התכתבות",
     en: "Correspondence",
   } satisfies LocalizedString,
   headline: {
-    he: "הצעד הראשון קל יותר ממה שנדמה.",
-    en: "The first step is easier than it seems.",
+    he: "השורה הראשונה היא הקשה. אחריה זה פשוט.",
+    en: "The first line is the hard one. After it, it's simple.",
   } satisfies LocalizedString,
   intro: {
-    he: "אפשר לפנות בטלפון, במייל, או דרך הטופס שבהמשך. כל פנייה נענית באופן אישי ובדיסקרטיות מלאה.",
-    en: "You can reach us by phone, by email, or through the form below. Every inquiry is answered personally and in full confidence.",
+    he: "בטלפון, בכתב, או דרך הטופס. כל פנייה נענית אישית ובסודיות מלאה.",
+    en: "By phone, in writing, or through the form. Every enquiry is answered personally and in full confidence.",
   } satisfies LocalizedString,
   /** Serif call-to-action word set at editorial scale (phone-primary). */
   callWord: { he: "להתקשר", en: "Call" } satisfies LocalizedString,
@@ -72,17 +72,17 @@ export const discretionGuarantee = {
   /** Lead, emphasised. */
   lead: {
     he: "הפנייה שלך נשמרת בסודיות מלאה.",
-    en: "Your inquiry is kept in complete confidence.",
+    en: "Your enquiry is kept in complete confidence.",
   } satisfies LocalizedString,
   /** Body that follows the lead, same paragraph. */
   body: {
-    he: "הפרטים שתמסרו מגיעים ישירות לד\"ר כתרי בלבד, ולא יועברו לעולם לאף גורם אחר. אין כאן תיק גלוי, אין רשימות, ואין שיתוף עם צד שלישי — רק שיחה דיסקרטית בינך לבין הרופא.",
-    en: "The details you share go directly to Dr. Kitrey alone, and are never passed to anyone else. There's no open file, no list, no sharing with any third party — only a discreet conversation between you and the doctor.",
+    he: "הפרטים שתמסרו מגיעים ישירות לד\"ר כתרי בלבד, ואינם נמסרים לעולם לאף גורם אחר. אין כאן תיק גלוי, אין רשימות, ואין שיתוף עם צד שלישי — רק שיחה דיסקרטית בינך לבין הרופא.",
+    en: "The details you share go directly to Dr. Kitrey alone, and are never passed to anyone else. There is no open file, no list, no sharing with any third party — only a discreet conversation between you and the physician.",
   } satisfies LocalizedString,
   /** Short form, used as the caption under the submit button. */
   short: {
-    he: "פנייתך מטופלת בסודיות מלאה. פרטיך לא יועברו לגורם שלישי.",
-    en: "Your inquiry is handled with complete discretion. Your details are never shared with any third party.",
+    he: "פנייתך מטופלת בסודיות מלאה. פרטיך אינם נמסרים לאיש.",
+    en: "Your enquiry is handled in complete confidence. Your details are shared with no one.",
   } satisfies LocalizedString,
 } as const;
 
@@ -94,12 +94,12 @@ export const contactForm = {
     en: "Write to Us",
   } satisfies LocalizedString,
   heading: {
-    he: "השאירו פנייה",
-    en: "Send an inquiry",
+    he: "השארת פנייה",
+    en: "Leave an enquiry",
   } satisfies LocalizedString,
   subhead: {
-    he: "מלאו את הפרטים ונחזור אליכם בהקדם, בדיסקרטיות מלאה.",
-    en: "Fill in your details and we'll get back to you soon, in full confidence.",
+    he: "כמה פרטים, ונחזור אליכם בהקדם — בסודיות מלאה.",
+    en: "A few details, and we'll get back to you soon — in full confidence.",
   } satisfies LocalizedString,
 
   name: {
@@ -127,14 +127,14 @@ export const contactForm = {
   },
   preferredContact: {
     label: {
-      he: "איך עדיף ליצור אתך קשר?",
+      he: "איך עדיף שניצור קשר?",
       en: "How would you prefer we reach you?",
     } satisfies LocalizedString,
   },
   message: {
     label: { he: "הודעה (לא חובה)", en: "Message (optional)" } satisfies LocalizedString,
     placeholder: {
-      he: "כל פרט שתרצו לשתף — לשיקול דעתכם בלבד.",
+      he: "כל מה שתרצו לשתף — לשיקול דעתכם בלבד.",
       en: "Anything you'd like to share — entirely up to you.",
     } satisfies LocalizedString,
     /** Char counter; `{n}` is replaced with the live count. Max is 500. */
@@ -146,13 +146,13 @@ export const contactForm = {
   privacy: {
     label: {
       he: "קראתי ואני מאשר/ת שהפנייה תטופל בסודיות מלאה.",
-      en: "I have read and agree that my inquiry will be handled in full confidence.",
+      en: "I have read and agree my enquiry will be handled in full confidence.",
     } satisfies LocalizedString,
   },
 
   submit: {
     he: "שליחת הפנייה",
-    en: "Send inquiry",
+    en: "Send enquiry",
   } satisfies LocalizedString,
   submitting: {
     he: "שולח…",
@@ -162,12 +162,12 @@ export const contactForm = {
   /** Title shown alongside the success result message (from resultCopy). */
   successTitle: {
     he: "הפנייה נשלחה",
-    en: "Your inquiry was sent",
+    en: "Your enquiry was sent",
   } satisfies LocalizedString,
   /** Auto-reply note shown in the success panel when an email was provided. */
   autoReplyNote: {
-    he: "אם השארתם דוא\"ל, נשלח אליכם אישור קבלה אוטומטי.",
-    en: "If you left an email, a confirmation has been sent to your inbox.",
+    he: "אם השארתם דוא\"ל, נשלח אישור קבלה אוטומטי.",
+    en: "If you left an email, a confirmation has been sent.",
   } satisfies LocalizedString,
   /** Generic title above any error result message. */
   errorTitle: {
@@ -197,7 +197,7 @@ export const areaOfInterestOptions: ReadonlyArray<{
   },
   {
     value: "functional_urology",
-    label: { he: "אורולוגיה פונקציונלית", en: "Functional urology" },
+    label: { he: "אורולוגיה תפקודית", en: "Functional urology" },
   },
   {
     value: "specialized_care",
