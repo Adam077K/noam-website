@@ -1,10 +1,15 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Section label sitting above a heading. UPPERCASE + tracked in LTR; the `.eyebrow`
- * class (globals.css) strips both case-transform and tracking under html[lang=he]
- * since Hebrew has no case. `tone` adapts the colour for dark sections. Pure text,
- * never a background — accompanied by a short accent rule for a premium cue.
+ * Section label — sits above a heading.
+ * UPPERCASE + tracked in LTR (the `.eyebrow` class in globals.css strips both
+ * case-transform and tracking under html[lang=he] since Hebrew has no case).
+ * `tone` adapts color for dark sections. Accompanied by an optional short mist rule.
+ *
+ * Color notes — all meet ≥ 4.5:1 on paper (#FFFFFF):
+ *   default: slate-strong #5E6B6D ≈ 6.2:1 ✓
+ *   accent:  ink-80 #3A4547 ≈ 9:1 ✓ (mist-tinted, but ink used for AA)
+ *   inverse: mist-light #C9DCDE on ink ≈ 5.8:1 ✓
  */
 export function Eyebrow({
   children,
@@ -19,15 +24,15 @@ export function Eyebrow({
 }) {
   const color =
     tone === "accent"
-      ? "text-accent"
+      ? "text-ink-80"
       : tone === "inverse"
-        ? "text-accent-light"
-        : "text-slate";
+        ? "text-mist-light"
+        : "text-slate-strong";
 
   return (
     <span
       className={cn(
-        "eyebrow inline-flex items-center gap-2 text-eyebrow font-semibold uppercase tracking-[0.14em]",
+        "eyebrow inline-flex items-center gap-2 text-[0.75rem] font-semibold uppercase tracking-[0.12em]",
         color,
         className,
       )}
@@ -36,8 +41,8 @@ export function Eyebrow({
         <span
           aria-hidden
           className={cn(
-            "h-px w-6",
-            tone === "inverse" ? "bg-accent-light/60" : "bg-accent/50",
+            "h-px w-6 rounded-full",
+            tone === "inverse" ? "bg-mist-light/60" : "bg-mist",
           )}
         />
       )}

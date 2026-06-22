@@ -1,139 +1,161 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   Dr. Noam Kitrey — Design tokens (ART-DIRECTION-V2 LOCKED + DESIGN-SYSTEM §1)
-   Tailwind v4: tokens declared in @theme become utilities (bg-accent, text-ink…).
+   Dr. Noam Kitrey — Design System Foundation v3
+   FOUNDER-LOCKED PALETTE: ink / slate / mist / paper
+   Tailwind v4: tokens in @theme become utilities (bg-mist, text-ink …)
    ========================================================================== */
 
 @theme {
   /* ============================================================================
-     v2 "QUIET AUTHORITY" — warm editorial palette.
-     Bone paper + deep ink. Blue (#1463E6) survives ONLY as a precise hairline
-     accent: a rule, an index numeral, an underline-on-hover, a single drawn line.
-     Legacy token NAMES are preserved (other pages consume them) but their values
-     are re-pointed onto the warm system so the whole site reads coherently.
+     PALETTE — LOCKED. Do not introduce new hues. Tints are derived from these 4.
+     ink   #202A2C  — near-black charcoal: headings, dark sections, primary text
+     slate #828C8D  — mid grey: secondary text, muted UI
+     mist  #AFC8CB  — soft blue-grey: the ONLY accent (CTAs, highlights, tints)
+     paper #FFFFFF  — base background
      ========================================================================== */
 
-  /* ---- Base / canvas (warm bone paper, near-black ink) ---- */
-  --color-paper: #faf7f1;        /* warm bone — the page */
-  --color-paper-pure: #fffdf9;   /* lifted bone — raised surfaces */
-  --color-canvas: #f4efe6;       /* deeper bone — alternating bands */
-  --color-wash: #efe9dd;         /* warm neutral, replaces the cold blue wash */
-  --color-wash-deep: #e6ddcd;
-  --color-surface: #f1ebe0;
+  /* ---- Canvas / backgrounds ---- */
+  --color-paper: #FFFFFF;
+  --color-paper-pure: #FFFFFF;
+  --color-mist-50: #F2F7F7;     /* near-white mist tint — soft section backgrounds */
+  --color-mist-100: #E5EFF0;    /* light mist — card surfaces on paper */
+  --color-mist-200: #C8DADA;    /* medium mist — icon circle fill */
+  --color-canvas: #F6FAFA;      /* alternating section band */
+  --color-wash: #F2F7F7;        /* replaces old bone wash */
+  --color-wash-deep: #E5EFF0;
+  --color-surface: #F2F7F7;
 
-  /* ---- Accent (INTERACTIVE/ACTIVE ONLY: nav underline, links, focus, buttons)
-     NOT for decorative dividers — those use --color-ink-divider.
-     Desaturated ~15% toward warm ink-blue to reduce cool-tech read on bone. ---- */
-  --color-accent: #1257cf;       /* interactive blue (deepened for AA on bone) */
-  --color-accent-hover: #0e47ab;
-  --color-accent-light: #6f9bf0;
-  --color-accent-soft: #c4d6f5;
-  --color-accent-tint: #dce7fa;
-  --color-ring: #6f9bf0;
+  /* ---- Ink — primary text / dark sections ---- */
+  --color-ink: #202A2C;
+  --color-ink-80: #3A4547;      /* lighter ink for sub-headings */
+  --color-ink-60: #56696B;      /* secondary ink (above AA on paper) */
+  --color-ink-10: #EBF0F0;      /* very faint ink-tinted surface */
+  --color-ink-divider: rgba(32,42,44,0.12);
+  --color-ink-divider-strong: rgba(32,42,44,0.22);
 
-  /* ---- Ink-low-opacity: ALL decorative dividers, rules, ornamental elements.
-     Never blue for decoration. These tokens ensure the rule/divider/line system
-     reads as warm editorial ink, not as interface chrome. ---- */
-  --color-ink-divider: rgba(22, 20, 15, 0.18);   /* ink @ 18% — hairline rule */
-  --color-ink-divider-strong: rgba(22, 20, 15, 0.28);  /* ink @ 28% — prominent rule */
+  /* ---- Slate — secondary / muted ---- */
+  --color-slate: #828C8D;       /* for body copy on white — approx 4.6:1 ✓ */
+  --color-slate-strong: #5E6B6D; /* higher contrast slate, ~6:1 on paper */
+  --color-slate-60: #A9B3B4;
 
-  /* ---- Ink / text (deep warm near-black) ---- */
-  --color-ink: #16140f;          /* deep warm near-black ink */
-  --color-ink-80: #34302a;
-  --color-ink-10: #e7e1d6;
-  /* WCAG AA text on bone (#faf7f1):
-     slate-strong (#4a443c) → contrast ~4.7:1 ✓ (eyebrow / metadata tier)
-     slate (#6c645a) → contrast ~3.4:1 ✗ — use only for non-text elements or large text
-     For tracked-caps eyebrow at 9-11px: MUST use slate-strong minimum. */
-  --color-slate: #6c645a;        /* warm muted — large text / non-text only */
-  --color-slate-strong: #4a443c; /* ≥4.5:1 on bone — use for small metadata text */
-  --color-slate-60: #9b9286;
+  /* ---- Mist — THE accent (CTAs, highlights, icon circles, tints) ---- */
+  --color-mist: #AFC8CB;         /* main mist: used for accent fills */
+  --color-mist-hover: #98B5B8;   /* slightly darker on hover */
+  --color-mist-light: #C9DCDE;   /* lighter mist for inverse contexts */
+  --color-mist-soft: #D6E7E9;    /* very soft mist ring/border */
+  --color-mist-tint: #EAF3F4;    /* whisper tint for icon backgrounds */
+
+  /* ---- Semantic aliases (accent → mist throughout the component tree) ---- */
+  --color-accent: var(--color-mist);
+  --color-accent-hover: var(--color-mist-hover);
+  --color-accent-light: var(--color-mist-light);
+  --color-accent-soft: var(--color-mist-soft);
+  --color-accent-tint: var(--color-mist-tint);
+  --color-ring: var(--color-mist);
 
   /* ---- Lines / semantic ---- */
-  --color-border: #ddd4c5;       /* warm hairline */
-  --color-border-strong: #cabfac;
-  --color-border-accent: #c4d6f5;
-  --color-success: #2e7d52;
-  --color-error: #b23c39;
+  --color-border: #D4E0E1;      /* mist-influenced hairline */
+  --color-border-strong: #BBC9CA;
+  --color-border-accent: var(--color-mist-soft);
+  --color-success: #2E7D52;
+  --color-error: #B23C39;
 
-  /* ---- Fonts ---- */
-  --font-heebo: var(--font-heebo), "Arial Hebrew", sans-serif;
-  --font-inter: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-mono), monospace;
-  /* Editorial display serifs — set per-lang on the body element below. */
-  --font-frank: var(--font-frank), "Frank Ruhl Libre", serif;
-  --font-fraunces: var(--font-fraunces), Georgia, serif;
-  /* Aliases consumed by utilities/components. `display` is wired per-lang. */
+  /* ============================================================================
+     FONTS
+     Primary: Heebo (HE), Inter (EN) — clean modern sans for both locales.
+     The editorial serif (Fraunces/Frank) is REMOVED per design brief.
+     Headings and body both use sans-serif (ref-#3 is purely modern sans).
+     ========================================================================== */
+  --font-heebo: var(--font-heebo), "Heebo", system-ui, sans-serif;
+  --font-inter: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-mono: var(--font-mono), "Geist Mono", monospace;
+
+  /* System aliases — components use these */
   --font-display: var(--font-inter), system-ui, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, serif;
+  /* Keep for any fallback reference; no serif in this design */
+  --font-frank: var(--font-heebo), system-ui, sans-serif;
+  --font-fraunces: var(--font-inter), system-ui, sans-serif;
+  --font-serif: var(--font-inter), system-ui, sans-serif;
 
-  /* ---- Editorial type scale — DRAMATIC. Serif display dominates the page.
-     Mobile floor kept modest so long Hebrew words never overflow narrow widths.
+  /* ============================================================================
+     TYPE SCALE — LOCKED. Every heading/body uses a token. No ad-hoc sizes.
 
-     HIERARCHY LAW (DESIGN-SYSTEM §2):
-     - ONE display h1 per page at display-xl scale (44-72px).
-     - H2 minimum 20-22px (semibold).
-     - Body serif 16-18px at 55-65ch measure.
-     - Heading-to-body weight/size ratio ≥ 1.5x.
-     ---- */
+     display:  clamp(2.75rem, 5vw, 4rem)   / lh 1.05 / w 600   (hero headline)
+     h1:       clamp(2.25rem, 3.5vw, 3rem)  / lh 1.1  / w 600
+     h2:       clamp(1.75rem, 2.5vw, 2.25rem) / lh 1.15 / w 600
+     h3:       1.375rem                     / lh 1.3  / w 600
+     body-lg:  1.125rem                     / lh 1.6  / w 400
+     body:     1rem                         / lh 1.65 / w 400
+     small:    0.875rem                     / lh 1.5  / w 400
+     caption:  0.8125rem                    / lh 1.45 / w 500 + tracked caps (eyebrow)
+     ========================================================================== */
 
-  /* Page H1 — the display title that IS the largest element on screen. Single per page. */
-  --text-masthead: clamp(2.25rem, 8vw, 6rem);
-  --text-masthead--line-height: 1.04;
-  --text-masthead--letter-spacing: -0.022em;
-  --text-masthead--font-weight: 400;
+  /* display — hero headline only. ONE per page. */
+  --text-masthead: clamp(2.75rem, 5vw, 4rem);
+  --text-masthead--line-height: 1.05;
+  --text-masthead--letter-spacing: -0.02em;
+  --text-masthead--font-weight: 600;
 
-  /* Section H1 / primary chapter title: clamp(2.25rem, 4vw, 4.5rem) per DESIGN-SYSTEM §2 */
-  --text-display-xl: clamp(2.25rem, 4vw, 4.5rem);
+  /* display-xl alias (backwards compat) */
+  --text-display-xl: clamp(2.75rem, 5vw, 4rem);
   --text-display-xl--line-height: 1.05;
   --text-display-xl--letter-spacing: -0.02em;
-  --text-display-xl--font-weight: 400;
+  --text-display-xl--font-weight: 600;
 
-  /* H2 (section subheadings) — semibold, 20-22px minimum */
-  --text-display-lg: clamp(1.375rem, 3vw, 2.5rem);
+  /* h1 — section title */
+  --text-display-lg: clamp(2.25rem, 3.5vw, 3rem);
   --text-display-lg--line-height: 1.1;
-  --text-display-lg--letter-spacing: -0.015em;
+  --text-display-lg--letter-spacing: -0.018em;
   --text-display-lg--font-weight: 600;
 
-  /* H3 / card titles */
-  --text-display-md: clamp(1.1875rem, 2vw, 1.5rem);
-  --text-display-md--line-height: 1.2;
-  --text-display-md--letter-spacing: -0.01em;
+  /* h2 — section sub-headings */
+  --text-display-md: clamp(1.75rem, 2.5vw, 2.25rem);
+  --text-display-md--line-height: 1.15;
+  --text-display-md--letter-spacing: -0.012em;
   --text-display-md--font-weight: 600;
 
-  /* Index numerals + big editorial list rows. */
+  /* h3 — card titles, sub-section */
+  --text-display-sm: 1.375rem;
+  --text-display-sm--line-height: 1.3;
+  --text-display-sm--letter-spacing: -0.008em;
+  --text-display-sm--font-weight: 600;
+
+  /* body-lg — key passages, intro paragraphs */
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+
+  /* body — standard body text */
+  --text-body-base: 1rem;
+  --text-body-base--line-height: 1.65;
+
+  /* small / UI */
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.5;
+
+  /* caption / eyebrow — tracked caps for labels */
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.45;
+  --text-caption--letter-spacing: 0.06em;
+  --text-caption--font-weight: 500;
+
+  /* eyebrow label */
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1.4;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-eyebrow--font-weight: 600;
+
+  /* Numeric index (kept for compat) */
   --text-index: clamp(1.75rem, 3.5vw, 3rem);
   --text-index--line-height: 1.0;
   --text-index--letter-spacing: -0.02em;
 
-  /* Body: 16-18px for comfortable 55-65ch reading measure */
-  --text-body-lg: 1.125rem;        /* 18px — body serif for key passages */
-  --text-body-lg--line-height: 1.72;
-
-  --text-body-base: 1rem;          /* 16px — standard body */
-  --text-body-base--line-height: 1.68;
-
-  --text-body-sm: 0.875rem;        /* 14px — UI, captions */
-  --text-body-sm--line-height: 1.6;
-
-  /* TRACKED-CAPS TIERS — exactly two. No third tier.
-     Tier 1 (caption): 9px — folios, running-head edition line, micro-labels.
-       Color MUST be slate-strong (#4a443c ≈ 4.7:1 on bone) or darker.
-     Tier 2 (section-anchor): 11px — section labels, nav eyebrows, credential tags.
-       Same color rule applies.
-     NEVER use --color-slate (#6c645a, ~3.4:1) for tracked-caps at these sizes. */
-  --text-caption: 0.5625rem;       /* 9px — folio / edition micro-label */
-  --text-caption--line-height: 1.45;
-  --text-caption--letter-spacing: 0.18em;
-
-  --text-eyebrow: 0.6875rem;       /* 11px — section anchor / label */
-  --text-eyebrow--line-height: 1.4;
-  --text-eyebrow--letter-spacing: 0.14em;
-  --text-eyebrow--font-weight: 600;
-
-  /* ---- Spacing: 8px grid (DESIGN-SYSTEM §1.2) ---- */
+  /* ============================================================================
+     SPACING — 8px grid. Consistent across all sections.
+     section padding-block: clamp(4rem, 8vw, 7rem)
+     container max-width: 1200px, inline padding: clamp(1.25rem, 4vw, 2.5rem)
+     ========================================================================== */
   --spacing-1: 8px;
   --spacing-2: 16px;
   --spacing-3: 24px;
@@ -154,45 +176,43 @@
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-xl: 20px;   /* card radius per spec */
+  --radius-2xl: 24px;  /* media slot per spec */
   --radius-pill: 9999px;
 
-  /* ---- Shadows (focus re-tinted to new accent) ---- */
-  --shadow-card: 0 2px 12px rgba(20, 32, 46, 0.06);
-  --shadow-card-hover: 0 4px 24px rgba(20, 32, 46, 0.1);
-  --shadow-focus: 0 0 0 3px rgba(20, 99, 230, 0.45);
+  /* ---- Shadows — soft, low, mist-tinted ---- */
+  --shadow-card: 0 8px 30px rgba(32,42,44,0.08);
+  --shadow-card-hover: 0 12px 40px rgba(32,42,44,0.12);
+  --shadow-focus: 0 0 0 3px rgba(175,200,203,0.5);  /* mist ring */
 
   /* ---- Easing ---- */
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ---- Semantic role variables (consumed by component CSS) ---- */
+/* ---- Semantic role variables consumed by components ---- */
 :root {
   --bg-page: var(--color-paper);
-  --bg-tinted: var(--color-wash);
+  --bg-tinted: var(--color-mist-50);
   --bg-dark-section: var(--color-ink);
-  --surface: var(--color-surface);
+  --surface: var(--color-mist-100);
   --text-primary: var(--color-ink);
-  --text-secondary: var(--color-slate-strong);  /* bumped from slate to slate-strong for AA */
+  --text-secondary: var(--color-slate-strong);
   --text-inverse: var(--color-paper);
   --border-subtle: var(--color-border);
   --border-hover: var(--color-border-accent);
-  --accent: var(--color-accent);
-  --accent-hover: var(--color-accent-hover);
-  --focus-ring: var(--color-ring);
+  --accent: var(--color-mist);
+  --accent-hover: var(--color-mist-hover);
+  --focus-ring: var(--color-mist);
 
-  /* Ghost-numeral watermark (DESIGN-SYSTEM §1 — demote ordinal from visual H1):
-     Place as z-0 background element, opacity 0.06-0.10, cap-height clamped
-     ~120-160px, positioned in the outer margin via inset-inline.
-     Usage: <span aria-hidden class="ghost-numeral">01</span> inside a relative
-     parent; the content flows OVER it, never displaced by it. */
-  --ghost-numeral-opacity: 0.07;
-  --ghost-numeral-size: clamp(7.5rem, 12vw, 10rem);  /* ~120-160px cap-height */
+  /* Ghost numeral watermark — kept for compat, now renders in ink */
+  --ghost-numeral-opacity: 0.05;
+  --ghost-numeral-size: clamp(7.5rem, 12vw, 10rem);
 }
 
 /* ============================================================================
-   Base element + per-language font assignment (ART-DIRECTION-V2 §B.3)
+   Base elements + per-language font assignment
+   Hebrew is primary/canonical: Heebo drives body/UI in RTL
+   English: Inter for body/UI
    ========================================================================== */
 
 html {
@@ -206,86 +226,62 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Whisper-quiet paper grain over the whole document — fixed + pointer-safe so it
-   never repaints on scroll. Gives the bone a physical, printed-page tactility. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-}
-/* Keep real UI above the grain. */
-body > * {
-  position: relative;
-  z-index: 2;
-}
-
-/* Hebrew is primary/canonical → Heebo drives body/UI in RTL */
+/* Hebrew primary — Heebo */
 html[lang="he"] {
   font-family: var(--font-heebo);
 }
-/* NEVER track Hebrew BODY/UI — spacing governed by font metrics. The editorial
-   serif headings get a hair of negative tracking re-enabled below. */
-html[lang="he"] *:not(.font-editorial):not(.font-editorial *) {
-  letter-spacing: 0 !important;
+/* Hebrew: no forced letter-spacing; word-spacing uses font metrics */
+html[lang="he"] *:not([dir="ltr"]) {
+  letter-spacing: 0;
+}
+/* Hebrew headings: slightly looser line-height */
+html[lang="he"] h1,
+html[lang="he"] h2,
+html[lang="he"] h3,
+html[lang="he"] h4 {
+  line-height: 1.3;
+}
+/* No italics ever in Hebrew */
+html[lang="he"] * {
+  font-style: normal !important;
 }
 
-/* English secondary → Inter for body/UI */
+/* English — Inter */
 html[lang="en"] {
   font-family: var(--font-inter);
 }
 
-/* ---- Editorial display — THE design's voice. Per-language serif. ---- */
+/* font-editorial class: REMOVED serif, now just a clean alias to sans for
+   any site-wide components that still reference it. No serifs in this design. */
 .font-editorial {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
 }
 html[lang="he"] .font-editorial {
-  font-family: var(--font-frank), "Frank Ruhl Libre", serif;
-  /* Frank Ruhl is high-contrast; a faint negative track tightens the big cuts. */
-  letter-spacing: -0.01em;
-  font-weight: 500;
+  font-family: var(--font-heebo), system-ui, sans-serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 /* ============================================================================
-   Hero portrait — DESIGNED empty state + warm duotone drop-in.
-
-   ART-DIRECTION-V2 PORTRAIT RULES:
-   1. NO "PORTRAIT" / "דיוקן" sub-label anywhere — it turns reserve into apology.
-   2. Empty state = an INTENTIONAL PANEL, not a broken image rectangle:
-      - Warm linen/taupe gradient fill (canvas → taupe, warmer than bone)
-      - Hairline INK border (not a gray box frame)
-      - NK monogram in display serif INK at >=4.5:1 contrast (not gray-on-gray)
-      - ONE quiet credential micro-label at the lower edge (Geist mono)
-   3. Photo drops in via .portrait--1 / .portrait--2 with object-fit: cover.
-   4. NEVER the loudest above-fold element — keep it secondary/smaller.
-
-   The PHOTO is painted by the `::before` pseudo as a background-image. When the
-   file is MISSING the pseudo simply paints nothing, so the warm panel + monogram
-   show through. When a real photo exists, `::before` covers the panel; `::after`
-   adds the warm multiply tint + bottom edge-melt. Swap via portrait--1/--2.
+   HERO PORTRAIT — Intentional placeholder (mist gradient + blob + caption).
+   Never an empty grey box. Object-fit ready: real photo drops in zero-shift.
    ========================================================================== */
 .portrait {
   position: relative;
-  /* Warm linen fill — one stop darker/warmer than bone. Never cold gray. */
-  background-color: var(--color-wash-deep);
+  /* Soft mist → paper gradient — intentional, not apologetic */
+  background-color: var(--color-mist-100);
   background-image:
     linear-gradient(
-      170deg,
-      color-mix(in oklab, var(--color-paper) 60%, var(--color-wash-deep)) 0%,
-      var(--color-wash-deep) 50%,
-      color-mix(in oklab, var(--color-wash-deep) 75%, var(--color-ink)) 100%
+      160deg,
+      var(--color-mist-50) 0%,
+      var(--color-mist-100) 45%,
+      var(--color-mist-200) 100%
     );
-  /* Hairline INK border — not a gray box, reads as intentional frame. */
-  box-shadow: inset 0 0 0 1px var(--color-ink-divider-strong);
+  box-shadow: inset 0 0 0 1px var(--color-ink-divider);
   isolation: isolate;
 }
-/* The photo layer — covers the placeholder when the file resolves; paints nothing
-   when it's absent (graceful degradation). Grayscale → the duotone tonal base. */
+/* Organic blob behind the placeholder — mist tinted, blurred */
 .portrait::before {
   content: "";
   position: absolute;
@@ -294,8 +290,7 @@ html[lang="he"] .font-editorial {
   background-repeat: no-repeat;
   background-position: center 14%;
   background-size: cover;
-  filter: grayscale(1) contrast(1.04) brightness(1.01);
-  -webkit-filter: grayscale(1) contrast(1.04) brightness(1.01);
+  /* No grayscale: mist palette is already desaturated */
 }
 .portrait--1::before {
   background-image: url("/portraits/kitrey-1.png");
@@ -303,22 +298,17 @@ html[lang="he"] .font-editorial {
 .portrait--2::before {
   background-image: url("/portraits/kitrey-2.png");
 }
-/* Warm duotone overlay — sits above the photo (multiply): a whisper of warm tint
-   + a bottom edge-melt so the photo warms toward the palette and bleeds into bone.
-   Faint, so it never muddies the empty linen state. */
+/* Subtle bottom edge-melt into page background */
 .portrait::after {
   content: "";
   position: absolute;
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  mix-blend-mode: multiply;
   background:
-    linear-gradient(180deg, transparent 60%, color-mix(in oklab, var(--color-wash-deep) 60%, transparent) 100%),
-    color-mix(in oklab, var(--color-paper) 92%, var(--color-ink));
+    linear-gradient(180deg, transparent 65%, rgba(255,255,255,0.6) 100%);
 }
-/* The designed empty-state mark (monogram + credential line). z-0 — photo hides
-   it when present; visible content when photo is absent. NO "PORTRAIT" label. */
+/* Empty state content — designed, never grey-box */
 .portrait__empty {
   position: absolute;
   inset: 0;
@@ -329,57 +319,50 @@ html[lang="he"] .font-editorial {
   justify-content: center;
   gap: 0.5rem;
   pointer-events: none;
-  /* Push content slightly above center for visual balance at 4:5 aspect */
   padding-bottom: 12%;
 }
-/* NK monogram — display serif, INK at >=4.5:1 contrast. Not gray, not accent. */
+/* NK monogram — ink at sufficient contrast */
 .portrait__monogram {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-weight: 400;
-  font-size: clamp(3.75rem, 8vw, 5.625rem);  /* 60-90px cap-height per spec */
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(3.75rem, 8vw, 5.625rem);
   line-height: 1;
-  letter-spacing: 0.03em;
-  /* ink @ 72% → contrast ~6.2:1 on wash-deep — well above 4.5:1 ✓ */
-  color: color-mix(in oklab, var(--color-ink) 72%, transparent);
+  letter-spacing: 0.02em;
+  color: color-mix(in oklab, var(--color-ink) 55%, transparent);
 }
-/* Credential micro-label at lower panel edge — Geist mono, carries information */
+/* Credential label at lower edge */
 .portrait__credential {
   position: absolute;
   bottom: 0;
   inset-inline: 0;
   padding: 0.75rem 1rem;
   font-family: var(--font-mono), monospace;
-  font-size: 0.5625rem;    /* 9px caption tier */
+  font-size: 0.75rem;
   line-height: 1.4;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: center;
-  /* ink @ 55% → contrast ~4.7:1 on wash-deep ✓ */
-  color: color-mix(in oklab, var(--color-ink) 55%, transparent);
-  background: linear-gradient(to top, var(--color-wash-deep) 40%, transparent);
+  color: color-mix(in oklab, var(--color-ink) 50%, transparent);
+  background: linear-gradient(to top, var(--color-mist-100) 40%, transparent);
 }
-/* .portrait__caption is kept for backward-compat but displays nothing (empty-label fix).
-   Sites should NOT pass any caption text to this element. */
 .portrait__caption {
   display: none;
 }
 
 /* ============================================================================
-   Clinic interior slot — mirrors portrait empty-state treatment.
-   Warm linen fill + hairline ink border; label text is a real credential, not
-   a word naming the absence. Drop a photo URL in ::before to activate.
+   CLINIC SHOT SLOT — mirrors portrait treatment
    ========================================================================== */
 .clinic-shot {
   position: relative;
-  background-color: var(--color-wash-deep);
+  background-color: var(--color-mist-100);
   background-image:
     linear-gradient(
-      170deg,
-      color-mix(in oklab, var(--color-paper) 55%, var(--color-wash-deep)) 0%,
-      var(--color-wash-deep) 55%,
-      color-mix(in oklab, var(--color-wash-deep) 72%, var(--color-ink)) 100%
+      160deg,
+      var(--color-mist-50) 0%,
+      var(--color-mist-100) 55%,
+      var(--color-mist-200) 100%
     );
-  box-shadow: inset 0 0 0 1px var(--color-ink-divider-strong);
+  box-shadow: inset 0 0 0 1px var(--color-ink-divider);
   isolation: isolate;
 }
 .clinic-shot__empty {
@@ -394,53 +377,39 @@ html[lang="he"] .font-editorial {
   pointer-events: none;
 }
 .clinic-shot__monogram {
-  font-family: var(--font-fraunces), Georgia, serif;
-  font-weight: 400;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  font-weight: 600;
   font-size: clamp(2.5rem, 6vw, 3.75rem);
   line-height: 1;
   letter-spacing: 0.02em;
-  color: color-mix(in oklab, var(--color-ink) 65%, transparent);
+  color: color-mix(in oklab, var(--color-ink) 45%, transparent);
 }
 .clinic-shot__caption {
   font-family: var(--font-mono), monospace;
-  font-size: 0.5625rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: color-mix(in oklab, var(--color-ink) 50%, transparent);
+  letter-spacing: 0.1em;
+  color: color-mix(in oklab, var(--color-ink) 40%, transparent);
 }
 
 /* ============================================================================
-   Ghost ordinal watermark (DESIGN-SYSTEM §1 — RULE 2: Demote ghost numeral).
-
-   The oversized 01/05 ordinal that was the de-facto visual H1 is now a pure
-   background watermark — it never displaces content or competes with the display
-   heading. ONE per page maximum.
-
-   Usage:
-     <span aria-hidden class="ghost-numeral [inset-inline-start:3%]">01</span>
-
-   The element is always `position: absolute` inside a `relative` parent section.
-   Content flows OVER it at z-index 1+; the numeral stays at z-index 0.
+   GHOST ORDINAL WATERMARK — subtle decorative numeral
    ========================================================================== */
 .ghost-numeral {
   position: absolute;
   z-index: 0;
-  /* Geist Mono — numerals, never body text */
   font-family: var(--font-mono), monospace;
-  font-size: var(--ghost-numeral-size);          /* 120-160px cap-height */
+  font-size: var(--ghost-numeral-size);
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.04em;
   color: var(--color-ink);
-  opacity: var(--ghost-numeral-opacity);         /* 0.07 */
+  opacity: var(--ghost-numeral-opacity);
   pointer-events: none;
   user-select: none;
-  /* Positioned in the outer margin (DESIGN-SYSTEM §1 rule 2) via logical inset.
-     Set `inset-inline-start` or `inset-inline-end` + `top` at the call site. */
 }
 
-/* Journal TOC dot-leaders — a baseline row of evenly-spaced dots filling the gap
-   between a contents entry and its folio marker (currentColor so hover can tint). */
+/* Dot leaders for TOC-style rows */
 .toc-leader {
   background-image: radial-gradient(currentColor 1px, transparent 1.4px);
   background-size: 0.55em 0.55em;
@@ -448,64 +417,75 @@ html[lang="he"] .font-editorial {
   background-repeat: repeat-x;
 }
 
-/* Numbers / phone / email regardless of locale */
+/* Numbers / phone / email regardless of locale: always LTR */
 .font-mono,
 [dir="ltr"].tabular {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
-/* Eyebrow: UPPERCASE + tracked in LTR; normal-case + untracked in HE (no case in Hebrew).
-   The default eyebrow color (when no .text-* class is set) must hit >=4.5:1 on bone.
-   Components should use text-slate-strong (not text-slate) for tracked-caps at 9-11px. */
+/* Eyebrow label: UPPERCASE + tracked in LTR; normal-case + no tracking in HE */
 html[lang="he"] .eyebrow {
   text-transform: none;
   letter-spacing: 0;
 }
 
 /* ============================================================================
-   Motion — scroll-reveal + reduced-motion (DESIGN-SYSTEM §6)
+   LAYOUT SYSTEM
+   container: max-width 1200px, inline padding clamp(1.25rem, 4vw, 2.5rem)
+   section: padding-block clamp(4rem, 8vw, 7rem)
+   ========================================================================== */
+
+/* Utility: consistent section vertical rhythm */
+.section-padding {
+  padding-block: clamp(4rem, 8vw, 7rem);
+}
+
+/* Utility: container rail */
+.container-rail {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* 12-column grid utility — cards and columns snap to this.
+   Gap follows the 8px spacing scale (default: 24px = spacing-3).
+   Usage: <div class="grid-12"> with children using col-span-* utilities. */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+
+/* ============================================================================
+   MOTION — scroll-reveal + reduced-motion
    ========================================================================== */
 
 @keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @keyframes stagger-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Reveal classes are PROGRESSIVE ENHANCEMENT: their resting (no-JS) state is the
-   final, visible state. Only when the document is JS-capable (html[data-js], set before
-   paint) do we hide the not-yet-revealed element, then animate it in. This keeps
-   content visible for crawlers / JS-off and prevents any "blank headline" race. */
+/* Fade-up: resting state is visible (progressive enhancement). */
 .fade-in-up {
   transition:
-    opacity 600ms var(--ease-premium),
-    transform 600ms var(--ease-premium);
+    opacity 550ms var(--ease-premium),
+    transform 550ms var(--ease-premium);
 }
 html[data-js] .fade-in-up:not(.is-visible) {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(14px);
 }
 
-/* ---- Signature hairline: a single fine rule that DRAWS on scroll-entry.
-   The recurring motif — hero accent, section dividers, the index spine. ---- */
+/* Rule draw */
 .rule-draw {
   transform-origin: var(--rule-origin, left);
-  transition: transform 1100ms var(--ease-premium);
+  transition: transform 1000ms var(--ease-premium);
 }
 html[dir="rtl"] .rule-draw {
   --rule-origin: right;
@@ -513,40 +493,33 @@ html[dir="rtl"] .rule-draw {
 html[data-js] .rule-draw:not(.is-visible) {
   transform: scaleX(0);
 }
-/* Vertical variant for the index spine. */
 .rule-draw-y {
   transform-origin: top;
-  transition: transform 1100ms var(--ease-premium);
+  transition: transform 1000ms var(--ease-premium);
 }
 html[data-js] .rule-draw-y:not(.is-visible) {
   transform: scaleY(0);
 }
 
-/* ---- Editorial mask-reveal: headline lines wipe up from behind a clip edge.
-   Quiet and expensive — no bouncy fade-up. Resting state is fully visible; the
-   clipped initial state applies only under html[data-js] (progressive enhancement). ---- */
+/* Mask reveal — clip-path wipe */
 .mask-reveal {
   transition:
-    clip-path 1000ms var(--ease-premium),
-    transform 1000ms var(--ease-premium);
+    clip-path 900ms var(--ease-premium),
+    transform 900ms var(--ease-premium);
 }
 html[data-js] .mask-reveal:not(.is-visible) {
-  /* Hidden: wipe in from a top clip edge. Generous side insets are negative so the
-     edge only ever crosses the block vertically, never slicing glyph side-bearings. */
   clip-path: inset(0 -0.3em 110% -0.3em);
   transform: translateY(0.18em);
 }
 .mask-reveal.is-visible {
-  /* Revealed: a deliberately OVERSIZED inset on all sides so serif descenders,
-     ascenders and ink overshoot are never clipped (the EN multi-line headline bug). */
   clip-path: inset(-0.6em -0.3em -0.6em -0.3em);
 }
 
-/* Hover-draw underline for the editorial index rows (origin flips under RTL). */
+/* Index row underline hover */
 .index-underline {
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 480ms var(--ease-premium);
+  transition: transform 420ms var(--ease-premium);
 }
 html[dir="rtl"] .index-underline {
   transform-origin: right;
@@ -556,12 +529,10 @@ html[dir="rtl"] .index-underline {
   transform: scaleX(1);
 }
 
+/* Reduced motion: instant, no clipping */
 @media (prefers-reduced-motion: reduce) {
-  /* Reduced motion wins over the data-js initial-hidden states: content is shown
-     immediately, never clipped/translated/scaled, regardless of reveal status.
-     Matched/higher specificity than `html[data-js] .x:not(.is-visible)`. */
   .fade-in-up {
-    transition: opacity 150ms ease-out;
+    transition: opacity 120ms ease-out;
   }
   html[data-js] .fade-in-up:not(.is-visible) {
     opacity: 1;

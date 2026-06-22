@@ -2,10 +2,10 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Base surface card. Paper fill, hairline cool-grey border, soft diffuse card
- * shadow — no harsh drop shadow. `interactive` upgrades the shadow and warms the
- * border to accent-soft on hover (no transform: a medical surface should settle,
- * not pop). The nested padding follows the 8px rhythm.
+ * Base surface card — ref-#3 style.
+ * Rounded 20px (radius-xl), soft mist-tinted shadow (never harsh), no strong border.
+ * `interactive` adds a hover lift + border glow on the mist accent.
+ * Padding follows the 8px grid.
  */
 export function Card({
   children,
@@ -19,8 +19,9 @@ export function Card({
   return (
     <div
       className={cn(
-        "rounded-lg border border-border bg-paper shadow-card transition-[box-shadow,border-color] duration-[250ms] ease-premium",
-        interactive && "hover:border-border-accent hover:shadow-card-hover",
+        "rounded-[20px] border border-border bg-paper shadow-[0_8px_30px_rgba(32,42,44,0.08)] transition-[box-shadow,border-color] duration-250 ease-[cubic-bezier(0.16,1,0.3,1)]",
+        interactive &&
+          "hover:border-mist-soft hover:shadow-[0_12px_40px_rgba(32,42,44,0.12)]",
         className,
       )}
     >
