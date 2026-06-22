@@ -49,9 +49,19 @@ export const expertiseSeo = {
 } as const satisfies Record<"title" | "description", LocalizedString>;
 
 export const expertiseHeader = {
+  /** Journal volume line (running-head masthead device — matches Home's hero.folio). */
+  folio: {
+    he: "גיליון א׳ · תוכן העניינים המלא",
+    en: "Volume I · The Complete Contents",
+  },
   eyebrow: {
     he: "תחומי טיפול",
     en: "Areas of care",
+  },
+  /** Small-caps running head for the contents section. */
+  sectionLabel: {
+    he: "תוכן העניינים",
+    en: "Table of Contents",
   },
   title: {
     he: "מצבים שדורשים גם דיוק רפואי וגם רגישות אישית.",
@@ -61,7 +71,17 @@ export const expertiseHeader = {
     he: 'התחומים שבהם ד"ר כתרי מתמחה הם מהרגישים ברפואה. כאן תמצאו הסבר ברור על כל אחד מהם, ומה אפשר לעשות. אין שאלה "מביכה" מדי — יש רק מה שאפשר לטפל בו.',
     en: "The fields Dr. Kitrey specializes in are among the most sensitive in medicine. Here you'll find a clear explanation of each one and what can be done about it. No question is too embarrassing — there's only what can be treated.",
   },
-} as const satisfies Record<"eyebrow" | "title" | "intro", LocalizedString>;
+} as const satisfies Record<
+  "folio" | "eyebrow" | "sectionLabel" | "title" | "intro",
+  LocalizedString
+>;
+
+/**
+ * Per-group running-head folios for the contents (matches Home SectionHead's
+ * "01 · 02 · 03" device). Distinct from the per-entry numbering, which restarts
+ * within each group.
+ */
+export const expertiseGroupFolios = ["01", "02", "03"] as const;
 
 /** Shared micro-CTA destination (the consultation request lives on /contact). */
 export const expertiseCtaHref = "/contact";
