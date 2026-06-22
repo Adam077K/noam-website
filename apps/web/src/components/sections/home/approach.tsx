@@ -2,63 +2,71 @@ import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { trust } from "@/content/home";
 import { InView } from "@/components/ui";
+import { SectionHead } from "./journal";
 
 /**
- * The approach — editorial three-column manifesto on bone paper (v2 "Quiet
- * Authority"). NO icon cards: a lead statement set in the display serif, then the
- * three pillars as hairline-topped columns (mono index · serif title · grotesk
- * body), divided by vertical rules that DRAW down on entry. Restraint as the
- * whole point — confidence through type and space, not decoration.
+ * The approach — a journal MARGIN-NOTE article (v4 "The Journal").
  *
- * RTL-correct via logical props; the vertical dividers + grid mirror naturally.
+ * The lead statement runs as the primary column body text (editorial serif lead-in
+ * + grotesk body), while the three pillars are set as numbered MARGINALIA in the
+ * narrow side column — annotations to the main argument, like a scholar's notes.
+ * Distinct from the contents TOC and the hero: this is the "reading" moment.
+ *
+ * RTL-correct: logical props place the margin on the end side; on mobile it
+ * collapses and the notes flow inline beneath the lead.
  */
 export function Approach({ locale }: { locale: Locale }) {
   return (
     <section className="bg-canvas px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-      <div className="mx-auto w-full max-w-[1240px]">
-        {/* Lead — the approach stated as an editorial line. */}
-        <div className="max-w-[26ch]">
-          <p className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow">
-            <span aria-hidden className="inline-block h-px w-8 bg-accent" />
-            {t(trust.eyebrow, locale)}
-          </p>
-          <h2 className="mt-6 text-pretty font-editorial text-display-lg text-ink">
-            <InView as="span" className="block">
-              {t(trust.headline, locale)}
-            </InView>
-          </h2>
-        </div>
+      <div className="mx-auto w-full max-w-[1280px]">
+        <SectionHead
+          folio="02"
+          title={{ he: "הגישה", en: "The Approach" }}
+          locale={locale}
+        />
 
-        <InView as="p" motion="fade-in-up" delay={120} className="mt-8 max-w-[60ch] text-body-lg text-slate-strong">
-          {t(trust.body, locale)}
-        </InView>
-
-        {/* Pillars — hairline-topped columns, divided by drawing vertical rules. */}
-        <div className="mt-16 grid gap-px border-t border-ink sm:mt-20 sm:grid-cols-3">
-          {trust.pillars.map((pillar, i) => (
-            <div key={pillar.key} className="relative pt-8 sm:px-8 sm:first:ps-0">
-              {/* Vertical divider that draws down — skipped on the first column. */}
-              {i > 0 && (
-                <InView
-                  as="span"
-                  motion="rule-draw-y"
-                  aria-hidden
-                  className="pointer-events-none absolute inset-y-0 start-0 hidden w-px bg-border sm:block"
-                />
-              )}
-              <InView as="div" motion="fade-in-up" delay={i * 90}>
-                <span className="font-mono text-body-sm tabular-nums text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <h3 className="mt-4 font-editorial text-display-md text-ink">
-                  {t(pillar.title, locale)}
-                </h3>
-                <p className="mt-3 max-w-[34ch] text-body-base text-slate">
-                  {t(pillar.blurb, locale)}
-                </p>
+        <div className="mt-10 grid gap-x-16 gap-y-12 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_18rem]">
+          {/* PRIMARY — a serif drop-headline leading into the body argument. */}
+          <div className="max-w-[60ch]">
+            <h2 className="text-pretty font-editorial text-display-lg text-ink">
+              <InView as="span" className="block">
+                {t(trust.headline, locale)}
               </InView>
-            </div>
-          ))}
+            </h2>
+            <InView as="p" motion="fade-in-up" delay={120} className="mt-8 text-body-lg leading-relaxed text-ink-80">
+              {t(trust.body, locale)}
+            </InView>
+          </div>
+
+          {/* MARGIN — the three pillars as numbered marginal annotations. */}
+          <aside className="lg:pt-2">
+            <p className="mb-6 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
+              {t({ he: "הערות שוליים", en: "Notes" }, locale)}
+            </p>
+            <ol className="space-y-7">
+              {trust.pillars.map((pillar, i) => (
+                <InView
+                  as="li"
+                  motion="fade-in-up"
+                  delay={i * 90}
+                  key={pillar.key}
+                  className="border-t border-ink/15 pt-4"
+                >
+                  <div className="flex items-baseline gap-2.5">
+                    <span className="font-mono text-caption text-accent">
+                      <span dir="ltr">{`0${i + 1}`}</span>
+                    </span>
+                    <h3 className="font-editorial text-display-md leading-tight text-ink">
+                      {t(pillar.title, locale)}
+                    </h3>
+                  </div>
+                  <p className="mt-2.5 text-body-sm leading-relaxed text-slate-strong">
+                    {t(pillar.blurb, locale)}
+                  </p>
+                </InView>
+              ))}
+            </ol>
+          </aside>
         </div>
       </div>
     </section>

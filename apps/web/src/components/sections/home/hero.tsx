@@ -4,82 +4,85 @@ import { t } from "@/content/types";
 import { hero } from "@/content/home";
 import { contact } from "@/content/site";
 import { InView } from "@/components/ui";
+import { Folio, SectionHead } from "./journal";
+
+/** Scholarly superscript reference marker; mirrors via logical spacing. */
+function Ref({ n }: { n: string }) {
+  return (
+    <sup className="ms-0.5 align-super font-mono text-[0.4em] font-normal text-accent">
+      <span dir="ltr">{n}</span>
+    </sup>
+  );
+}
 
 /**
- * Masthead hero — v3 "Quiet Authority, professionalised".
+ * Hero — "The Journal" opening article (v4).
  *
- * An asymmetric editorial spread: a massive bilingual serif headline anchored to a
- * strict type column (start), and a real WARM-DUOTONE portrait of Dr. Kitrey as a
- * hairline-framed editorial column (end). The two are in considered interplay, not
- * a headline floating in a void. A precise utility line, a refined positioning
- * paragraph, two clear CTAs, and an elevated credential register give the page the
- * professional sub-structure of an established, top-of-field specialist.
+ * An oversized folio "01" anchors the page like a chapter number. The headline
+ * carries scholarly superscript references (¹ ² ³) that resolve to journal-style
+ * FOOTNOTE credentials set small in the margin column — the trust moat as
+ * marginalia, not badges. The warm-duotone portrait BREAKS the grid: it bleeds
+ * out of the margin past the page's type edge rather than sitting in a tidy box,
+ * keeping the designed empty state (cream + NK) until a real photo lands.
  *
- * The portrait is a CSS background-image (`.portrait`), so a missing file degrades
- * gracefully to the bone surface + hairline frame — never a broken image. Swap the
- * source by changing `portrait--1` → `portrait--2` on the portrait element.
- *
- * RTL-correct throughout (logical props, mirrored rule + arrow origins); phone and
- * the practice/since line render dir="ltr".
+ * RTL-correct: logical props, mirrored bleed + arrows; phone/volume render dir=ltr;
+ * the superscript markers and footnotes mirror naturally.
  */
 export function Hero({ locale }: { locale: Locale }) {
-  // The credential register — serious, verifiable, top-of-field. Not a thin eyebrow.
-  const register: Array<{ label: { he: string; en: string }; value: { he: string; en: string } }> = [
+  // Footnote credentials — the moat, presented as scholarly references.
+  const footnotes: Array<{ ref: string; value: { he: string; en: string } }> = [
     {
-      label: { he: "מוסד", en: "Institution" },
-      value: { he: "המרכז הרפואי שיבא", en: "Sheba Medical Center" },
-    },
-    {
-      label: { he: "תפקיד", en: "Appointment" },
+      ref: "1",
       value: {
-        he: "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה",
-        en: "Head of Functional Urology & Andrology",
+        he: "המרכז הרפואי שיבא · מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה",
+        en: "Sheba Medical Center · Head of Functional Urology & Andrology",
       },
     },
     {
-      label: { he: "ועדה", en: "Committee" },
-      value: { he: 'יו"ר ועדת ההנחיות, EAU', en: "Chair, EAU Guidelines" },
+      ref: "2",
+      value: {
+        he: "יו״ר ועדת ההנחיות הקליניות, איגוד האורולוגיה האירופי (EAU)",
+        en: "Chair, Clinical Guidelines Committee, European Association of Urology",
+      },
     },
     {
-      label: { he: "מרכז", en: "Center" },
-      value: { he: "מנהל המרכז לבריאות מינית (SHSQ)", en: "Director, Sexual Health Center (SHSQ)" },
+      ref: "3",
+      value: {
+        he: "מנהל המרכז לבריאות מינית (SHSQ), שיבא",
+        en: "Director, Sexual Health Center (SHSQ), Sheba",
+      },
     },
   ];
 
   return (
     <section className="relative overflow-x-clip bg-paper">
-      <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8">
-        {/* Utility line — a precise, professional masthead rule above the fold. */}
-        <InView
-          as="div"
-          motion="fade-in-up"
-          className="flex flex-wrap items-center justify-between gap-x-6 gap-y-1.5 border-b border-border py-4 text-caption uppercase tracking-[0.2em] text-slate eyebrow"
-        >
-          {/* Bullet stays attached: it's an inline ::before-style marker glued to the
-              first word via a non-breaking flow, so the label never orphans it. */}
-          <span className="max-w-full">
-            <span
-              aria-hidden
-              className="me-2.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent align-middle"
-            />
-            {t(hero.eyebrow, locale)}
-          </span>
-          <span className="font-mono normal-case tracking-[0.08em] text-slate-strong">
-            <span dir="ltr">Tel Aviv · Est. 2010</span>
-          </span>
-        </InView>
+      <div className="mx-auto w-full max-w-[1280px] px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
+        <SectionHead
+          folio="01"
+          title={{ he: "פרופיל", en: "Profile" }}
+          locale={locale}
+        />
 
-        {/* The spread: type column (start) + portrait column (end). */}
-        <div className="grid items-center gap-x-12 gap-y-8 pb-16 pt-10 sm:pb-20 sm:pt-12 lg:grid-cols-[1.12fr_0.88fr] lg:gap-x-16 lg:pb-24 lg:pt-16">
-          {/* Type column — FIRST on mobile (text-first), start side on lg. */}
-          <div className="order-1">
-            <h1 className="max-w-[18ch] text-pretty font-editorial text-ink [font-size:clamp(2.15rem,4vw,3.625rem)] [line-height:1.05] [letter-spacing:-0.018em] sm:max-w-[15ch]">
+        {/* Primary type column (wide) + margin column (footnotes + portrait). */}
+        <div className="mt-10 grid gap-x-10 gap-y-12 sm:mt-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-x-16">
+          {/* PRIMARY. */}
+          <div className="relative order-1">
+            {/* Oversized folio anchor, bleeding off the start edge behind the type. */}
+            <Folio
+              n="01"
+              className="pointer-events-none absolute -top-6 -z-0 text-[7rem] -start-2 sm:text-[10rem] lg:-top-10 lg:text-[13rem]"
+            />
+
+            <h1 className="relative max-w-[20ch] text-pretty font-editorial text-ink [font-size:clamp(2.25rem,4.4vw,4rem)] [line-height:1.04] [letter-spacing:-0.02em] sm:max-w-[16ch]">
               <InView as="span" className="block pb-[0.12em]">
                 {t(hero.headline, locale)}
+                {/* References sit at the end of the headline like a journal title. */}
+                <Ref n="1" />
+                <Ref n="2" />
+                <Ref n="3" />
               </InView>
             </h1>
 
-            {/* Drawn signature hairline — the recurring blue motif. */}
             <InView
               as="div"
               motion="rule-draw"
@@ -91,12 +94,11 @@ export function Hero({ locale }: { locale: Locale }) {
               as="p"
               motion="fade-in-up"
               delay={120}
-              className="mt-7 max-w-[46ch] text-body-lg text-ink-80 sm:mt-8"
+              className="mt-7 max-w-[48ch] text-body-lg text-ink-80 sm:mt-8"
             >
               {t(hero.subhead, locale)}
             </InView>
 
-            {/* CTAs — clear and confident: one solid-weight primary, one call. */}
             <InView
               as="div"
               motion="fade-in-up"
@@ -127,27 +129,87 @@ export function Hero({ locale }: { locale: Locale }) {
                 </span>
               </a>
             </InView>
+
+            {/* Footnote credentials — scholarly marginalia. On mobile they sit here,
+                inline beneath the primary; on lg they move to the margin column. */}
+            <ol className="mt-12 space-y-3 border-t border-ink/15 pt-6 lg:hidden">
+              {footnotes.map((f) => (
+                <li key={f.ref} className="flex gap-3 text-body-sm text-slate-strong">
+                  <span className="font-mono text-caption text-accent">
+                    <span dir="ltr">{f.ref}</span>
+                  </span>
+                  <span className="leading-snug">{t(f.value, locale)}</span>
+                </li>
+              ))}
+            </ol>
           </div>
 
-          {/* Portrait column — warm duotone, hairline-framed editorial element.
-              BELOW the text on mobile; capped so it never dominates screen one. */}
+          {/* MARGIN — footnotes (lg) + the grid-breaking portrait. */}
+          <aside className="relative order-2 hidden lg:block">
+            {/* The portrait BREAKS the grid: it overlaps UP past the section-head rule
+                and bleeds OUT past the page's outer edge, wider than its column, with a
+                fine offset hairline mat. Not a tidy box. Empty state = cream + NK. */}
+            <InView as="figure" motion="fade-in-up" delay={160} className="relative">
+              <div className="relative -mt-44 w-[150%] -translate-x-0 max-w-none lg:-me-[max(0px,calc((100vw-1280px)/2+2rem))] xl:-mt-52">
+                {/* Folio-style frame: a hairline mat offset toward the type column. */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -inset-x-3 -inset-y-3 border border-ink/25"
+                />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute -bottom-3 -start-3 h-16 w-px bg-accent"
+                />
+                <div
+                  className="portrait portrait--1 relative aspect-[3/4] w-full overflow-hidden"
+                  role="img"
+                  aria-label={t(hero.portraitAlt, locale)}
+                >
+                  <span aria-hidden className="portrait__empty">
+                    <span className="portrait__monogram">NK</span>
+                    <span className="portrait__caption eyebrow">
+                      {t({ he: "דיוקן", en: "Portrait" }, locale)}
+                    </span>
+                  </span>
+                </div>
+                <figcaption className="mt-3.5 flex items-baseline justify-between gap-2 text-caption text-slate">
+                  <span className="font-editorial text-body-sm normal-case tracking-normal text-ink">
+                    {t(hero.portraitCaption, locale)}
+                  </span>
+                  <span className="font-mono text-[0.65rem] tracking-[0.06em] text-slate-60">
+                    <span dir="ltr">Fig. 1</span>
+                  </span>
+                </figcaption>
+              </div>
+            </InView>
+
+            {/* Footnotes set small in the margin, under the portrait. */}
+            <ol className="mt-10 space-y-3.5 border-t border-ink/15 pt-5">
+              {footnotes.map((f) => (
+                <li key={f.ref} className="flex gap-2.5 text-body-sm leading-snug text-slate-strong">
+                  <span className="font-mono text-caption text-accent">
+                    <span dir="ltr">{f.ref}</span>
+                  </span>
+                  <span>{t(f.value, locale)}</span>
+                </li>
+              ))}
+            </ol>
+          </aside>
+
+          {/* Portrait for MOBILE — below the text, capped, still grid-breaking-lite. */}
           <InView
             as="figure"
             motion="fade-in-up"
             delay={160}
-            className="order-2"
+            className="order-3 lg:hidden"
           >
-            <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[360px] lg:max-w-none">
-              {/* Hairline frame offset — gives the portrait an art-directed mat. */}
+            <div className="relative mx-auto w-full max-w-[340px]">
               <span
                 aria-hidden
-                className="pointer-events-none absolute -inset-2.5 border border-border"
+                className="pointer-events-none absolute -inset-2 border border-ink/20"
               />
-              {/* Capped to ~42vh on mobile (3:4-ish crop) so the text leads screen one;
-                  on lg it grows to the full editorial column ratio. Houses the
-                  designed empty state (monogram + caption) shown until a photo lands. */}
               <div
-                className="portrait portrait--1 relative h-[42vh] max-h-[420px] w-full overflow-hidden lg:aspect-[4/5] lg:h-auto lg:max-h-none"
+                className="portrait portrait--1 relative h-[40vh] max-h-[400px] w-full overflow-hidden"
                 role="img"
                 aria-label={t(hero.portraitAlt, locale)}
               >
@@ -158,52 +220,16 @@ export function Hero({ locale }: { locale: Locale }) {
                   </span>
                 </span>
               </div>
+              <figcaption className="mt-3 flex items-baseline justify-between gap-2 text-caption text-slate">
+                <span className="font-editorial text-body-sm normal-case tracking-normal text-ink">
+                  {t(hero.portraitCaption, locale)}
+                </span>
+                <span className="font-mono text-[0.65rem] text-slate-60">
+                  <span dir="ltr">Fig. 1</span>
+                </span>
+              </figcaption>
             </div>
-            <figcaption className="mt-4 flex items-center justify-between gap-3 text-caption text-slate">
-              <span className="font-editorial text-body-base normal-case tracking-normal text-ink">
-                {t(hero.portraitCaption, locale)}
-              </span>
-              <span className="uppercase tracking-[0.18em] eyebrow">
-                {t({ he: "אורולוג בכיר", en: "Senior Urologist" }, locale)}
-              </span>
-            </figcaption>
           </InView>
-        </div>
-      </div>
-
-      {/* Elevated credential register — the trust moat, with gravitas. A structured
-          label/value ledger on a hairline grid, not a wrapping eyebrow row. */}
-      <div className="border-t border-ink bg-canvas">
-        <div className="mx-auto w-full max-w-[1240px] px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-          <InView
-            as="p"
-            motion="fade-in-up"
-            className="mb-7 flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow"
-          >
-            <span aria-hidden className="inline-block h-px w-8 bg-accent" />
-            {t({ he: "רקע מקצועי מאומת", en: "Verified Background" }, locale)}
-          </InView>
-          <dl className="grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-            {register.map((item, i) => (
-              <InView
-                as="div"
-                motion="fade-in-up"
-                delay={i * 70}
-                key={i}
-                className="flex flex-col gap-2 bg-canvas p-5 sm:p-6"
-              >
-                <dt className="flex items-center gap-2 text-caption uppercase tracking-[0.18em] text-slate eyebrow">
-                  <span className="font-mono text-[0.65rem] text-accent">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {t(item.label, locale)}
-                </dt>
-                <dd className="text-body-sm font-medium leading-snug text-ink">
-                  {t(item.value, locale)}
-                </dd>
-              </InView>
-            ))}
-          </dl>
         </div>
       </div>
     </section>

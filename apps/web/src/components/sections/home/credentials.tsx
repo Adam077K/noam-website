@@ -2,6 +2,7 @@ import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { credentials } from "@/content/home";
 import { InView } from "@/components/ui";
+import { SectionHead } from "./journal";
 
 /**
  * Professional record — the trust moat read in full (v3). Where the hero register
@@ -16,26 +17,26 @@ import { InView } from "@/components/ui";
 export function Credentials({ locale }: { locale: Locale }) {
   return (
     <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-      <div className="mx-auto w-full max-w-[1240px]">
-        {/* Section head — label + a one-line framing statement, asymmetric. */}
-        <div className="grid gap-x-16 gap-y-6 border-b border-ink pb-10 lg:grid-cols-[1fr_1.1fr] lg:items-end">
-          <p className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow">
-            <span aria-hidden className="inline-block h-px w-8 bg-accent" />
-            {t(credentials.eyebrow, locale)}
-          </p>
-          <p className="max-w-[48ch] text-body-base text-slate-strong">
-            {t(
-              {
-                he: "רקע מקצועי מלא — מתפקידי ניהול בשיבא ועד יו\"ר ועדת הנחיות באיגוד האורולוגיה האירופי.",
-                en: "A complete professional record — from unit leadership at Sheba to chairing a clinical-guidelines committee for the European Association of Urology.",
-              },
-              locale,
-            )}
-          </p>
-        </div>
+      <div className="mx-auto w-full max-w-[1280px]">
+        <SectionHead
+          folio="05"
+          title={{ he: "רקע מקצועי", en: "Professional Record" }}
+          locale={locale}
+        />
+
+        {/* A one-line framing statement under the running head. */}
+        <p className="mt-10 max-w-[60ch] text-body-lg leading-relaxed text-ink-80 sm:mt-12">
+          {t(
+            {
+              he: "רקע מקצועי מלא — מתפקידי ניהול בשיבא ועד יו\"ר ועדת הנחיות באיגוד האורולוגיה האירופי.",
+              en: "A complete professional record — from unit leadership at Sheba to chairing a clinical-guidelines committee for the European Association of Urology.",
+            },
+            locale,
+          )}
+        </p>
 
         {/* The ledger. */}
-        <dl className="border-t border-border">
+        <dl className="mt-14 border-t border-ink/20 sm:mt-16">
           {credentials.items.map((item, i) => (
             <InView
               as="div"

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
+import { RunningHead } from "@/components/sections/home/journal";
 import { Hero } from "@/components/sections/home/hero";
 import { Credentials } from "@/components/sections/home/credentials";
 import { ServicesIndex } from "@/components/sections/home/services-index";
@@ -47,11 +48,12 @@ export default async function HomePage({
 
   return (
     <>
+      <RunningHead locale={locale} />
       <Hero locale={locale} />
-      <Credentials locale={locale} />
+      <Approach locale={locale} />
       <ServicesIndex locale={locale} />
       <QuoteBand locale={locale} />
-      <Approach locale={locale} />
+      <Credentials locale={locale} />
       <ContactClose locale={locale} />
     </>
   );
