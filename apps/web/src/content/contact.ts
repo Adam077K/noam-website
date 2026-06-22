@@ -30,6 +30,11 @@ export const contactFacts = {
 /** Section 1 — contact options (the phone-primary header). */
 export const contactIntro = {
   eyebrow: { he: "יצירת קשר", en: "Contact" } satisfies LocalizedString,
+  /** Small-caps section running-head for the journal masthead. */
+  sectionTitle: {
+    he: "התכתבות",
+    en: "Correspondence",
+  } satisfies LocalizedString,
   headline: {
     he: "הצעד הראשון קל יותר ממה שנדמה.",
     en: "The first step is easier than it seems.",
@@ -38,7 +43,13 @@ export const contactIntro = {
     he: "אפשר לפנות בטלפון, במייל, או דרך הטופס שבהמשך. כל פנייה נענית באופן אישי ובדיסקרטיות מלאה.",
     en: "You can reach us by phone, by email, or through the form below. Every inquiry is answered personally and in full confidence.",
   } satisfies LocalizedString,
+  /** Serif call-to-action word set at editorial scale (phone-primary). */
+  callWord: { he: "להתקשר", en: "Call" } satisfies LocalizedString,
   phoneLabel: { he: "טלפון", en: "Phone" } satisfies LocalizedString,
+  phoneSecondaryLabel: {
+    he: "קו נוסף",
+    en: "Second line",
+  } satisfies LocalizedString,
   phoneHint: {
     he: "מענה אישי — אפשר פשוט להתקשר.",
     en: "Answered personally — you can simply call.",
@@ -52,6 +63,11 @@ export const discretionGuarantee = {
   eyebrow: {
     he: "סודיות מלאה",
     en: "Complete confidence",
+  } satisfies LocalizedString,
+  /** Small-caps section running-head for the journal section rule. */
+  sectionTitle: {
+    he: "התחייבות לדיסקרטיות",
+    en: "Our Guarantee",
   } satisfies LocalizedString,
   /** Lead, emphasised. */
   lead: {
@@ -72,6 +88,11 @@ export const discretionGuarantee = {
 
 /** Section 3 — the form: heading, subhead, per-field copy, and static states. */
 export const contactForm = {
+  /** Small-caps section running-head for the journal section rule. */
+  sectionTitle: {
+    he: "כתבו אלינו",
+    en: "Write to Us",
+  } satisfies LocalizedString,
   heading: {
     he: "השאירו פנייה",
     en: "Send an inquiry",
