@@ -8,6 +8,15 @@ import type { LocalizedString } from "./types";
  * founder approves. No facts beyond the copy deck are invented.
  */
 
+/**
+ * Journal running head for the profile — the same "Vol. I" device as Home, recast
+ * for The Physician profile. Renders dir="ltr" in the masthead.
+ */
+export const folio = {
+  he: "גיליון א׳ · פרופיל · הרופא",
+  en: "Volume I · Profile · The Physician",
+} satisfies LocalizedString;
+
 /** Section 1 — Hero: eyebrow, headline, personal intro, in-context portrait. */
 export const hero = {
   eyebrow: {
@@ -58,6 +67,37 @@ export const story = {
       en: "Over the years I've handled the most complex cases — at Sheba, on the European clinical committees, and in private practice. That same standard follows everyone who comes to me, no matter how simple or complicated the reason for the visit.",
     } satisfies LocalizedString,
   ] satisfies ReadonlyArray<LocalizedString>,
+  /**
+   * Marginalia — scholarly side-notes that annotate the prose (the asymmetric
+   * margin column). Each is a label + a short clause drawn only from the verified
+   * record; nothing invented. Renders as a hairline-led note, not a footnote ref.
+   */
+  marginalia: [
+    {
+      key: "practice-since",
+      label: { he: "במרפאה הפרטית", en: "Private practice" } satisfies LocalizedString,
+      note: {
+        he: "טיפול דיסקרטי בתל אביב — אדם אחד בכל פעם, בלי תור במערכת.",
+        en: "Discreet care in Tel Aviv — one person at a time, never a queue.",
+      } satisfies LocalizedString,
+    },
+    {
+      key: "sheba",
+      label: { he: "מרכז שיבא", en: "Sheba Medical Center" } satisfies LocalizedString,
+      note: {
+        he: "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה והמרכז לבריאות מינית.",
+        en: "Head of the Functional Urology & Andrology Unit and the Sexual Health Center.",
+      } satisfies LocalizedString,
+    },
+    {
+      key: "eau",
+      label: { he: "איגוד האורולוגיה האירופי", en: "European Urology (EAU)" } satisfies LocalizedString,
+      note: {
+        he: "יו״ר ועדת ההנחיות הקליניות לחבלות אורולוגיות.",
+        en: "Chair of the clinical guidelines committee for urological trauma.",
+      } satisfies LocalizedString,
+    },
+  ],
 } as const;
 
 /** A single credential row. `year` and `pending` are optional per-item. */
