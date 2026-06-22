@@ -2,10 +2,10 @@ import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { expect } from "@/content/clinic";
 import { InView } from "@/components/ui";
-import { SectionHead } from "@/components/sections/home/journal";
 import { Card } from "@/components/ui/card";
 import { IconCircle } from "@/components/ui/icon-circle";
 import type { IconName } from "@/components/ui/icons";
+import { SectionHead } from "@/components/sections/home/journal";
 
 /**
  * What to Expect — ref-#3 service-card grid style.

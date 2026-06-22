@@ -10,7 +10,7 @@ import {
 } from "@/content/contact";
 import { pageMetadata } from "@/lib/seo";
 import { InView, Eyebrow, IconCircle } from "@/components/ui";
-import { RunningHead, SectionHead } from "@/components/sections/home/journal";
+import { SectionHead } from "@/components/sections/home/journal";
 import { ContactForm } from "@/components/sections/contact/contact-form";
 
 /**
@@ -62,8 +62,6 @@ export default async function ContactPage({
 
   return (
     <>
-      <RunningHead locale={locale} />
-
       {/* ── Main contact section: two-column split ──────────────────────────── */}
       <section className="relative overflow-x-clip bg-paper">
         {/* Subtle mist blob — decorative depth, pointer-events-none */}

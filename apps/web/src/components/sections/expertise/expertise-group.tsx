@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Locale } from "@/i18n/config";
 import { localeHref } from "@/i18n/routing";
 import { t } from "@/content/types";
@@ -35,6 +34,10 @@ import { InView } from "@/components/ui/in-view";
  *
  * Tone alternates: group index even → paper, odd → canvas (mist-50 tint).
  * The `folio` running-head folio ("01" / "02" / "03") matches the home pattern.
+ *
+ * `aboveFold`: when true, reduces top block-padding so group 1 starts
+ * tightly below the page header — the card grid is already visible on first
+ * screen without scrolling.
  */
 
 const byReferralNote = {
@@ -47,11 +50,15 @@ export function ExpertiseGroup({
   folio,
   locale,
   index = 0,
+  aboveFold = false,
 }: {
   group: ExpertiseGroupData;
   folio: string;
   locale: Locale;
   index?: number;
+  /** When true, collapses the top block-padding so this group is visible
+   *  on the first screen directly under the page header. */
+  aboveFold?: boolean;
 }) {
   const isHe = locale === "he";
   const tone = index % 2 === 0 ? "paper" : "canvas";
@@ -70,10 +77,11 @@ export function ExpertiseGroup({
       id={group.anchor}
       tone={tone}
       className="scroll-mt-20 border-b border-ink/10"
+      innerClassName={aboveFold ? "pt-10 sm:pt-12" : undefined}
     >
       {/* ── Section running head ─────────────────────────────────────────── */}
       <div className="mb-10 sm:mb-12">
-        {/* Folio + eyebrow row */}
+        {/* Eyebrow row — folio numeral + label */}
         <div className="mb-5 flex items-center gap-3 border-b border-ink/15 pb-3">
           <span
             className="font-mono text-[0.7rem] tracking-[0.1em] text-mist"

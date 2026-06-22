@@ -26,18 +26,6 @@ export function AtmosphereHero({ locale }: { locale: Locale }) {
 
   return (
     <section className="relative overflow-x-clip bg-paper">
-      {/* Ghost "01" watermark — outer margin only, never in content columns */}
-      <span
-        aria-hidden
-        className="ghost-numeral pointer-events-none absolute top-6 hidden select-none lg:block"
-        style={{
-          insetInlineEnd: "calc(50% - 680px)",
-          opacity: 0.06,
-        }}
-      >
-        <span dir="ltr">01</span>
-      </span>
-
       <div className="mx-auto w-full max-w-[1280px] px-[clamp(1.25rem,4vw,2.5rem)] pt-5 sm:pt-7 lg:pt-10">
         {/*
           Main grid: [primary: grow] [photo column: 22rem fixed on LG]

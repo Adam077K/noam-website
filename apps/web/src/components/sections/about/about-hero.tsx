@@ -3,8 +3,8 @@
 import type { Locale } from "@/i18n/config";
 import { localeHref } from "@/i18n/routing";
 import { t } from "@/content/types";
-import { hero, folio as aboutFolio } from "@/content/about";
-import { brand, contact } from "@/content/site";
+import { hero } from "@/content/about";
+import { contact, brand } from "@/content/site";
 import { InView } from "@/components/ui";
 import { MediaSlot } from "@/components/ui/media-slot";
 
@@ -26,30 +26,6 @@ export function AboutHero({ locale }: { locale: Locale }) {
 
   return (
     <section className="relative overflow-x-clip bg-paper">
-
-      {/* ── Running head band ── */}
-      <div className="border-b border-[var(--color-ink-divider)]">
-        <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-[clamp(1.25rem,4vw,2.5rem)] py-2.5">
-          <p
-            className="eyebrow text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-slate-strong"
-            dir="ltr"
-          >
-            {t(aboutFolio, locale)}
-          </p>
-          <p className="eyebrow hidden text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-slate-strong sm:block">
-            {t(brand.masthead, locale)}
-          </p>
-        </div>
-      </div>
-
-      {/* ── Ghost watermark "01" ── */}
-      <span
-        aria-hidden
-        className="ghost-numeral pointer-events-none absolute inset-inline-end-[2%] top-8 select-none sm:top-12"
-        style={{ opacity: 0.05 }}
-      >
-        <span dir="ltr">01</span>
-      </span>
 
       {/* ── Main two-column grid ── */}
       <div className="mx-auto w-full max-w-[1280px] px-[clamp(1.25rem,4vw,2.5rem)] pb-[clamp(3rem,6vw,5rem)] pt-[clamp(2.5rem,5vw,4rem)]">
