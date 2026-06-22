@@ -34,17 +34,17 @@ export function Hero({ locale }: { locale: Locale }) {
 
   return (
     <section className="relative overflow-x-clip bg-paper">
-      <div className="mx-auto w-full max-w-[1200px] px-5 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pt-12">
+      <div className="mx-auto w-full max-w-[1200px] px-5 pt-3 sm:px-8 sm:pt-4 lg:px-10 lg:pt-5">
         <SectionHead folio="01" title={{ he: "המרפאה", en: "The Practice" }} locale={locale} />
 
-        <div className="grid items-start gap-x-12 gap-y-12 pb-16 pt-10 sm:pt-12 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-x-16 lg:pb-24 lg:pt-14">
+        <div className="grid items-start gap-x-12 gap-y-10 pb-12 pt-5 sm:pt-5 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-x-16 lg:pb-16 lg:pt-5">
           {/* TYPE SIDE — composed and full on its own; the focal point. */}
           <div className="order-1">
             <p className="text-caption uppercase tracking-[0.2em] text-slate eyebrow">
               {t(hero.eyebrow, locale)}
             </p>
 
-            <h1 className="mt-6 max-w-[19ch] text-balance font-editorial text-ink [font-size:clamp(2.1rem,3.9vw,3.5rem)] [line-height:1.08] [letter-spacing:-0.018em]">
+            <h1 className="mt-3 max-w-[24ch] text-balance font-editorial text-ink [font-size:clamp(1.8rem,2.7vw,2.4rem)] [line-height:1.08] [letter-spacing:-0.016em]">
               <InView as="span" className="block pb-[0.1em]">
                 {t(hero.headline, locale)}
               </InView>
@@ -54,14 +54,14 @@ export function Hero({ locale }: { locale: Locale }) {
               as="div"
               motion="rule-draw"
               delay={320}
-              className="mt-7 h-px w-24 bg-accent"
+              className="mt-4 h-px w-24 bg-accent"
             />
 
             <InView
               as="p"
               motion="fade-in-up"
               delay={120}
-              className="mt-6 max-w-[52ch] text-body-lg text-ink-80"
+              className="mt-4 max-w-[62ch] text-body-base leading-relaxed text-ink-80"
             >
               {t(hero.subhead, locale)}
             </InView>
@@ -71,7 +71,7 @@ export function Hero({ locale }: { locale: Locale }) {
               as="ul"
               motion="fade-in-up"
               delay={180}
-              className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-ink/15 pt-5 text-body-sm text-slate-strong"
+              className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-ink/15 pt-3.5 text-body-sm text-slate-strong"
             >
               {credentials.map((c, i) => (
                 <li key={i} className="flex items-center gap-x-3">
@@ -86,7 +86,7 @@ export function Hero({ locale }: { locale: Locale }) {
               as="div"
               motion="fade-in-up"
               delay={240}
-              className="mt-9 flex flex-col gap-x-8 gap-y-4 sm:flex-row sm:items-center"
+              className="mt-5 flex flex-col gap-x-8 gap-y-3 sm:flex-row sm:items-center"
             >
               <a
                 href={localeHref(locale, "/contact")}
@@ -114,9 +114,10 @@ export function Hero({ locale }: { locale: Locale }) {
             </InView>
           </div>
 
-          {/* PORTRAIT — a modest, refined framed accent. Clearly secondary. */}
+          {/* PORTRAIT — a modest, refined framed accent. Clearly secondary, and
+              capped so the whole hero stays above the fold at laptop heights. */}
           <InView as="figure" motion="fade-in-up" delay={160} className="order-2">
-            <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[320px] lg:ms-auto lg:me-0">
+            <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[300px] lg:ms-auto lg:me-0 lg:max-w-[268px]">
               {/* Fine offset mat + a small accent tick — an intentional frame. */}
               <span
                 aria-hidden

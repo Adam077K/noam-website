@@ -42,7 +42,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         scrolled ? "border-border shadow-[0_1px_0_rgba(0,0,0,0.02)]" : "border-border/70",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-[1240px] items-center justify-between gap-4 px-4 sm:px-6 lg:h-[78px] lg:px-8">
+      <div className="mx-auto flex h-14 max-w-[1240px] items-center justify-between gap-4 px-4 sm:px-6 lg:h-[68px] lg:px-8">
         {/* Wordmark lockup — name in the editorial serif, role line beneath (lg). */}
         <Link
           href={localeHref(locale, "")}

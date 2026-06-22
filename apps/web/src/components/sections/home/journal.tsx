@@ -21,7 +21,7 @@ import { InView } from "@/components/ui";
 export function RunningHead({ locale }: { locale: Locale }) {
   return (
     <div className="border-b border-ink/15 bg-paper">
-      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-4 py-2 sm:px-6 lg:px-8">
         <p className="text-caption uppercase tracking-[0.2em] text-slate eyebrow">
           {t(hero.folio, locale)}
         </p>
