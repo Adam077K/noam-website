@@ -4,62 +4,48 @@ import { t } from "@/content/types";
 import { hero } from "@/content/home";
 import { contact } from "@/content/site";
 import { InView } from "@/components/ui";
-import { Folio, SectionHead } from "./journal";
+import { SectionHead } from "./journal";
 
 /**
- * Hero — "The Journal" opening article (v5, rebalanced).
+ * Hero — "The Journal" opening article (v6, clean + professional).
  *
- * Two balanced co-anchors: the big serif headline block on the start side, and a
- * SUBSTANTIAL full-height warm-duotone portrait column on the end side that breaks
- * the grid by bleeding to the page's outer edge and slightly past top + bottom.
- * The type block (eyebrow · headline · rule · standfirst · CTA · credential note)
- * fills its column as one considered unit, so there is no dead vertical band — the
- * portrait's height and the type block read as deliberate, full, and paired.
+ * The headline is the clear focal point: a well-sized serif statement with
+ * balanced margins, a precise standfirst, a hairline-separated credential line
+ * (the trust moat, inline and scholarly), and a clean primary CTA + phone. The
+ * type side reads composed and full on its own. The portrait is a MODEST, refined
+ * framed accent — clearly secondary, never a giant empty box — carrying the warm
+ * cream / NK placeholder until a real photo fills it.
  *
- * Credentials are a clean MARGINAL CREDENTIAL NOTE (hairline-led, no orphan ref
- * numbers). Empty portrait = the designed cream/NK state until a photo lands.
+ * No watermark folio: the only "01" is the small label in the section running
+ * head, never a large numeral behind the text.
  *
- * RTL-correct: logical props, mirrored bleed + arrows; phone renders dir="ltr".
+ * RTL-correct: logical props, mirrored arrows; phone renders dir="ltr".
  */
 export function Hero({ locale }: { locale: Locale }) {
-  // Marginal credential note — the moat, set small and scholarly. No ref numbers.
-  const appointments: LocalizedPair[] = [
+  // Credential line — the moat, set inline + hairline-separated, scholarly.
+  const credentials: LocalizedPair[] = [
     {
       he: "מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה, שיבא",
       en: "Head of Functional Urology & Andrology, Sheba",
     },
-    {
-      he: "יו״ר ועדת ההנחיות הקליניות, איגוד האורולוגיה האירופי",
-      en: "Chair, Clinical Guidelines Committee, EAU",
-    },
-    {
-      he: "מנהל המרכז לבריאות מינית (SHSQ), שיבא",
-      en: "Director, Sexual Health Center (SHSQ), Sheba",
-    },
+    { he: "יו״ר ועדת ההנחיות, EAU", en: "EAU Guidelines Chair" },
+    { he: "מנהל SHSQ", en: "SHSQ Director" },
   ];
 
   return (
     <section className="relative overflow-x-clip bg-paper">
-      <div className="mx-auto w-full max-w-[1280px] px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-12">
+      <div className="mx-auto w-full max-w-[1200px] px-5 pt-8 sm:px-8 sm:pt-10 lg:px-10 lg:pt-12">
         <SectionHead folio="01" title={{ he: "המרפאה", en: "The Practice" }} locale={locale} />
 
-        {/* The balanced spread — type block + full-height portrait column. */}
-        <div className="grid items-stretch gap-x-10 gap-y-12 pt-10 sm:pt-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-x-16 lg:pb-16">
-          {/* TYPE BLOCK — distributes as one unit; centred against the portrait. */}
-          <div className="relative order-1 flex flex-col lg:min-h-[34rem] lg:justify-center lg:py-4">
-            {/* Oversized folio anchor, ghosted behind the headline (sits below the
-                eyebrow on every breakpoint so it never collides with the label). */}
-            <Folio
-              n="01"
-              className="pointer-events-none absolute top-12 -z-0 text-[6rem] -start-2 sm:top-10 sm:text-[9rem] lg:top-6 lg:text-[12rem]"
-            />
-
-            <p className="relative mb-6 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
+        <div className="grid items-start gap-x-12 gap-y-12 pb-16 pt-10 sm:pt-12 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-x-16 lg:pb-24 lg:pt-14">
+          {/* TYPE SIDE — composed and full on its own; the focal point. */}
+          <div className="order-1">
+            <p className="text-caption uppercase tracking-[0.2em] text-slate eyebrow">
               {t(hero.eyebrow, locale)}
             </p>
 
-            <h1 className="relative max-w-[20ch] text-pretty font-editorial text-ink [font-size:clamp(2.1rem,4.2vw,3.75rem)] [line-height:1.06] [letter-spacing:-0.02em] sm:max-w-[18ch]">
-              <InView as="span" className="block pb-[0.12em]">
+            <h1 className="mt-6 max-w-[19ch] text-balance font-editorial text-ink [font-size:clamp(2.1rem,3.9vw,3.5rem)] [line-height:1.08] [letter-spacing:-0.018em]">
+              <InView as="span" className="block pb-[0.1em]">
                 {t(hero.headline, locale)}
               </InView>
             </h1>
@@ -67,24 +53,40 @@ export function Hero({ locale }: { locale: Locale }) {
             <InView
               as="div"
               motion="rule-draw"
-              delay={360}
-              className="mt-7 h-px w-28 bg-accent sm:mt-8"
+              delay={320}
+              className="mt-7 h-px w-24 bg-accent"
             />
 
             <InView
               as="p"
               motion="fade-in-up"
               delay={120}
-              className="mt-6 max-w-[50ch] text-body-lg text-ink-80 sm:mt-7"
+              className="mt-6 max-w-[52ch] text-body-lg text-ink-80"
             >
               {t(hero.subhead, locale)}
             </InView>
 
+            {/* Credential line — inline, hairline-separated. */}
+            <InView
+              as="ul"
+              motion="fade-in-up"
+              delay={180}
+              className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-ink/15 pt-5 text-body-sm text-slate-strong"
+            >
+              {credentials.map((c, i) => (
+                <li key={i} className="flex items-center gap-x-3">
+                  {i > 0 && <span aria-hidden className="text-ink/25">·</span>}
+                  <span>{t(c, locale)}</span>
+                </li>
+              ))}
+            </InView>
+
+            {/* Actions — a clean primary CTA + the phone. */}
             <InView
               as="div"
               motion="fade-in-up"
-              delay={200}
-              className="mt-8 flex flex-col gap-x-8 gap-y-4 sm:flex-row sm:items-center"
+              delay={240}
+              className="mt-9 flex flex-col gap-x-8 gap-y-4 sm:flex-row sm:items-center"
             >
               <a
                 href={localeHref(locale, "/contact")}
@@ -110,34 +112,22 @@ export function Hero({ locale }: { locale: Locale }) {
                 </span>
               </a>
             </InView>
-
-            {/* Credential note — sits in the type block on lg (under the CTA) and on
-                mobile (inline). It anchors the lower half so nothing floats. */}
-            <CredentialNote items={appointments} locale={locale} className="mt-10 lg:mt-12" />
           </div>
 
-          {/* PORTRAIT COLUMN — a substantial, full-height editorial anchor that
-              breaks the grid: it fills the row height and bleeds to the page's
-              outer edge (+ a touch past top/bottom). Not a small box. */}
-          <InView
-            as="figure"
-            motion="fade-in-up"
-            delay={160}
-            className="order-2 hidden lg:block"
-          >
-            <div className="relative -mt-12 -mb-20 h-[calc(100%+8rem)] w-[calc(100%+max(0px,calc((100vw-1280px)/2+2rem)))] max-w-none lg:-me-[max(0px,calc((100vw-1280px)/2+2rem))]">
-              {/* Offset hairline mat toward the type column. */}
+          {/* PORTRAIT — a modest, refined framed accent. Clearly secondary. */}
+          <InView as="figure" motion="fade-in-up" delay={160} className="order-2">
+            <div className="relative mx-auto w-full max-w-[300px] sm:max-w-[320px] lg:ms-auto lg:me-0">
+              {/* Fine offset mat + a small accent tick — an intentional frame. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -inset-x-3 -inset-y-3 z-10 border border-ink/25"
+                className="pointer-events-none absolute -inset-2.5 border border-ink/20"
               />
-              {/* Accent tick at the inner-bottom corner. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -bottom-3 -start-3 z-10 h-20 w-px bg-accent"
+                className="pointer-events-none absolute -bottom-2.5 -start-2.5 h-12 w-px bg-accent"
               />
               <div
-                className="portrait portrait--1 relative h-full min-h-[34rem] w-full overflow-hidden"
+                className="portrait portrait--1 relative aspect-[4/5] w-full overflow-hidden"
                 role="img"
                 aria-label={t(hero.portraitAlt, locale)}
               >
@@ -148,33 +138,7 @@ export function Hero({ locale }: { locale: Locale }) {
                   </span>
                 </span>
               </div>
-              {/* Caption pinned inside the bleed, lower-start corner. */}
-              <figcaption className="absolute bottom-4 start-4 z-10 bg-paper/85 px-3 py-1.5 font-editorial text-body-sm normal-case tracking-normal text-ink backdrop-blur-sm">
-                {t(hero.portraitCaption, locale)}
-              </figcaption>
-            </div>
-          </InView>
-
-          {/* PORTRAIT — MOBILE (below text, substantial but capped). */}
-          <InView as="figure" motion="fade-in-up" delay={160} className="order-3 lg:hidden">
-            <div className="relative mx-auto w-full max-w-[360px]">
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -inset-2 border border-ink/20"
-              />
-              <div
-                className="portrait portrait--1 relative h-[46vh] max-h-[440px] w-full overflow-hidden"
-                role="img"
-                aria-label={t(hero.portraitAlt, locale)}
-              >
-                <span aria-hidden className="portrait__empty">
-                  <span className="portrait__monogram">NK</span>
-                  <span className="portrait__caption eyebrow">
-                    {t({ he: "דיוקן", en: "Portrait" }, locale)}
-                  </span>
-                </span>
-              </div>
-              <figcaption className="mt-3 font-editorial text-body-sm normal-case tracking-normal text-ink">
+              <figcaption className="mt-3.5 font-editorial text-body-sm normal-case tracking-normal text-ink">
                 {t(hero.portraitCaption, locale)}
               </figcaption>
             </div>
@@ -186,34 +150,3 @@ export function Hero({ locale }: { locale: Locale }) {
 }
 
 type LocalizedPair = { he: string; en: string };
-
-/**
- * The marginal credential note: a hairline-led "Appointments" label over a small
- * scholarly list. Each line is preceded by a fine accent rule (not a number), so
- * it reads as an intentional credential note rather than orphaned footnote refs.
- */
-function CredentialNote({
-  items,
-  locale,
-  className,
-}: {
-  items: LocalizedPair[];
-  locale: Locale;
-  className?: string;
-}) {
-  return (
-    <div className={["max-w-[34rem] border-t border-ink/20 pt-5", className ?? ""].join(" ")}>
-      <p className="mb-4 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
-        {t({ he: "מינויים", en: "Appointments" }, locale)}
-      </p>
-      <ul className="grid gap-x-8 gap-y-3.5 sm:grid-cols-2 lg:grid-cols-1">
-        {items.map((item, i) => (
-          <li key={i} className="flex gap-2.5 text-body-sm leading-snug text-slate-strong">
-            <span aria-hidden className="mt-[0.5em] h-px w-3 shrink-0 bg-accent" />
-            <span>{t(item, locale)}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
