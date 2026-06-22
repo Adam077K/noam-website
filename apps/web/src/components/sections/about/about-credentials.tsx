@@ -21,13 +21,13 @@ export function AboutCredentials({ locale }: { locale: Locale }) {
       <div className="mx-auto w-full max-w-[1280px]">
         <SectionHead
           folio="04"
-          title={{ he: "רקע מקצועי", en: "Professional Record" }}
+          title={credentials.eyebrow}
           locale={locale}
         />
 
         {/* Journal standfirst under the running head. */}
         <p className="mt-10 max-w-[60ch] text-body-lg leading-relaxed text-ink-80 sm:mt-12">
-          {t(credentials.headline, locale)}
+          {t(credentials.standfirst, locale)}
         </p>
 
         {/* The ledger — grouped blocks of label/value credential rows. */}
