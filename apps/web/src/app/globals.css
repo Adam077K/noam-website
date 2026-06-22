@@ -92,17 +92,17 @@
      caption:  0.8125rem                    / lh 1.45 / w 500 + tracked caps (eyebrow)
      ========================================================================== */
 
-  /* display — hero headline only. ONE per page. */
-  --text-masthead: clamp(2.75rem, 5vw, 4rem);
-  --text-masthead--line-height: 1.05;
-  --text-masthead--letter-spacing: -0.02em;
-  --text-masthead--font-weight: 600;
+  /* display-hero — ONE per page. Commanding headline, tightened tracking and leading. */
+  --text-masthead: clamp(3.25rem, 6.5vw, 5.5rem);
+  --text-masthead--line-height: 1.0;
+  --text-masthead--letter-spacing: -0.03em;
+  --text-masthead--font-weight: 700;
 
   /* display-xl alias (backwards compat) */
-  --text-display-xl: clamp(2.75rem, 5vw, 4rem);
-  --text-display-xl--line-height: 1.05;
-  --text-display-xl--letter-spacing: -0.02em;
-  --text-display-xl--font-weight: 600;
+  --text-display-xl: clamp(3.25rem, 6.5vw, 5.5rem);
+  --text-display-xl--line-height: 1.0;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display-xl--font-weight: 700;
 
   /* h1 — section title */
   --text-display-lg: clamp(2.25rem, 3.5vw, 3rem);
@@ -261,6 +261,34 @@ html[lang="he"] .font-editorial {
   font-family: var(--font-heebo), system-ui, sans-serif;
   font-weight: 600;
   font-style: normal;
+}
+
+/* ============================================================================
+   HERO CREDENTIAL CHIP — floating authority label on portrait column
+   ========================================================================== */
+.credential-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.875rem;
+  background: var(--color-paper);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 16px rgba(32,42,44,0.08), 0 1px 3px rgba(32,42,44,0.06);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.credential-chip__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-mist);
+  flex-shrink: 0;
 }
 
 /* ============================================================================
@@ -466,8 +494,8 @@ html[lang="he"] .eyebrow {
 
 @media (max-width: 639px) {
   :root {
-    --text-masthead: 2rem;            /* 32px — fits 3-line RTL and 3-line EN headline above fold */
-    --text-masthead--line-height: 1.15;
+    --text-masthead: 2.25rem;         /* 36px — fits 3-line RTL and 3-line EN headline above fold */
+    --text-masthead--line-height: 1.1;
   }
 }
 

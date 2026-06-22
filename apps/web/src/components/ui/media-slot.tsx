@@ -10,14 +10,20 @@ const RATIO = {
 type Ratio = keyof typeof RATIO;
 
 /**
- * Portrait / in-context media slot — ref-#3 style.
- * Until the founder supplies real photography, renders an intentional placeholder:
- * — soft mist gradient panel (mist-50 → mist-200 diagonal)
- * — organic mist blob behind the slot edge for warmth
- * — a monogram medallion (doctor initials) at centre
- * — a subtle caption label at lower edge
- * Object-fit:cover ready: drop a real <Image> inside and zero layout shift occurs.
- * `data-slot` marks the handoff point for photo injection.
+ * Portrait / in-context media slot — ref-#3 style, richly designed placeholder.
+ *
+ * Visual anatomy:
+ *  - Outer organic mist blob (large, colored, asymmetric) behind the panel — the
+ *    signature visual motif; bleeds beyond the panel edge for warmth and depth.
+ *  - Secondary counter-blob low on opposite side for layered depth.
+ *  - Thin arc accent (SVG) adds a composed, designed mark behind the panel.
+ *  - Double-bezel portrait panel: outer shell (mist-soft ring + p-1.5) wrapping an
+ *    inner core surface (mist gradient, inset highlight, concentric radius).
+ *  - Large NK monogram (ink at sufficient contrast) at centre — scaled up dramatically.
+ *  - Fine horizontal rule beneath the monogram.
+ *  - Caption credential pill (absolute, bottom of inner frame) — the floating chip.
+ *
+ * Object-fit:cover ready: real <Image> drops in via data-slot, zero layout shift.
  */
 export function MediaSlot({
   ratio,
@@ -40,60 +46,141 @@ export function MediaSlot({
     <figure className={cn("relative", className)}>
       {blob && (
         <>
-          {/* Primary mist blob — peeks past the slot edge (organic shape) */}
+          {/* Primary organic mist blob — large, high-presence, bleeds beyond panel edge */}
           <span
             aria-hidden
-            className="pointer-events-none absolute -end-10 -top-10 -z-10 h-[78%] w-[80%] bg-mist/35 blur-[60px]"
-            style={{ borderRadius: "62% 38% 56% 44% / 54% 60% 40% 46%" }}
+            className="pointer-events-none absolute -end-10 -top-10 -z-10 h-[106%] w-[102%] blur-[44px]"
+            style={{
+              borderRadius: "62% 38% 56% 44% / 54% 60% 40% 46%",
+              background:
+                "radial-gradient(ellipse at 62% 32%, #9BBDC1 0%, #BAD2D5 46%, transparent 76%)",
+              opacity: 0.95,
+            }}
           />
-          {/* Counter-blob low on the start side for depth */}
+          {/* Secondary counter-blob — lower start corner, mist-200 for depth layering */}
           <span
             aria-hidden
-            className="pointer-events-none absolute -start-8 bottom-[-8%] -z-10 h-[50%] w-[58%] bg-mist-200/70 blur-[50px]"
-            style={{ borderRadius: "48% 52% 42% 58% / 58% 44% 56% 42%" }}
+            className="pointer-events-none absolute -start-8 bottom-[-10%] -z-10 h-[62%] w-[64%] blur-[40px]"
+            style={{
+              borderRadius: "48% 52% 42% 58% / 58% 44% 56% 42%",
+              background:
+                "radial-gradient(ellipse at 40% 70%, #A2C3C7 0%, #C8DADA 45%, transparent 74%)",
+              opacity: 0.82,
+            }}
           />
+          {/* Thin SVG arc accent — composed signature mark behind the panel */}
+          <svg
+            aria-hidden
+            className="pointer-events-none absolute -end-4 -top-8 -z-10 h-[70%] w-[70%] opacity-20"
+            viewBox="0 0 200 200"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="100"
+              cy="100"
+              r="90"
+              stroke="#AFC8CB"
+              strokeWidth="1"
+              strokeDasharray="8 6"
+            />
+            <circle
+              cx="100"
+              cy="100"
+              r="72"
+              stroke="#AFC8CB"
+              strokeWidth="0.5"
+            />
+          </svg>
         </>
       )}
+
+      {/* ── OUTER SHELL (double-bezel first layer) ─────────────────────────── */}
       <div
-        data-slot={slot}
-        role="img"
-        aria-label={alt}
-        className={cn(
-          RATIO[ratio],
-          /* Layered mist surface: gradient → hairline ring → soft shadow */
-          "group/slot relative flex flex-col items-center justify-center overflow-hidden rounded-[24px]",
-          "bg-gradient-to-br from-mist-50 via-mist-100 to-mist-200",
-          "ring-1 ring-mist-soft",
-          "[box-shadow:inset_0_1px_2px_rgba(255,255,255,0.9),0_24px_48px_-20px_rgba(32,42,44,0.14)]",
-        )}
+        className="rounded-[28px] p-[6px]"
+        style={{
+          background: "linear-gradient(160deg, rgba(175,200,203,0.22) 0%, rgba(200,218,218,0.12) 50%, rgba(255,255,255,0.5) 100%)",
+          boxShadow:
+            "0 32px 72px -20px rgba(32,42,44,0.18), 0 8px 24px -8px rgba(32,42,44,0.10), inset 0 1px 1px rgba(255,255,255,0.8)",
+          border: "1px solid rgba(175,200,203,0.35)",
+        }}
       >
-        {/* Soft radial inner light for depth */}
-        <span
-          aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(130%_85%_at_50%_8%,rgba(255,255,255,0.65),transparent_62%)]"
-        />
-        {/* Concentric inner hairline — reads as intentional frame */}
-        <span aria-hidden className="absolute inset-[10px] rounded-[14px] ring-1 ring-mist/25" />
-
-        {/* Monogram medallion — the considered placeholder */}
-        <span
-          aria-hidden
-          className="relative flex h-[4.5rem] w-[4.5rem] items-center justify-center rounded-full bg-paper/80 shadow-[0_8px_24px_rgba(32,42,44,0.1)] ring-1 ring-mist-soft backdrop-blur-[2px]"
+        {/* ── INNER CORE (double-bezel second layer) ─────────────────────── */}
+        <div
+          data-slot={slot}
+          role="img"
+          aria-label={alt}
+          className={cn(
+            RATIO[ratio],
+            "group/slot relative flex flex-col items-center justify-center overflow-hidden rounded-[22px]",
+          )}
+          style={{
+            background:
+              "linear-gradient(160deg, #F2F7F7 0%, #E5EFF0 40%, #C8DADA 100%)",
+            boxShadow:
+              "inset 0 1px 2px rgba(255,255,255,0.95), inset 0 -2px 6px rgba(32,42,44,0.06)",
+          }}
         >
-          <span className="text-[1.375rem] font-semibold tracking-[0.04em] text-ink-80">
-            {monogram}
-          </span>
-        </span>
-        {/* Fine guide rule beneath the mark */}
-        <span aria-hidden className="relative mt-4 h-px w-10 bg-mist" />
+          {/* Soft radial inner light — crown highlight for depth */}
+          <span
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(130% 90% at 50% 0%, rgba(255,255,255,0.7) 0%, transparent 58%)",
+            }}
+          />
 
-        {/* Caption label at lower edge */}
-        {caption && (
-          <span className="absolute bottom-0 inset-inline-0 px-4 pb-4 text-center text-[0.75rem] font-medium uppercase tracking-[0.1em] text-slate">
-            {caption}
+          {/* Concentric inner hairline ring — reads as an intentional frame */}
+          <span
+            aria-hidden
+            className="absolute inset-[12px] rounded-[12px] ring-1"
+            style={{ borderColor: "rgba(175,200,203,0.3)" }}
+          />
+
+          {/* ── MONOGRAM — large, commanding, ink at sufficient contrast ─── */}
+          <span
+            aria-hidden
+            className="relative z-10 flex flex-col items-center gap-4"
+          >
+            {/* Large display monogram — ink 70% gives ~5:1 on mist-100 background */}
+            <span
+              style={{
+                fontFamily: "var(--font-inter), system-ui, sans-serif",
+                fontWeight: 700,
+                fontSize: "clamp(4.5rem, 10vw, 7rem)",
+                lineHeight: 1,
+                letterSpacing: "-0.02em",
+                color: "color-mix(in oklab, #202A2C 84%, transparent)",
+              }}
+            >
+              {monogram}
+            </span>
+            {/* Fine rule beneath the monogram */}
+            <span
+              aria-hidden
+              style={{
+                display: "block",
+                width: "2.5rem",
+                height: "1px",
+                background: "linear-gradient(90deg, transparent, #AFC8CB, transparent)",
+              }}
+            />
           </span>
-        )}
+
+          {/* ── FLOATING CREDENTIAL CHIP — bottom of the inner frame ─────── */}
+          {caption && (
+            <span
+              className="credential-chip absolute bottom-5"
+              style={{ zIndex: 10 }}
+            >
+              <span className="credential-chip__dot" />
+              {caption}
+            </span>
+          )}
+        </div>
       </div>
+
       {!caption && (
         <figcaption className="sr-only">{alt}</figcaption>
       )}
