@@ -25,18 +25,9 @@ import { SectionHead } from "@/components/sections/home/journal";
 export function AboutQuote({ locale }: { locale: Locale }) {
   return (
     <section
-      className="relative overflow-x-clip bg-ink px-6 py-24 sm:px-8 sm:py-28 lg:px-12 lg:py-36"
+      className="relative overflow-x-clip bg-ink px-6 py-16 sm:px-8 sm:py-24 lg:px-12 lg:py-36"
       aria-label={t({ he: "ציטוט פילוסופי", en: "Philosophical statement" }, locale)}
     >
-      {/* Ghost numeral watermark on the dark band — very faint, purely decorative. */}
-      <span
-        aria-hidden
-        className="ghost-numeral pointer-events-none absolute inset-inline-start-[3%] top-8 select-none text-paper"
-        style={{ opacity: 0.05 }}
-      >
-        <span dir="ltr">03</span>
-      </span>
-
       <div className="relative mx-auto w-full max-w-[1280px]">
         <SectionHead
           folio="03"

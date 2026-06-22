@@ -7,33 +7,36 @@ import {
   expertiseGroups,
 } from "@/content/expertise";
 import { InView } from "@/components/ui";
-import { SectionHead } from "@/components/sections/home/journal";
 
 /**
  * Expertise page masthead — the opening spread of a journal CONTENTS issue.
  *
- * V5 FIX (P1): The old design had a massive empty void in the upper 60% of
- * the viewport. This version:
- *   1. Collapses all dead vertical gap — the H1 is the FIRST element after the
- *      breadcrumb band, separated only by a tight `pt-8 sm:pt-10` guard.
- *   2. Puts the intro paragraph ADJACENT to the heading (not below it) so
- *      neither is clipped at 1366×768.
- *   3. Surfaces the FIRST 3 condition entries (dot-leader journal TOC rows)
- *      WITHIN this header section, so the page's purpose is instantly legible
- *      above the fold.
- *   4. Adds a scope line ("Functional Urology & Sexual Medicine · N subjects")
- *      anchored to the TOC rule.
- *   5. Fixes breadcrumb contrast: text-slate-strong (≥4.5:1) for both locales.
- *   6. Replaces the orphaned right-side 60px rule with a meaningful folio
- *      device ("p. 02").
+ * V6 REDESIGN — matching About hero density bar:
  *
- * RTL-correct: logical CSS properties only, no physical left/right.
- * WCAG 2.2 AA: a11y labels, focus-visible everywhere, colour is never the
- * sole state indicator.
+ *   PROBLEM (v5): The SectionHead component added a full ruled row before the H1,
+ *   and the mt-6 grid + mt-10 TOC rule created ~300px of dead space. At 1440×820
+ *   only 2-3 TOC entries were barely visible at the very bottom of the fold.
+ *
+ *   FIX: Mirror the About hero structure exactly:
+ *   1. Breadcrumb band (running head) — same as all pages.
+ *   2. Ghost watermark "01" — absolute, z-0, opacity 0.07, outer margin.
+ *   3. Tight 2-col grid starts at pt-8/pt-10 — H1 on end/start, intro parallel.
+ *   4. A scope eyebrow line sits ABOVE the H1 (like "רופא בכיר" on About).
+ *   5. The TOC rule + first 4 entries start at mt-6 below the 2-col grid —
+ *      visible without scroll at 1440×820.
+ *   6. "תוכן העניינים" / "Table of Contents" label is collapsed into the TOC
+ *      rule row as a tiny inline eyebrow — no separate SectionHead.
+ *
+ * PAGE SIGNATURE: the scope line + dot-leader TOC structure is this page's
+ * unique signature element. No other page has a scannable numbered conditions
+ * index above the fold.
+ *
+ * RTL-correct: logical CSS properties only. Phone/number spans carry dir="ltr".
+ * WCAG 2.2 AA: single h1, focus-visible everywhere, min-h-[44px] tap targets.
  */
 
 /** Number of above-fold preview TOC entries surfaced in the header. */
-const ABOVE_FOLD_COUNT = 3;
+const ABOVE_FOLD_COUNT = 4;
 
 /** Aggregate subject count across all groups — derived from content. */
 const totalSubjects = expertiseGroups.reduce(
@@ -41,13 +44,62 @@ const totalSubjects = expertiseGroups.reduce(
   0,
 );
 
-const scopeLine = {
-  he: `אורולוגיה תפקודית ורפואה מינית · ${totalSubjects} נושאי טיפול`,
-  en: `Functional Urology & Sexual Medicine · ${totalSubjects} subjects`,
-} as const;
+/** Factual lay descriptors for each condition — 8-12 words, scope only. */
+const layDescriptor: Record<string, { he: string; en: string }> = {
+  "erectile-dysfunction": {
+    he: "בירור, אבחון וטיפול לפי הנחיות EAU",
+    en: "Diagnosis and treatment guided by EAU guidelines",
+  },
+  "premature-ejaculation": {
+    he: "הערכת מקור גופני ונרכש, טיפול מותאם",
+    en: "Physical and acquired origin assessed; tailored care",
+  },
+  "peyronie": {
+    he: "שלב ומידה קובעים: שמרני או ניתוחי",
+    en: "Stage and degree determine: conservative or surgical",
+  },
+  "post-prostatectomy": {
+    he: "שיקום מובנה, פתוח ומוקדם ככל האפשר",
+    en: "Structured rehabilitation, early start improves outcome",
+  },
+  "incontinence": {
+    he: "אבחנת סוג מדויקת, פתרון משמרני ועד מתקדם",
+    en: "Precise type assessment; conservative to advanced care",
+  },
+  "overactive-bladder": {
+    he: "דחיפות ותכיפות: בירור נוירולוגי ותפקודי",
+    en: "Urgency and frequency: neurological and functional workup",
+  },
+  "pelvic-pain": {
+    he: "בירור יסודי גם אחרי מסלולים שנכשלו",
+    en: "Thorough workup even when earlier routes failed",
+  },
+  "prostatitis": {
+    he: "כאב, אי-נוחות ותסמיני שתן: אבחון וטיפול",
+    en: "Pain, discomfort, urinary symptoms: diagnosis and care",
+  },
+  "bph": {
+    he: "זרם חלש, תכיפות, לילות — טיפול לפי מצב",
+    en: "Weak stream, frequency, nocturia — tailored treatment",
+  },
+  "catheterization": {
+    he: "פתרון בטוח ושגרתי עם הדרכה מלאה",
+    en: "Safe, routine solution with complete patient guidance",
+  },
+  "gender-affirming": {
+    he: "ליווי אורולוגי, בהפניה בלבד",
+    en: "Urological support, by referral",
+  },
+  "trauma": {
+    he: 'יו"ר ועדת הנחיות EAU לחבלות אורולוגיות',
+    en: "EAU trauma-guidelines committee Chair",
+  },
+};
 
 export function ExpertiseHeader({ locale }: { locale: Locale }) {
-  // Flatten conditions from all groups for above-fold TOC preview
+  const isHe = locale === "he";
+
+  // Flatten all conditions across groups for the above-fold TOC preview.
   const aboveFoldConditions = expertiseGroups
     .flatMap((g) => g.conditions)
     .slice(0, ABOVE_FOLD_COUNT);
@@ -55,7 +107,6 @@ export function ExpertiseHeader({ locale }: { locale: Locale }) {
   return (
     <>
       {/* ── Breadcrumb / running-head band ─────────────────────────────────── */}
-      {/* FIXED: text-slate-strong (≥4.5:1 on bone) in both locales. */}
       <div className="border-b border-ink/15 bg-paper">
         <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
           <p className="text-caption uppercase tracking-[0.2em] text-slate-strong eyebrow">
@@ -67,71 +118,95 @@ export function ExpertiseHeader({ locale }: { locale: Locale }) {
         </div>
       </div>
 
-      {/* ── Opening spread ─────────────────────────────────────────────────── */}
-      {/*
-        CRITICAL FIX: pt-8 sm:pt-10 — was pt-16/pt-24, creating 96–192px of
-        dead space before any content. Reduced to 32–40px so the H1 lands in
-        the top quarter of the viewport immediately below the nav.
-      */}
+      {/* ── Opening spread section ──────────────────────────────────────────── */}
       <section
-        className="bg-paper px-4 pt-8 pb-0 sm:px-6 sm:pt-10 lg:px-8"
+        className="relative overflow-x-clip bg-paper px-4 pt-8 pb-0 sm:px-6 sm:pt-10 lg:px-8"
         aria-labelledby="expertise-page-h1"
       >
-        <div className="mx-auto w-full max-w-[1280px]">
-          {/* Small-caps section anchor — sits directly above the H1. */}
-          <SectionHead
-            folio="—"
-            title={expertiseHeader.sectionLabel}
-            locale={locale}
-          />
+        {/* Ghost watermark "01" — absolute, z-0, outer margin, opacity 0.07.
+            Positioned at the END of the container so it sits in the outer margin
+            in both LTR (right) and RTL (left) layouts.
+            The content grid sits above it at default z-index (auto / 1+). */}
+        <span
+          aria-hidden
+          className="ghost-numeral pointer-events-none absolute inset-inline-end-[1%] top-6 select-none sm:top-10"
+          style={{ opacity: 0.07 }}
+        >
+          <span dir="ltr">01</span>
+        </span>
 
+        <div className="relative mx-auto w-full max-w-[1280px]">
           {/*
-            Standfirst spread — H1 on start side, intro deck on end side.
-            At 1366px both columns are simultaneously visible, intro not clipped.
-            On mobile: single column, intro flows directly after H1.
+            TWO-COLUMN GRID — mirrors the About hero's asymmetric layout.
+            Start column: scope eyebrow + H1 (the chapter thesis).
+            End column: intro standfirst — visible at same vertical position as H1.
+            Single column on mobile (stacked, h1 first).
           */}
-          <div className="mt-6 grid gap-x-16 gap-y-4 sm:mt-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end">
-            <h1
-              id="expertise-page-h1"
-              className="max-w-[22ch] text-balance font-editorial text-display-xl text-ink"
-            >
-              <InView as="span" className="block">
+          <div className="grid gap-x-14 gap-y-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:items-end xl:gap-x-20">
+            {/* ── START COLUMN: scope + H1 ── */}
+            <div>
+              {/* Scope eyebrow — sits above H1 like "רופא בכיר" above the name on About.
+                  Small-caps, slate-strong (≥4.5:1). No ruled line here — that lives
+                  below in the TOC row. */}
+              <p className="mb-3 text-caption uppercase tracking-[0.18em] text-slate-strong eyebrow">
+                {isHe
+                  ? `אורולוגיה תפקודית ורפואה מינית · ${totalSubjects} נושאי טיפול`
+                  : `Functional Urology & Sexual Medicine · ${totalSubjects} subjects`}
+              </p>
+
+              {/* DISPLAY H1 — single h1 per page.
+                  No InView: this is above-fold and must be immediately visible. */}
+              <h1
+                id="expertise-page-h1"
+                className="max-w-[22ch] text-balance font-editorial text-ink [font-size:clamp(2rem,4.2vw,3.75rem)] [letter-spacing:-0.02em] [line-height:1.08]"
+              >
                 {t(expertiseHeader.title, locale)}
-              </InView>
-            </h1>
+              </h1>
+
+              {/* Accent rule — drawn on scroll, matches About hero. */}
+              <InView
+                as="div"
+                motion="rule-draw"
+                delay={340}
+                className="mt-5 h-px w-16 bg-ink/30 sm:mt-6"
+              />
+            </div>
+
+            {/* ── END COLUMN: intro standfirst ── */}
             <InView
               as="p"
               motion="fade-in-up"
               delay={100}
-              className="max-w-[52ch] text-body-base text-slate-strong lg:pb-1"
+              className="max-w-[52ch] text-body-base leading-[1.72] text-slate-strong lg:pb-1"
             >
               {t(expertiseHeader.intro, locale)}
             </InView>
           </div>
 
-          {/* ── TOC rule + scope line ─────────────────────────────────────── */}
+          {/* ── TOC opening rule + inline label + folio device ─────────────── */}
           {/*
-            This rule opens the TOC. The scope line hangs below it as a quiet
-            meta-label. The orphaned right-side rule is replaced by a folio
-            "p. 02" device that gives the space meaning.
+            The SectionHead component is replaced by this inline construct:
+            a full-width rule with the "TABLE OF CONTENTS" eyebrow and a folio
+            on the opposite end — one minimal row, no large heading, no dead space.
+            Tight mt-6 keeps everything close.
           */}
-          <div className="mt-10 sm:mt-12">
-            {/* Full-width hairline rule — opens the contents. */}
+          <div className="mt-6 sm:mt-8">
+            {/* Rule that opens the TOC. */}
             <InView
               as="div"
               motion="rule-draw"
-              className="h-px w-full bg-ink/30"
+              className="h-px w-full bg-ink/25"
             />
 
-            {/* Scope line + folio — directly below the rule. */}
-            <div className="flex items-center justify-between gap-4 pt-3">
+            {/* Scope / label row — directly below the rule. */}
+            <div className="flex items-center justify-between gap-4 pt-2.5 pb-0">
               <p className="text-caption uppercase tracking-[0.18em] text-slate-strong eyebrow">
-                {t(scopeLine, locale)}
+                {t(expertiseHeader.sectionLabel, locale)}
               </p>
-              {/* Meaningful folio replacing the orphaned decorative rule. */}
+              {/* Meaningful folio replacing any orphaned decorative rule. */}
               <span
                 aria-hidden
-                className="font-mono text-caption tracking-[0.12em] text-slate-60"
+                className="font-mono text-caption tracking-[0.1em] text-slate-60"
                 dir="ltr"
               >
                 p. 01
@@ -139,83 +214,31 @@ export function ExpertiseHeader({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          {/* ── Above-fold TOC preview (first 3 entries) ────────────────────── */}
+          {/* ── Above-fold TOC preview (first 4 entries) ────────────────────── */}
           {/*
-            CRITICAL FIX: Condition entries surfaced HERE (in the header) so the
-            page's purpose is instantly legible above the fold at 1366×768.
-            These are read-only teasers — clicking scrolls/links to the full entry
-            in the ExpertiseGroup section below.
+            CRITICAL: these 4 entries make the page's purpose immediately legible
+            above the fold at 1440×820. The TOC rule sits at ~50% of the viewport
+            height; 4 compact rows fill the remaining 50%.
 
-            Mobile: condition name ≥18px via text-index (clamp 1.75rem–3rem)
-            truncated with min-w-0. Each row has min-h-11 (44px) for tap targets.
-            Disclosure chevron on interactive rows. Dot-leaders fill the gap.
+            Each row: dot-leaders + condition name (font-editorial ≥18px) +
+            lay descriptor + arrow chevron. min-h-[44px] tap targets.
           */}
           <ol
             className="mt-0 divide-y divide-ink/10"
             aria-label={
-              locale === "he" ? "תצוגה מקדימה של תוכן העניינים" : "Table of contents preview"
+              isHe
+                ? "תצוגה מקדימה של תוכן העניינים"
+                : "Table of contents preview"
             }
           >
             {aboveFoldConditions.map((condition, i) => {
-              // Lay descriptor per condition — 8-12 words, factual scope only.
-              const layDescriptor: Record<string, { he: string; en: string }> = {
-                "erectile-dysfunction": {
-                  he: "בירור, אבחון וטיפול לפי הנחיות EAU",
-                  en: "Diagnosis and treatment guided by EAU guidelines",
-                },
-                "premature-ejaculation": {
-                  he: "הערכת מקור גופני ונרכש, טיפול מותאם",
-                  en: "Physical and acquired origin assessed; tailored care",
-                },
-                "peyronie": {
-                  he: "שלב ומידה קובעים: שמרני או ניתוחי",
-                  en: "Stage and degree determine: conservative or surgical",
-                },
-                "post-prostatectomy": {
-                  he: "שיקום מובנה, פתוח ומוקדם ככל האפשר",
-                  en: "Structured rehabilitation, early start improves outcome",
-                },
-                "incontinence": {
-                  he: "אבחנת סוג מדויקת, פתרון משמרני ועד מתקדם",
-                  en: "Precise type assessment; conservative to advanced care",
-                },
-                "overactive-bladder": {
-                  he: "דחיפות ותכיפות: בירור נוירולוגי ותפקודי",
-                  en: "Urgency and frequency: neurological and functional workup",
-                },
-                "pelvic-pain": {
-                  he: "בירור יסודי גם אחרי מסלולים שנכשלו",
-                  en: "Thorough workup even when earlier routes failed",
-                },
-                "prostatitis": {
-                  he: "כאב, אי-נוחות ותסמיני שתן: אבחון וטיפול",
-                  en: "Pain, discomfort, urinary symptoms: diagnosis and care",
-                },
-                "bph": {
-                  he: "זרם חלש, תכיפות, לילות — טיפול לפי מצב",
-                  en: "Weak stream, frequency, nocturia — tailored treatment",
-                },
-                "catheterization": {
-                  he: "פתרון בטוח ושגרתי עם הדרכה מלאה",
-                  en: "Safe, routine solution with complete patient guidance",
-                },
-                "gender-affirming": {
-                  he: "ליווי אורולוגי, בהפניה בלבד",
-                  en: "Urological support, by referral",
-                },
-                "trauma": {
-                  he: "יו\"ר ועדת הנחיות EAU לחבלות אורולוגיות",
-                  en: "EAU trauma-guidelines committee Chair",
-                },
-              };
-
-              const descriptor = layDescriptor[condition.anchor];
+              const desc = layDescriptor[condition.anchor];
 
               return (
                 <li key={condition.anchor} className="group/row">
                   <Link
                     href={`#${condition.anchor}`}
-                    className="flex min-h-11 items-baseline gap-x-3 py-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:py-3.5"
+                    className="flex min-h-[44px] items-baseline gap-x-3 py-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:py-3"
                     aria-label={t(condition.title, locale)}
                     scroll
                   >
@@ -228,25 +251,25 @@ export function ExpertiseHeader({ locale }: { locale: Locale }) {
                       {String(i + 1).padStart(2, "0")}
                     </span>
 
-                    {/* Condition name — ≥18px on mobile (text-index clamps 1.75rem+) */}
-                    <span className="min-w-0 font-editorial text-[1.125rem] leading-tight text-ink transition-colors duration-300 group-hover/row:text-accent sm:text-[1.25rem]">
+                    {/* Condition name — ≥18px on mobile */}
+                    <span className="min-w-0 font-editorial text-[1.05rem] leading-tight text-ink transition-colors duration-300 group-hover/row:text-accent sm:text-[1.2rem]">
                       {t(condition.title, locale)}
                     </span>
 
                     {/* Dot-leaders */}
                     <span
                       aria-hidden
-                      className="toc-leader order-3 hidden h-[0.4em] w-auto min-w-6 flex-1 translate-y-[-0.1em] text-ink/20 transition-colors duration-300 group-hover/row:text-accent/40 sm:block"
+                      className="toc-leader order-3 hidden h-[0.4em] w-auto min-w-4 flex-1 translate-y-[-0.1em] text-ink/20 transition-colors duration-300 group-hover/row:text-accent/40 sm:block"
                     />
 
                     {/* Lay descriptor — factual scope, 8-12 words */}
-                    {descriptor && (
-                      <span className="hidden shrink-0 max-w-[28ch] text-right text-[0.75rem] leading-snug text-slate transition-colors duration-300 group-hover/row:text-slate-strong sm:block">
-                        {locale === "he" ? descriptor.he : descriptor.en}
+                    {desc && (
+                      <span className="hidden shrink-0 max-w-[28ch] text-end text-[0.72rem] leading-snug text-slate transition-colors duration-300 group-hover/row:text-slate-strong sm:block">
+                        {isHe ? desc.he : desc.en}
                       </span>
                     )}
 
-                    {/* Disclosure chevron — tap affordance */}
+                    {/* Disclosure chevron */}
                     <span
                       aria-hidden
                       className="ms-auto shrink-0 self-center text-[0.8rem] leading-none text-slate transition-all duration-300 group-hover/row:text-accent group-hover/row:translate-x-0.5 rtl:rotate-180 rtl:group-hover/row:-translate-x-0.5"
@@ -259,15 +282,15 @@ export function ExpertiseHeader({ locale }: { locale: Locale }) {
             })}
           </ol>
 
-          {/* Continuation hint — leads into the ExpertiseGroup sections below. */}
+          {/* Continuation hint — leads into ExpertiseGroup sections below. */}
           <InView
             as="div"
             motion="fade-in-up"
             delay={200}
-            className="flex items-center gap-4 border-t border-ink/10 py-4"
+            className="flex items-center gap-4 border-t border-ink/10 py-3.5"
           >
             <span className="text-caption uppercase tracking-[0.18em] text-slate-60 eyebrow">
-              {locale === "he"
+              {isHe
                 ? `ועוד ${totalSubjects - ABOVE_FOLD_COUNT} נושאים — המשך למטה`
                 : `and ${totalSubjects - ABOVE_FOLD_COUNT} more — continued below`}
             </span>

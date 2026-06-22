@@ -19,7 +19,7 @@ import { SectionHead } from "@/components/sections/home/journal";
  */
 export function AboutCredentials({ locale }: { locale: Locale }) {
   return (
-    <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+    <section className="bg-paper px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
       <div className="mx-auto w-full max-w-[1280px]">
         <SectionHead
           folio="04"

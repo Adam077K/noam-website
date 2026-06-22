@@ -201,20 +201,22 @@ export function AboutHero({ locale }: { locale: Locale }) {
             </InView>
 
             {/* MOBILE PORTRAIT — one instance only; appears below CTAs on sm, hidden on lg
-                (no mid-scroll portrait elsewhere on this page). */}
+                (no mid-scroll portrait elsewhere on this page).
+                Kept intentionally compact (max-h-[220px]) so it reads as secondary
+                context, not the loudest element. */}
             <InView
               as="figure"
               motion="fade-in-up"
               delay={160}
               className="mt-10 lg:hidden"
             >
-              <div className="relative mx-auto w-full max-w-[320px]">
+              <div className="relative mx-auto w-full max-w-[220px]">
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -inset-2 border border-ink/20"
+                  className="pointer-events-none absolute -inset-1.5 border border-ink/15"
                 />
                 <div
-                  className="portrait portrait--1 relative h-[38vh] max-h-[380px] w-full overflow-hidden"
+                  className="portrait portrait--1 relative h-[28vh] max-h-[220px] w-full overflow-hidden"
                   role="img"
                   aria-label={t(hero.portraitAlt, locale)}
                 >
@@ -228,9 +230,6 @@ export function AboutHero({ locale }: { locale: Locale }) {
                       : "Functional Urology · Sheba"}
                   </span>
                 </div>
-                <figcaption className="mt-3 font-editorial text-body-sm normal-case tracking-normal text-ink">
-                  {t(hero.portraitCaption, locale)}
-                </figcaption>
               </div>
             </InView>
           </div>

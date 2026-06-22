@@ -7,47 +7,67 @@ import { InView } from "@/components/ui";
 import { SectionHead } from "./journal";
 
 /**
- * Hero — "The Journal" opening article (v7 — above-fold display H1 fix).
+ * Hero — "The Journal" opening article (v8 — display H1 dominance + composed fold).
  *
- * The PAGE DIRECTIVE requires a real display H1 stating the core claim at 44-56px,
- * above-fold on both 1440x820 and 1366x768, with the credential line visible
- * (not mid-screen). The emotional deck sits beneath the H1.
+ * Design principles applied:
+ * 1. THE FOLD IS A POSTER — H1 at 48-72px is unambiguously the largest element.
+ * 2. Ghost numeral as watermark only (opacity 0.07, z-0, outer margin).
+ * 3. Portrait SECONDARY — max-w-[200px] so the H1 always wins above the fold.
+ * 4. Subhead bio paragraph (hero.subhead) rendered as the deck — the Sheba/SHSQ
+ *    credential is the most valuable above-fold content.
+ * 5. Mobile stack: H1 → deck → CTA (min-h 48px, full-width) → portrait.
  *
- * Mobile stack: nav → H1 → 2-line deck → CTA (min-h 48px, full-width) → portrait.
- *
- * Portrait reads complete & premium WITHOUT a photo. No "PORTRAIT" label.
  * RTL-correct: logical CSS props only, dir="ltr" on phone/numbers.
  */
 export function Hero({ locale }: { locale: Locale }) {
   const isHe = locale === "he";
 
   return (
-    <section className="relative overflow-x-clip bg-paper">
-      <div className="mx-auto w-full max-w-[1200px] px-5 pt-3 sm:px-8 sm:pt-4 lg:px-10 lg:pt-5">
+    <section className="relative overflow-hidden bg-paper">
+      {/*
+        Ghost numeral watermark — "01", opacity 0.07, positioned in the outer margin
+        BEHIND all content (z-0). The display H1 sits over it; it never displaces readable content.
+        DESIGN-SYSTEM RULE 2: ONE ordinal per page, in the outer margin.
+      */}
+      <span
+        aria-hidden
+        className="ghost-numeral pointer-events-none select-none"
+        style={{
+          top: "40%",
+          insetInlineEnd: "2%",
+          transform: "translateY(-50%)",
+        }}
+      >
+        <span dir="ltr">01</span>
+      </span>
+
+      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-5 pt-3 sm:px-8 sm:pt-4 lg:px-10 lg:pt-5">
         <SectionHead folio="01" title={{ he: "המרפאה", en: "The Practice" }} locale={locale} />
 
         {/*
           GRID: text side always first in DOM (order-1), portrait second (order-2).
           On mobile: single column, text then portrait.
-          On lg: two columns, text left (~1.45fr), portrait right (1fr).
+          On lg: two columns, text fills ~60%, portrait is a secondary 40% column.
+          Portrait max-w is deliberately restrained (200px) so the H1 is the
+          dominant above-fold element at all viewport widths ≥1024px.
         */}
-        <div className="grid items-start gap-x-12 gap-y-0 pb-10 pt-5 sm:pb-12 sm:pt-5 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-x-16 lg:pb-16 lg:pt-5">
+        <div className="grid items-start gap-x-10 gap-y-0 pb-10 pt-4 sm:pb-12 sm:pt-5 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-x-14 lg:pb-16 lg:pt-5">
 
           {/* ── TEXT SIDE ────────────────────────────────────────────────── */}
           <div className="order-1 flex flex-col">
 
             {/*
-              DISPLAY H1 — the core clinical claim.
-              HE: Frank Ruhl Libre (--font-frank via font-display on html[lang="he"]).
-              EN: Fraunces (--font-fraunces via font-editorial).
-              Target: 44-56px. clamp(2.75rem, 5.5vw, 3.5rem) → 44px→56px.
-              No italics in Hebrew.
+              DISPLAY H1 — the single dominant above-fold element.
+              HE: Frank Ruhl Libre (font-editorial on html[lang="he"]).
+              EN: Fraunces (font-editorial on html[lang="en"]).
+              Target: 48-72px. clamp(3rem,6.5vw,4.5rem) → 48px→72px at 1440.
+              No italics in Hebrew (enforced globally by letter-spacing rules).
+              text-balance so multi-line wraps cleanly at narrow widths.
             */}
             <h1
               className={[
-                "mt-3 max-w-[22ch] text-balance font-editorial text-ink",
-                "[font-size:clamp(2.75rem,5.5vw,3.5rem)] [line-height:1.06] [letter-spacing:-0.018em]",
-                isHe ? "not-italic" : "",
+                "mt-3 max-w-[20ch] text-balance font-editorial text-ink",
+                "[font-size:clamp(3rem,6.5vw,4.5rem)] [line-height:1.04] [letter-spacing:-0.02em]",
               ].join(" ")}
             >
               <InView as="span" className="block">
@@ -56,24 +76,14 @@ export function Hero({ locale }: { locale: Locale }) {
             </h1>
 
             {/*
-              SUBTITLE — specialty identifier.
-              HE: >=12px, tracked, no uppercase (Hebrew). EN: uppercase tracked.
-            */}
-            <p className="mt-2.5 font-mono text-[0.75rem] tracking-[0.14em] text-slate-strong eyebrow">
-              {isHe
-                ? "אורולוגיה תפקודית · רפואה מינית"
-                : "FUNCTIONAL UROLOGY · SEXUAL MEDICINE"}
-            </p>
-
-            {/*
-              CREDENTIAL LINE — visible above fold, not mid-screen.
-              Hairline-separated, scholarly inline list.
+              CREDENTIAL LINE — the trust moat, visible above fold, not mid-screen.
+              hairline-separated, scholarly inline list. 3 key appointments only.
             */}
             <InView
               as="ul"
               motion="fade-in-up"
               delay={80}
-              className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-ink/15 pt-3 text-[0.75rem] text-slate-strong"
+              className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-ink/15 pt-3 text-[0.75rem] text-slate-strong"
             >
               {[
                 {
@@ -95,14 +105,30 @@ export function Hero({ locale }: { locale: Locale }) {
             </InView>
 
             {/*
-              DECK / STANDFIRST — 1-2 lines of emotional copy beneath H1+credentials.
-              This is the former headline, demoted to deck role.
+              DECK / STANDFIRST — the bio paragraph is the richest above-fold content.
+              hero.subhead names Sheba + SHSQ and frames the practice. Renders at
+              body-lg (18px) for legibility and gravitas. max-w-[50ch] constrains
+              the measure for comfortable reading.
             */}
             <InView
               as="p"
               motion="fade-in-up"
               delay={140}
-              className="mt-5 max-w-[52ch] text-body-base leading-relaxed text-ink-80"
+              className="mt-5 max-w-[50ch] text-body-lg leading-relaxed text-ink-80"
+            >
+              {t(hero.subhead, locale)}
+            </InView>
+
+            {/*
+              EMOTIONAL DECK — the signature sentence (formerly the headline).
+              Rendered smaller (body-base, italic-ish weight) to distinguish from bio.
+              Sits as the "pull-quote bridge" between bio and CTA.
+            */}
+            <InView
+              as="p"
+              motion="fade-in-up"
+              delay={190}
+              className="mt-3 max-w-[48ch] font-editorial text-[1.0625rem] leading-snug text-ink/75 [font-style:normal]"
             >
               {t(hero.headline, locale)}
             </InView>
@@ -114,8 +140,8 @@ export function Hero({ locale }: { locale: Locale }) {
             <InView
               as="div"
               motion="fade-in-up"
-              delay={200}
-              className="mt-6 flex flex-col gap-y-3 sm:flex-row sm:items-center sm:gap-x-8"
+              delay={240}
+              className="mt-7 flex flex-col gap-y-3 sm:flex-row sm:items-center sm:gap-x-8"
             >
               <a
                 href={localeHref(locale, "/contact")}
@@ -145,27 +171,27 @@ export function Hero({ locale }: { locale: Locale }) {
 
           {/*
             ── PORTRAIT ─────────────────────────────────────────────────────
-            Secondary to heading. No "PORTRAIT" label.
-            On mobile: appears AFTER the CTA (order-3 forces below CTA on mobile
-            since CTA is inside order-1 div, portrait is order-2 grid child).
-            On lg: right column, auto height.
+            SECONDARY to heading — constrained to max-w-[200px] on desktop so the
+            72px H1 always reads as the dominant element. On mobile it flows after
+            the CTA (text div is order-1, portrait is order-2).
+            No "PORTRAIT" label anywhere.
           */}
           <InView
             as="figure"
             motion="fade-in-up"
-            delay={200}
-            className="order-2 mt-8 sm:mt-10 lg:mt-0"
+            delay={220}
+            className="order-2 mt-10 sm:mt-12 lg:mt-4"
           >
-            <div className="relative mx-auto w-full max-w-[260px] sm:max-w-[280px] lg:ms-auto lg:me-0 lg:max-w-[256px]">
-              {/* Fine offset mat border — an intentional editorial frame. */}
+            <div className="relative mx-auto w-full max-w-[220px] sm:max-w-[240px] lg:ms-auto lg:me-4 lg:max-w-[200px]">
+              {/* Fine offset mat border — intentional editorial frame. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -inset-2.5 border border-ink/20"
+                className="pointer-events-none absolute -inset-2 border border-ink/18"
               />
-              {/* Accent tick — the signature motif. */}
+              {/* Accent tick — the signature motif, at the lower inner edge. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -bottom-2.5 -start-2.5 h-12 w-px bg-accent"
+                className="pointer-events-none absolute -bottom-2 -start-2 h-10 w-px bg-accent"
               />
               {/*
                 Portrait container: aspect-[4/5], warm linen placeholder.
@@ -179,9 +205,18 @@ export function Hero({ locale }: { locale: Locale }) {
               >
                 <span aria-hidden className="portrait__empty">
                   <span className="portrait__monogram">NK</span>
+                  <span className="portrait__credential">
+                    {t(
+                      {
+                        he: "ראש היחידה לאורולוגיה תפקודית ואנדרולוגיה · שיבא",
+                        en: "Head, Functional Urology & Andrology · Sheba",
+                      },
+                      locale
+                    )}
+                  </span>
                 </span>
               </div>
-              <figcaption className="mt-3 font-editorial text-body-sm normal-case tracking-normal text-ink">
+              <figcaption className="mt-2.5 font-editorial text-body-sm normal-case tracking-normal text-ink">
                 {t(hero.portraitCaption, locale)}
               </figcaption>
             </div>

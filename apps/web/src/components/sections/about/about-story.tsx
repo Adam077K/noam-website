@@ -22,7 +22,7 @@ export function AboutStory({ locale }: { locale: Locale }) {
   const [lede, ...rest] = story.paragraphs;
 
   return (
-    <section className="bg-canvas px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+    <section className="bg-canvas px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
       <div className="mx-auto w-full max-w-[1280px]">
         <SectionHead
           folio="02"
@@ -63,7 +63,7 @@ export function AboutStory({ locale }: { locale: Locale }) {
 
           {/* MARGIN — scholarly marginalia annotating the prose. */}
           <aside className="lg:pt-2">
-            <p className="mb-6 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
+            <p className="mb-6 text-caption uppercase tracking-[0.2em] text-slate-strong eyebrow">
               {t({ he: "הערות שוליים", en: "In the margin" }, locale)}
             </p>
             <ul className="space-y-7">
@@ -79,7 +79,7 @@ export function AboutStory({ locale }: { locale: Locale }) {
                     <span aria-hidden className="inline-block h-px w-4 bg-accent" />
                     {t(note.label, locale)}
                   </p>
-                  <p className="mt-2.5 text-body-sm leading-snug text-slate">
+                  <p className="mt-2.5 text-body-sm leading-snug text-slate-strong">
                     {t(note.note, locale)}
                   </p>
                 </InView>
