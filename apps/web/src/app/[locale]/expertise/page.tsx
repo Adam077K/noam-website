@@ -3,7 +3,11 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
-import { expertiseGroups, expertiseSeo } from "@/content/expertise";
+import {
+  expertiseGroups,
+  expertiseGroupFolios,
+  expertiseSeo,
+} from "@/content/expertise";
 import { ExpertiseHeader } from "@/components/sections/expertise/page-header";
 import { ExpertiseGroup } from "@/components/sections/expertise/expertise-group";
 import { ContactClose } from "@/components/sections/home/contact-close";
@@ -35,8 +39,13 @@ export default async function ExpertisePage({
   return (
     <>
       <ExpertiseHeader locale={locale} />
-      {expertiseGroups.map((group) => (
-        <ExpertiseGroup key={group.anchor} group={group} locale={locale} />
+      {expertiseGroups.map((group, i) => (
+        <ExpertiseGroup
+          key={group.anchor}
+          group={group}
+          folio={expertiseGroupFolios[i] ?? String(i + 1).padStart(2, "0")}
+          locale={locale}
+        />
       ))}
       <ContactClose locale={locale} />
     </>

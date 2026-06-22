@@ -39,29 +39,50 @@ export type ExpertiseGroup = {
 
 export const expertiseSeo = {
   title: {
-    he: 'תחומי טיפול — תפקוד מיני ואורולוגיה פונקציונלית · ד"ר נעם כתרי',
-    en: "Areas of Care — Sexual & Functional Urology · Dr. Noam Kitrey",
+    he: 'תחומי הטיפול — תפקוד מיני ואורולוגיה תפקודית · ד"ר נעם כתרי',
+    en: "Subjects of Care — Sexual & Functional Urology · Dr. Noam Kitrey",
   },
   description: {
-    he: "הפרעות זקפה, שפיכה מוקדמת, מחלת פירוני, אי-נקיטת שתן, כאב אגני ועוד. אבחון מדויק וטיפול דיסקרטי אצל ד\"ר נעם כתרי, תל אביב.",
-    en: "Erectile dysfunction, premature ejaculation, Peyronie's, incontinence, pelvic pain and more. Accurate diagnosis and discreet care with Dr. Noam Kitrey, Tel Aviv.",
+    he: "הפרעות זקפה, שפיכה מוקדמת, מחלת פירוני, אי־נקיטת שתן, כאב אגני ועוד — מוסברים לעומק. אבחון מדויק וטיפול דיסקרטי, תל אביב.",
+    en: "Erectile dysfunction, premature ejaculation, Peyronie's, incontinence, pelvic pain and more — explained in depth. Accurate diagnosis and discreet care, Tel Aviv.",
   },
 } as const satisfies Record<"title" | "description", LocalizedString>;
 
 export const expertiseHeader = {
+  /** Journal volume line (running-head masthead device — matches Home's hero.folio). */
+  folio: {
+    he: "גיליון א׳ · תוכן העניינים המלא",
+    en: "Volume I · The Complete Contents",
+  },
   eyebrow: {
-    he: "תחומי טיפול",
-    en: "Areas of care",
+    he: "תחומי הטיפול",
+    en: "Subjects of care",
+  },
+  /** Small-caps running head for the contents section. */
+  sectionLabel: {
+    he: "תוכן העניינים",
+    en: "Table of Contents",
   },
   title: {
-    he: "מצבים שדורשים גם דיוק רפואי וגם רגישות אישית.",
-    en: "Conditions that demand both technical precision and personal sensitivity.",
+    he: "מה מטפלים כאן — ובאיזו רצינות.",
+    en: "What is treated here — and with what seriousness.",
   },
+  /** Journal standfirst (replaces the generic intro) — the physician's own voice. */
   intro: {
-    he: 'התחומים שבהם ד"ר כתרי מתמחה הם מהרגישים ברפואה. כאן תמצאו הסבר ברור על כל אחד מהם, ומה אפשר לעשות. אין שאלה "מביכה" מדי — יש רק מה שאפשר לטפל בו.',
-    en: "The fields Dr. Kitrey specializes in are among the most sensitive in medicine. Here you'll find a clear explanation of each one and what can be done about it. No question is too embarrassing — there's only what can be treated.",
+    he: 'כל נושא למטה נכתב כפי שהייתי מסביר אותו לעמית: מה זה, מאיפה זה בא, ומה באמת אפשר לעשות. בלי הבטחות, בלי הפחדה. ואין כאן שאלה "מביכה" — יש רק מה שאפשר לטפל בו.',
+    en: 'Each subject below is written the way I\'d explain it to a colleague: what it is, where it comes from, and what can genuinely be done. No promises, no scare. And there is no "embarrassing" question here — only what can be treated.',
   },
-} as const satisfies Record<"eyebrow" | "title" | "intro", LocalizedString>;
+} as const satisfies Record<
+  "folio" | "eyebrow" | "sectionLabel" | "title" | "intro",
+  LocalizedString
+>;
+
+/**
+ * Per-group running-head folios for the contents (matches Home SectionHead's
+ * "01 · 02 · 03" device). Distinct from the per-entry numbering, which restarts
+ * within each group.
+ */
+export const expertiseGroupFolios = ["01", "02", "03"] as const;
 
 /** Shared micro-CTA destination (the consultation request lives on /contact). */
 export const expertiseCtaHref = "/contact";
@@ -75,18 +96,18 @@ export const founderReviewNote = {
 export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
   {
     anchor: "sexual-dysfunction",
-    eyebrow: { he: "קבוצה ראשונה", en: "Group one" },
+    eyebrow: { he: "נושא ראשון", en: "Subject one" },
     title: {
       he: "תפקוד מיני של הגבר",
       en: "Male Sexual Function",
     },
     intro: {
-      he: "בעיות בתפקוד המיני שכיחות הרבה יותר ממה שנדמה, והן כמעט תמיד ניתנות לטיפול. הצעד הקשה הוא לפנות; משם, יש דרך.",
-      en: "Sexual-function problems are far more common than most people think, and they're nearly always treatable. The hard part is reaching out; from there, there's a path forward.",
+      he: "שכיח הרבה מעבר למה שמדברים עליו, ופתיר הרבה מעבר למה שחושבים. הקושי האמיתי הוא להרים טלפון; משם והלאה יש דרך.",
+      en: "Far more common than it's spoken of, and far more treatable than people assume. The real difficulty is the phone call; past it, there is a path.",
     },
     reassurance: {
-      he: "אתה לא לבד בזה, וזה נפוץ הרבה יותר ממה שחושבים.",
-      en: "You are not alone in this — it's far more common than you'd think.",
+      he: "אינך היחיד — זה נפוץ הרבה יותר ממה שנדמה.",
+      en: "You are not the only one — it's far more common than it seems.",
     },
     microCta: {
       he: "לפנייה לייעוץ",
@@ -98,8 +119,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
         icon: "pulse",
         title: { he: "הפרעות זקפה", en: "Erectile Dysfunction" },
         body: {
-          he: "קושי בהשגת זקפה או בשמירה עליה יכול לנבוע ממגוון סיבות — גופניות, הורמונליות, כלי-דם או נפשיות. הצעד הראשון הוא אבחון מדויק של הסיבה, ורק אז התאמת הטיפול. ברוב המקרים יש שיפור משמעותי. הטיפול נקבע יחד אתך, לפי מה שמתאים לך.",
-          en: "Difficulty getting or keeping an erection can stem from many causes — physical, hormonal, vascular, or emotional. The first step is an accurate diagnosis of the cause, and only then a treatment matched to it. Most cases improve significantly. The plan is decided together with you, around what fits your life.",
+          he: "זקפה היא אירוע של כלי דם, עצבים, הורמונים וראש — וכשמשהו באחד מהם משתבש, היא מושפעת. לכן הצעד הראשון אינו מרשם אלא אבחנה: לאתר את הסיבה במדויק. כשהיא ידועה, ברוב המקרים יש שיפור ממשי, והטיפול נבחר יחד אתכם.",
+          en: "An erection is an event of blood vessels, nerves, hormones, and mind — when something in one of them falters, it shows. So the first step isn't a prescription but a diagnosis: to find the cause precisely. Once it's known, most cases improve markedly, and the treatment is chosen with you.",
         },
       },
       {
@@ -107,8 +128,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
         icon: "timer",
         title: { he: "שפיכה מוקדמת", en: "Premature Ejaculation" },
         body: {
-          he: "זו אחת התלונות השכיחות ביותר אצל גברים, ואחת הפתירות ביותר. הטיפול משלב הבנה של הגורם — גופני, התנהגותי או שילוב — עם מענה מותאם אישית. רוב הגברים מרגישים שיפור ממשי באיכות החיים ובביטחון.",
-          en: "This is one of the most common complaints among men, and one of the most treatable. Care combines understanding the cause — physical, behavioral, or both — with a plan tailored to you. Most men feel a real improvement in quality of life and confidence.",
+          he: "מהתלונות השכיחות ביותר, ומהמתסכלות ביותר לשאת בשתיקה — וגם מהפתירות ביותר. הטיפול מתחיל בהבנת המקור, גופני או נרכש, וממשיך במענה מותאם. השיפור מורגש לרוב לא רק במיטה אלא בביטחון הכללי.",
+          en: "One of the most common complaints, one of the most frustrating to bear in silence — and one of the most solvable. Care starts by understanding the source, physical or learned, and continues with a tailored response. The improvement usually shows not only in bed but in overall confidence.",
         },
       },
       {
@@ -116,8 +137,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
         icon: "compass",
         title: { he: "מחלת פירוני", en: "Peyronie's Disease" },
         body: {
-          he: "עיקול של איבר המין, לעיתים עם כאב, נגרם מרקמה צלקתית. ד\"ר כתרי מעריך את מידת העיקול ואת השלב של המחלה, ומכוון לטיפול המתאים — שמרני או ניתוחי — לפי המצב האישי. אבחון מוקדם משפר את אפשרויות הטיפול.",
-          en: "A curve in the penis, sometimes with pain, caused by scar tissue. Dr. Kitrey assesses the degree of curvature and the stage of the condition, then guides you to the right treatment — conservative or surgical — based on your specific situation. Early assessment widens your options.",
+          he: "רקמה צלקתית שגורמת לעיקול, לעיתים עם כאב. השלב והמידה קובעים את הטיפול — שמרני או ניתוחי — ולכן הערכה מוקדמת חשובה: היא פותחת יותר אפשרויות. זהו תחום שבו הניסיון הניתוחי קובע, ולא רק המרשם.",
+          en: "Scar tissue that creates a curve, sometimes with pain. Stage and degree decide the treatment — conservative or surgical — which is why early assessment matters: it keeps more options open. This is a field where surgical experience, not just the prescription, makes the difference.",
         },
       },
       {
@@ -128,26 +149,26 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Post-Prostatectomy Rehabilitation",
         },
         body: {
-          he: "לאחר ניתוח להסרת הערמונית, רבים מתמודדים עם פגיעה בתפקוד המיני או בשליטה על השתן. שיקום מקצועי ומובנה יכול להחזיר תפקוד במידה רבה. ככל שמתחילים מוקדם יותר, התוצאות טובות יותר.",
-          en: "After surgery to remove the prostate, many men face changes in sexual function or urinary control. A structured rehabilitation program can restore a great deal of function. The earlier it begins, the better the outcomes.",
+          he: "אחרי הסרת הערמונית, רבים מאבדים תפקוד מיני או שליטה בשתן — לרוב באופן שניתן לשקם. שיקום מובנה, שמתחיל מוקדם, מחזיר חלק ניכר מהתפקוד. כאן זמן הוא גורם: ככל שמתחילים מוקדם יותר, התוצאה טובה יותר.",
+          en: "After the prostate is removed, many lose sexual function or urinary control — usually in ways that can be rehabilitated. A structured program, started early, restores a substantial share of function. Timing matters: the earlier it begins, the better the outcome.",
         },
       },
     ],
   },
   {
     anchor: "functional-urology",
-    eyebrow: { he: "קבוצה שנייה", en: "Group two" },
+    eyebrow: { he: "נושא שני", en: "Subject two" },
     title: {
-      he: "אורולוגיה פונקציונלית",
+      he: "אורולוגיה תפקודית",
       en: "Functional Urology",
     },
     intro: {
-      he: "בעיות בשליטה על השתן, בתכיפות או בכאב באגן פוגעות בשגרת היום ובביטחון — ולעיתים קרובות נסבלות בשתיקה. כמעט תמיד יש מה לעשות. הבירור מתחיל בהבנה מדויקת של מקור הבעיה.",
-      en: "Problems with urinary control, frequency, or pelvic pain disrupt daily life and confidence — and are too often suffered in silence. There's almost always something that can be done. The workup starts with pinpointing the cause.",
+      he: 'שליטה, תכיפות, כאב — דברים שאנשים נושאים בשקט שנים, מתוך הנחה ש"ככה זה". לרוב זה לא ככה, ולרוב יש מה לעשות. הכול מתחיל בזיהוי מדויק של המקור.',
+      en: 'Control, frequency, pain — things people carry quietly for years, assuming "that\'s just how it is." Usually it isn\'t, and usually something can be done. It all starts with pinpointing the source.',
     },
     reassurance: {
-      he: "כמעט תמיד יש מה לעשות — גם כשבדיקות קודמות לא נתנו מענה.",
-      en: "There's almost always something that can be done — even when earlier tests came back empty.",
+      he: "כמעט תמיד יש מה לעשות — גם אם בדיקות קודמות לא נתנו תשובה.",
+      en: "There's almost always something to do — even when earlier tests gave no answer.",
     },
     microCta: {
       he: "לפנייה לייעוץ",
@@ -162,8 +183,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Urinary Incontinence (Women & Men)",
         },
         body: {
-          he: "דליפת שתן יכולה לנבוע מסיבות שונות אצל נשים ואצל גברים, ולכל סיבה יש טיפול אחר. אבחון נכון של סוג הדליפה הוא המפתח לפתרון יעיל — מטיפול שמרני ועד פתרונות מתקדמים.",
-          en: "Urine leakage can have different causes in women and in men, and each cause has its own treatment. Correctly identifying the type of leakage is the key to an effective solution — from conservative care to advanced options.",
+          he: "דליפה אינה אבחנה אחת אלא כמה — ולכל סוג טיפול אחר. המפתח הוא לקבוע במדויק איזה סוג, ורק אז לבחור פתרון, משמרני ועד מתקדם. אצל נשים וגברים זה נראה אחרת, ונבדק אחרת.",
+          en: "Leakage isn't one diagnosis but several — each with its own treatment. The key is to determine exactly which type, and only then choose a solution, from conservative to advanced. In women and men it looks different, and is examined differently.",
         },
       },
       {
@@ -174,8 +195,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Overactive & Neurogenic Bladder",
         },
         body: {
-          he: "דחיפות פתאומית, תכיפות וקושי בשליטה יכולים לנבוע מפעילות-יתר של השלפוחית או מרקע נוירולוגי. ד\"ר כתרי מתמחה בשני המצבים, כולל מצבים מורכבים, ומתאים טיפול שמחזיר שליטה ושגרת חיים.",
-          en: "Sudden urgency, frequency, and trouble with control can come from an overactive bladder or a neurological cause. Dr. Kitrey treats both, including complex cases, with a plan that restores control and routine.",
+          he: "דחיפות פתאומית ותכיפות יכולות לנבוע מפעילות־יתר של השלפוחית או מרקע נוירולוגי — שתי בעיות שונות שדורשות בירור שונה. זהו תחום שבו ד\"ר כתרי מטפל גם במקרים המורכבים, ולא רק בשגרתיים.",
+          en: "Sudden urgency and frequency can arise from an overactive bladder or a neurological cause — two different problems that need different workups. This is an area where Dr. Kitrey handles the complex cases, not just the routine ones.",
         },
       },
       {
@@ -186,8 +207,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Chronic Pelvic Pain & Interstitial Cystitis",
         },
         body: {
-          he: "כאב אגני ממושך הוא מהמצבים שהכי קשה לאבחן, והכי מתסכל לחיות איתם בלי תשובות. ד\"ר כתרי עורך בירור יסודי כדי לזהות את המקור ולבנות תוכנית טיפול אמיתית, גם כשבדיקות קודמות לא נתנו מענה.",
-          en: "Long-standing pelvic pain is among the hardest conditions to diagnose, and the most frustrating to live with without answers. Dr. Kitrey carries out a thorough workup to find the source and build a real treatment plan — even when earlier tests came back empty.",
+          he: "מהמצבים הקשים ביותר לאבחון, ומהמתישים ביותר לחיות איתם בלי שם ובלי תשובה. הגישה כאן היא בירור יסודי שמסרב לוותר — לזהות מקור ולבנות תוכנית אמיתית, גם אחרי שמסלולים קודמים נכשלו.",
+          en: "Among the hardest conditions to diagnose, and the most wearing to live with — nameless, unanswered. The approach here is a thorough workup that refuses to give up: to find a source and build a real plan, even after earlier routes failed.",
         },
       },
       {
@@ -195,8 +216,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
         icon: "pulse",
         title: { he: "דלקת ערמונית כרונית", en: "Chronic Prostatitis" },
         body: {
-          he: "דלקת או גירוי כרוני של הערמונית גורמים לכאב, לאי-נוחות ולתסמיני שתן שנמשכים זמן רב. הטיפול דורש סבלנות ואבחון מדויק, ויש דרכים ממשיות להקל ולשפר את איכות החיים.",
-          en: "Chronic inflammation or irritation of the prostate causes pain, discomfort, and urinary symptoms that linger. Treatment takes patience and accurate diagnosis, and there are real ways to ease it and improve quality of life.",
+          he: "דלקת או גירוי כרוני של הערמונית שמביא כאב, אי־נוחות ותסמיני שתן שאינם חולפים. זה דורש סבלנות ואבחנה מדויקת — ויש דרכים ממשיות להקל ולהחזיר איכות חיים.",
+          en: "Chronic inflammation or irritation of the prostate, bringing pain, discomfort, and urinary symptoms that won't pass. It takes patience and an exact diagnosis — and there are real ways to ease it and return quality of life.",
         },
       },
       {
@@ -207,8 +228,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Benign Prostate Enlargement (BPH)",
         },
         body: {
-          he: "הגדלה שפירה של הערמונית שכיחה עם הגיל וגורמת לתסמיני שתן מטרידים — זרם חלש, השתנה תכופה, יקיצות בלילה. יש מגוון פתרונות, מתרופות ועד טיפולים זעיר-פולשניים, שמותאמים למצב ולהעדפות שלך.",
-          en: "An enlarged prostate is common with age and causes bothersome urinary symptoms — a weak stream, frequent urination, waking at night. A range of solutions exists, from medication to minimally invasive procedures, matched to your situation and your preferences.",
+          he: "שכיחה עם הגיל, ומטרידה את שגרת היום: זרם חלש, השתנה תכופה, יקיצות בלילה. הטיפול נע מתרופות ועד פתרונות זעיר־פולשניים, ונבחר לפי המצב וההעדפות שלכם — לא לפי נוסחה אחת.",
+          en: "Common with age, and a disruptor of daily life: a weak stream, frequent urination, waking at night. Treatment ranges from medication to minimally invasive options, chosen by your situation and preferences — not by a single formula.",
         },
       },
       {
@@ -219,22 +240,22 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Intermittent Catheterization",
         },
         body: {
-          he: "למי שמתקשה לרוקן את השלפוחית, צנתור עצמי לסירוגין הוא פתרון בטוח ושגרתי שמאפשר חיים מלאים. ד\"ר כתרי מלווה את ההדרכה וההתאמה האישית, בסבלנות ובלי לחץ.",
-          en: "For those who can't fully empty the bladder, intermittent self-catheterization is a safe, routine solution that allows a full life. Dr. Kitrey guides the training and personal adjustment, patiently and without pressure.",
+          he: "למי שאינו מצליח לרוקן את השלפוחית, צנתור עצמי לסירוגין הוא פתרון בטוח ושגרתי שמחזיר חיים מלאים. ההדרכה נעשית בסבלנות, עד שזה הופך לפשוט.",
+          en: "For those who can't fully empty the bladder, intermittent self-catheterization is a safe, routine solution that gives life back. The training is done patiently, until it becomes simple.",
         },
       },
     ],
   },
   {
     anchor: "specialized",
-    eyebrow: { he: "קבוצה שלישית", en: "Group three" },
+    eyebrow: { he: "נושא שלישי", en: "Subject three" },
     title: {
       he: "טיפול מתמחה",
       en: "Specialized Care",
     },
     intro: {
-      he: "לצד תחומי הליבה, ד\"ר כתרי מביא מומחיות נדירה בתחומים שדורשים ניסיון מיוחד ורגישות.",
-      en: "Alongside the core fields, Dr. Kitrey brings rare expertise in areas that call for special experience and sensitivity.",
+      he: "לצד שני התחומים המרכזיים, שני נושאים שדורשים ניסיון נדיר ויד עדינה.",
+      en: "Alongside the two central fields, two subjects that demand rare experience and a gentle hand.",
     },
     conditions: [
       {
@@ -246,8 +267,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
           en: "Gender-Affirming Urological Care",
         },
         body: {
-          he: "ד\"ר כתרי חבר בוועדה הלאומית להתאמה מגדרית מטעם משרד הבריאות, ומספק ליווי אורולוגי מקצועי ומכבד כחלק מתהליך אישור מגדרי. הטיפול ניתן בדיסקרטיות מלאה ומתוך כבוד מלא לכל מטופל ומטופלת.",
-          en: "Dr. Kitrey is a member of Israel's National Committee for Gender Affirmation (Ministry of Health) and provides professional, respectful urological care as part of the gender-affirmation process. Care is delivered with full discretion and full respect for every patient.",
+          he: "ד\"ר כתרי חבר בוועדה הלאומית להתאמה מגדרית מטעם משרד הבריאות, ומלווה את ההיבט האורולוגי בתהליך — במקצועיות, בכבוד מלא ובסודיות מלאה לכל מטופל ומטופלת.",
+          en: "Dr. Kitrey is a member of Israel's National Committee for Gender Affirmation (Ministry of Health) and attends the urological aspect of the process — with professionalism, full respect, and full confidence for every patient.",
         },
       },
       {
@@ -255,8 +276,8 @@ export const expertiseGroups: ReadonlyArray<ExpertiseGroup> = [
         icon: "compass",
         title: { he: "חבלות אורולוגיות", en: "Urological Trauma" },
         body: {
-          he: "ד\"ר כתרי הוא יו\"ר ועדת ההנחיות הקליניות של איגוד האורולוגיה האירופי בתחום החבלות האורולוגיות — סמכות מובילה בטיפול בפגיעות במערכת השתן ובאיברי המין. רמת מומחיות שמורגשת בכל מקרה, פשוט כמורכב.",
-          en: "Dr. Kitrey chairs the European Urology Association's clinical-guidelines committee on urological trauma — a leading authority on injuries to the urinary tract and genitals. That depth of expertise shows in every case, simple or complex.",
+          he: "זהו התחום שבו ד\"ר כתרי אינו רק מטפל אלא כותב את הכללים: יו\"ר ועדת ההנחיות של איגוד האורולוגיה האירופי לחבלות. פגיעות במערכת השתן ובאיברי המין מטופלות כאן ברמה שמכריעה מקרים בכל אירופה.",
+          en: "This is the field where Dr. Kitrey doesn't just treat but writes the rules: Chair of the EAU's trauma-guidelines committee. Injuries to the urinary tract and genitals are treated here at the level that settles cases across Europe.",
         },
       },
     ],
