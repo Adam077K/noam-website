@@ -45,6 +45,7 @@ export default async function ExpertisePage({
           group={group}
           folio={expertiseGroupFolios[i] ?? String(i + 1).padStart(2, "0")}
           locale={locale}
+          index={i}
         />
       ))}
       <ContactClose locale={locale} />

@@ -38,8 +38,8 @@ export default async function AboutPage({
     <>
       <AboutHero locale={locale} />
       <AboutStory locale={locale} />
-      <AboutQuote locale={locale} />
       <AboutCredentials locale={locale} />
+      <AboutQuote locale={locale} />
       <ContactClose locale={locale} />
     </>
   );

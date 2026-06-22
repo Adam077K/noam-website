@@ -3,24 +3,23 @@ import { t } from "@/content/types";
 import { location, MAP_QUERY } from "@/content/clinic";
 import { InView } from "@/components/ui";
 import { SectionHead } from "@/components/sections/home/journal";
+import { IconCircle } from "@/components/ui/icon-circle";
 
 /**
- * The Dateline — location article (v5, map strategy update).
+ * Location section — clinic address + map placeholder.
  *
- * PAGE DIRECTIVE: Replace Google Maps live iframe (brand violation / blank-spinner
- * risk) with a static monochrome/warm map placeholder + styled 'Get directions'
- * link. Interactive map, if ever added, must be lazy-loaded behind a tap.
+ * PAGE DIRECTIVE: No Google Maps live iframe (brand violation / blank-spinner risk).
+ * Static warm editorial placeholder: faint cartographic grid + location pin.
+ * The entire map surface is a tap target → Google Maps directions.
  *
- * Current strategy: the warm editorial placeholder is always shown. The placeholder
- * is a hairline-framed field of the page's bone tone with a faint cartographic
- * grid, a hairline location pin, and the plain-text address. The whole surface is
- * an anchor → Google Maps directions. No iframe, no blank spinner.
+ * Layout (LG+): [address column: 0.85fr] [map plate: 1.15fr]
+ * Mobile: stack, address first then map plate.
  *
- * The address column (start side) is the dominant information layer; the map plate
- * (end side) is the visual editorial anchor. `lg:grid-cols-[0.82fr_1.18fr]` keeps
- * the address column readable at the same weight as the plate.
+ * Address column: icon + label rows for address and parking/transit.
+ * Map plate: mist-tinted cartographic placeholder, directions CTA.
  *
- * RTL-correct via logical props; the address/numbers render dir="ltr".
+ * RTL-correct via logical props. dir="ltr" on digits and address strings.
+ * [FOUNDER-REVIEW]: Parking note is a placeholder — founder to supply specifics.
  */
 export function LocationMap({ locale }: { locale: Locale }) {
   const query = encodeURIComponent(MAP_QUERY);
@@ -28,17 +27,18 @@ export function LocationMap({ locale }: { locale: Locale }) {
   const directionsHref = `https://www.google.com/maps/search/?api=1&query=${query}`;
 
   return (
-    <section className="bg-canvas px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
-      <div className="mx-auto w-full max-w-[1280px]">
+    <section className="bg-paper px-[clamp(1.25rem,4vw,2.5rem)] py-[clamp(4rem,8vw,7rem)]">
+      <div className="mx-auto w-full max-w-[1200px]">
+
         <SectionHead
           folio="02"
-          title={{ he: "המען", en: "The Dateline" }}
+          title={{ he: "מיקום", en: "Location" }}
           locale={locale}
         />
 
-        {/* Section headline + standfirst preamble */}
-        <div className="mt-8 grid gap-x-16 gap-y-5 sm:mt-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
-          <h2 className="max-w-[14ch] text-balance font-editorial text-display-lg text-ink">
+        {/* Section headline + standfirst */}
+        <div className="mt-10 grid gap-x-16 gap-y-5 sm:mt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+          <h2 className="font-editorial text-ink text-balance max-w-[14ch] [font-size:clamp(1.75rem,2.5vw,2.25rem)] [line-height:1.15] [letter-spacing:-0.012em]">
             <InView as="span" className="block">
               {t(location.headline, locale)}
             </InView>
@@ -46,41 +46,47 @@ export function LocationMap({ locale }: { locale: Locale }) {
           <InView
             as="p"
             motion="fade-in-up"
-            delay={120}
-            className="max-w-[48ch] text-body-base text-slate-strong"
+            delay={100}
+            className="max-w-[48ch] text-[1rem] leading-relaxed text-slate-strong"
           >
             {t(location.standfirst, locale)}
           </InView>
         </div>
 
-        <div className="mt-12 grid gap-x-16 gap-y-10 sm:mt-14 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
+        {/* Two-column: address info + map plate */}
+        <div className="mt-12 grid gap-x-14 gap-y-10 sm:mt-14 lg:grid-cols-[0.85fr_1.15fr] lg:items-stretch">
 
           {/* ── ADDRESS COLUMN ─────────────────────────────────────────────── */}
-          <InView as="div" motion="fade-in-up" className="border-t border-ink pt-7">
-            <dl className="flex flex-col gap-8">
+          <InView as="div" motion="fade-in-up" className="flex flex-col justify-between gap-8">
+            <dl className="flex flex-col gap-7">
+
               {/* Full address */}
-              <div>
-                <dt className="flex items-center gap-2.5 text-caption uppercase tracking-[0.2em] text-slate-strong eyebrow">
-                  <span className="font-mono text-[0.65rem] tracking-[0.1em] text-accent">01</span>
-                  {t(location.addressLabel, locale)}
-                </dt>
-                <dd
-                  className="mt-3 max-w-[26ch] font-editorial text-display-md leading-snug text-ink"
-                  dir="ltr"
-                >
-                  {t(location.address, locale)}
-                </dd>
+              <div className="flex gap-4">
+                <IconCircle name="mapPin" size="md" className="mt-0.5 shrink-0" />
+                <div>
+                  <dt className="eyebrow text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-slate-strong">
+                    {t(location.addressLabel, locale)}
+                  </dt>
+                  <dd
+                    className="mt-2 text-[1rem] leading-relaxed text-ink"
+                    dir="ltr"
+                  >
+                    {t(location.address, locale)}
+                  </dd>
+                </div>
               </div>
 
-              {/* Parking / transit placeholder */}
-              <div className="border-t border-border pt-6">
-                <dt className="flex items-center gap-2.5 text-caption uppercase tracking-[0.2em] text-slate-strong eyebrow">
-                  <span className="font-mono text-[0.65rem] tracking-[0.1em] text-accent">02</span>
-                  {t(location.parkingLabel, locale)}
-                </dt>
-                <dd className="mt-3 max-w-[40ch] text-body-base text-slate-strong">
-                  {t(location.parkingNote, locale)}
-                </dd>
+              {/* Parking / transit — [FOUNDER-REVIEW] */}
+              <div className="flex gap-4">
+                <IconCircle name="compass" size="md" className="mt-0.5 shrink-0" />
+                <div>
+                  <dt className="eyebrow text-[0.75rem] font-semibold uppercase tracking-[0.12em] text-slate-strong">
+                    {t(location.parkingLabel, locale)}
+                  </dt>
+                  <dd className="mt-2 max-w-[38ch] text-[1rem] leading-relaxed text-slate">
+                    {t(location.parkingNote, locale)}
+                  </dd>
+                </div>
               </div>
             </dl>
 
@@ -89,12 +95,12 @@ export function LocationMap({ locale }: { locale: Locale }) {
               href={directionsHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/dir mt-8 inline-flex items-center gap-3 self-start border-b border-ink pb-1.5 text-body-base font-medium text-ink transition-colors duration-300 hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-canvas"
+              className="group/dir mt-2 inline-flex items-center gap-2.5 self-start border-b border-ink pb-1.5 text-[0.9375rem] font-medium text-ink transition-colors duration-300 hover:border-mist hover:text-mist-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-4 focus-visible:ring-offset-paper"
             >
               {t(location.directionsCta, locale)}
               <span
                 aria-hidden
-                className="transition-transform duration-300 group-hover/dir:translate-x-1 rtl:rotate-180 rtl:group-hover/dir:-translate-x-1"
+                className="transition-transform duration-300 group-hover/dir:translate-x-0.5 rtl:rotate-180 rtl:group-hover/dir:-translate-x-0.5"
               >
                 &#8594;
               </span>
@@ -103,67 +109,68 @@ export function LocationMap({ locale }: { locale: Locale }) {
 
           {/* ── MAP PLATE ──────────────────────────────────────────────────── */}
           {/*
-            Static warm editorial placeholder — a faint cartographic grid on bone
-            with a hairline pin. Never an iframe, never a blank spinner.
-            The entire surface is a tap target → Google Maps directions.
-            Hairline mat frame + accent tick, matching the clinic plate motif.
+            Static editorial placeholder — faint cartographic grid on mist-tinted
+            paper, with a hairline pin at centre. Never an iframe. Never blank.
+            Entire surface is a tap target → Google Maps directions.
+            Double-bezel treatment: outer mat frame + inner rounded content area.
           */}
-          <InView as="figure" motion="fade-in-up" delay={120} className="relative">
+          <InView as="figure" motion="fade-in-up" delay={100} className="relative">
             <div className="relative">
+              {/* Outer mat hairline */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -inset-2.5 hidden border border-ink/20 sm:block"
+                className="pointer-events-none absolute -inset-2.5 hidden border border-ink/12 sm:block"
               />
+              {/* Accent tick — bottom-start corner, matches hero motif */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -bottom-2.5 -start-2.5 hidden h-12 w-px bg-accent sm:block"
+                className="pointer-events-none absolute -bottom-2.5 hidden h-12 w-px bg-mist sm:block"
+                style={{ insetInlineStart: "-10px" }}
               />
+
               <a
                 href={directionsHref}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={mapTitle}
-                className="group/map relative flex min-h-[22rem] flex-col items-center justify-center overflow-hidden border border-ink/20 bg-paper transition-colors duration-300 hover:border-ink/35 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-canvas sm:min-h-[26rem]"
+                className="group/map relative flex min-h-[22rem] flex-col items-center justify-center overflow-hidden rounded-[20px] border border-ink/15 bg-paper transition-[border-color,background-color] duration-300 hover:border-mist/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2 focus-visible:ring-offset-paper sm:min-h-[26rem]"
               >
                 {/*
-                  Faint cartographic grid — horizontal + vertical lines that evoke a
-                  map surface without importing an external service.
+                  Cartographic grid — horizontal + vertical hairlines at 52px grid
+                  evoking a map surface without importing an external service.
                 */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-50 [background-image:linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] [background-size:52px_52px]"
+                  className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] [background-size:52px_52px]"
                 />
                 {/*
-                  Diagonal street-line suggestion — a single drawn rule at ~30deg,
-                  evoking a boulevard without being literal.
+                  Diagonal street-line — a single drawn rule evoking Menachem Begin Rd
+                  without literal representation.
                 */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-20 [background-image:repeating-linear-gradient(145deg,var(--color-ink-divider)_0,var(--color-ink-divider)_1px,transparent_0,transparent_50%)] [background-size:120px_120px]"
+                  className="pointer-events-none absolute inset-0 opacity-15 [background-image:repeating-linear-gradient(148deg,var(--color-ink-divider)_0,var(--color-ink-divider)_1px,transparent_0,transparent_50%)] [background-size:120px_120px]"
                 />
-                {/*
-                  Warm base tint — a faint canvas tone over the grid so it reads as
-                  a "place" rather than a pure geometric pattern.
-                */}
+                {/* Mist wash over the grid — reads as a "place", not pure geometry */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-canvas/40"
+                  className="pointer-events-none absolute inset-0 bg-mist-50/60"
                 />
 
-                {/* Location pin — hairline drawn, not a filled medallion */}
-                <span className="relative z-10 flex h-14 w-14 flex-col items-center">
+                {/* Location pin — mist-ringed, not a filled medallion */}
+                <span className="relative z-10 flex flex-col items-center">
                   <span
                     aria-hidden
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-accent bg-paper/80 shadow-[0_0_0_4px_var(--color-accent-tint)]"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-mist bg-paper shadow-[0_0_0_6px_var(--color-mist-tint)] transition-transform duration-200 group-hover/map:scale-105"
                   >
-                    <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-accent" />
+                    <span aria-hidden className="h-2 w-2 rounded-full bg-mist" />
                   </span>
                   {/* Pin tail */}
-                  <span aria-hidden className="mt-0.5 h-4 w-px bg-accent/60" />
+                  <span aria-hidden className="mt-0.5 h-5 w-px bg-mist/60" />
                 </span>
 
                 {/* Directions label */}
-                <p className="relative z-10 mt-5 inline-flex items-center gap-2.5 border-b border-ink pb-1 text-body-sm font-medium text-ink transition-colors group-hover/map:border-accent group-hover/map:text-accent">
+                <p className="relative z-10 mt-5 inline-flex items-center gap-2.5 border-b border-ink pb-1 text-[0.9375rem] font-medium text-ink transition-colors group-hover/map:border-mist group-hover/map:text-mist-hover">
                   {t(location.directionsCta, locale)}
                   <span
                     aria-hidden
@@ -173,9 +180,9 @@ export function LocationMap({ locale }: { locale: Locale }) {
                   </span>
                 </p>
 
-                {/* Plain-text address below the CTA — dir="ltr" for digit ordering */}
+                {/* Plain-text address below CTA — dir="ltr" for digit ordering */}
                 <p
-                  className="relative z-10 mt-3 max-w-[28ch] px-8 text-center text-caption text-slate-strong"
+                  className="relative z-10 mt-3 max-w-[28ch] px-8 text-center text-[0.8125rem] text-slate"
                   dir="ltr"
                 >
                   Ayal Specialist Clinics · Recital Tower<br />
@@ -183,8 +190,9 @@ export function LocationMap({ locale }: { locale: Locale }) {
                 </p>
               </a>
             </div>
-            {/* Clean plate caption */}
-            <figcaption className="mt-4 overflow-visible pb-1 font-editorial text-body-sm normal-case tracking-normal text-ink">
+
+            {/* Map plate caption */}
+            <figcaption className="mt-4 pb-1 text-[0.875rem] normal-case tracking-normal text-ink-80">
               {t(location.mapCaption, locale)}
             </figcaption>
           </InView>

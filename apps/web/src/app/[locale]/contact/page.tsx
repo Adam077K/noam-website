@@ -9,21 +9,20 @@ import {
   discretionGuarantee,
 } from "@/content/contact";
 import { pageMetadata } from "@/lib/seo";
-import { InView } from "@/components/ui";
+import { InView, Eyebrow, IconCircle } from "@/components/ui";
 import { RunningHead, SectionHead } from "@/components/sections/home/journal";
 import { ContactForm } from "@/components/sections/contact/contact-form";
 
 /**
  * Contact page — "The Journal" CORRESPONDENCE chapter.
  *
- * Redesigned for above-the-fold primacy: the first viewport delivers the
- * pull-quote H1, the non-negotiable discretion one-liner, the phone + email
- * contact, and the leading edge of the form — all without scrolling at
- * 1366×768 and 1440×820. The folio "05" is demoted to a low-opacity CSS
- * watermark behind the form panel; the redundant small folio counter and the
- * orphan blue rule are removed.
- *
- * RTL-correct throughout (logical props only); phone/email render dir="ltr".
+ * v4 "Clinic-Minimal" rebuild (ref-#3 target):
+ * — True two-column split: left = info + discretion, right = form panel
+ * — First screen delivers: h1, discretion one-liner, phone + email
+ * — Form panel: rounded-[20px] card, mist tinted top-bar, clean inputs
+ * — Optional map slot below (clinic-shot pattern — intentional, not empty)
+ * — RTL-correct via logical props throughout; numbers dir="ltr"
+ * — No serif; Inter (EN) / Heebo (HE) from design system
  */
 
 export async function generateMetadata({
@@ -65,10 +64,20 @@ export default async function ContactPage({
     <>
       <RunningHead locale={locale} />
 
-      {/* ── Above-fold chapter opener ──────────────────────────────────────── */}
+      {/* ── Main contact section: two-column split ──────────────────────────── */}
       <section className="relative overflow-x-clip bg-paper">
-        <div className="mx-auto w-full max-w-[1280px] px-4 pt-6 sm:px-6 sm:pt-8 lg:px-8 lg:pt-10">
+        {/* Subtle mist blob — decorative depth, pointer-events-none */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute end-0 top-0 -z-0 h-[60%] w-[45%] translate-x-[20%] opacity-40"
+          style={{
+            background:
+              "radial-gradient(ellipse at 80% 20%, #C8DADA 0%, transparent 70%)",
+            filter: "blur(80px)",
+          }}
+        />
 
+        <div className="relative z-10 mx-auto w-full max-w-[1280px] px-[clamp(1.25rem,4vw,2.5rem)] py-[clamp(3.5rem,7vw,6rem)]">
           {/* Section running-head: "05 · CORRESPONDENCE" */}
           <SectionHead
             folio="05"
@@ -76,263 +85,263 @@ export default async function ContactPage({
             locale={locale}
           />
 
-          {/* ── Chapter opener: H1 pull-quote + discretion strip + contact ── */}
-          <div className="mt-6 grid gap-x-12 gap-y-8 sm:mt-7 lg:mt-8 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-x-16 xl:gap-x-20">
+          {/* ── Two-column grid ──────────────────────────────────────────────── */}
+          <div className="mt-10 grid gap-x-[clamp(2.5rem,6vw,5rem)] gap-y-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:items-start xl:gap-x-[clamp(3rem,7vw,6rem)]">
 
-            {/* LEFT / MAIN: H1 → discretion → phone → email */}
-            <div className="flex flex-col gap-6">
-              {/* H1 pull-quote — the chapter opener, above the fold */}
+            {/* ═══ LEFT COLUMN — heading + discretion + contact facts ═══════ */}
+            <div className="flex flex-col gap-8">
+
+              {/* H1 — page title, above the fold */}
               <InView as="div" motion="fade-in-up">
-                <p className="mb-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate-strong eyebrow">
+                <Eyebrow className="mb-4" withRule>
                   {t(contactIntro.eyebrow, locale)}
-                </p>
-                <h1 className="max-w-[22ch] text-pretty font-editorial text-ink [font-size:clamp(2rem,3.8vw,3.5rem)] [line-height:1.08] [letter-spacing:-0.02em]">
+                </Eyebrow>
+                <h1 className="max-w-[22ch] text-pretty font-semibold text-ink [font-size:clamp(2rem,3.5vw,3.25rem)] [letter-spacing:-0.02em] [line-height:1.1]">
                   {t(contactIntro.headline, locale)}
                 </h1>
+                <p className="mt-4 max-w-[44ch] text-[1.0625rem] leading-relaxed text-slate-strong">
+                  {t(contactIntro.intro, locale)}
+                </p>
               </InView>
 
-              {/* Non-negotiable discretion guarantee — one-liner, both languages */}
-              <InView
-                as="div"
-                motion="fade-in-up"
-                delay={80}
-                className="flex items-start gap-3 border-s-2 border-accent ps-4 py-1"
-              >
-                <div className="flex flex-col gap-1">
-                  <p className="text-body-sm font-medium text-ink">
-                    {discretionGuarantee.lead.he}
-                  </p>
-                  {locale === "en" && (
-                    <p className="text-body-sm text-slate-strong italic-none">
+              {/* ── NON-NEGOTIABLE DISCRETION GUARANTEE ──────────────────── */}
+              <InView as="div" motion="fade-in-up" delay={80}>
+                {/* Card — nested double-bezel style, mist tinted surface */}
+                <div className="rounded-[16px] bg-mist-50 p-px ring-1 ring-mist-soft">
+                  <div className="flex flex-col gap-4 rounded-[15px] bg-paper px-6 py-5">
+                    {/* Eyebrow row with shield icon */}
+                    <div className="flex items-center gap-3">
+                      <IconCircle name="shieldCheck" size="sm" />
+                      <Eyebrow tone="accent">
+                        {t(discretionGuarantee.eyebrow, locale)}
+                      </Eyebrow>
+                    </div>
+                    {/* Hebrew lead (canonical) */}
+                    <p className="text-[0.9375rem] font-semibold leading-snug text-ink">
+                      {discretionGuarantee.lead.he}
+                    </p>
+                    {/* English lead — always shown as parallel translation */}
+                    <p
+                      className="text-[0.9375rem] leading-snug text-slate-strong"
+                      dir="ltr"
+                      style={{ textAlign: locale === "he" ? "start" : undefined }}
+                    >
                       {discretionGuarantee.lead.en}
                     </p>
-                  )}
-                  {locale === "he" && (
-                    <p className="text-body-sm text-slate-strong" dir="ltr" style={{ textAlign: "left" }}>
-                      {discretionGuarantee.lead.en}
+                    {/* Body passage */}
+                    <p className="border-t border-border pt-4 text-[0.875rem] leading-[1.65] text-slate-strong">
+                      {t(discretionGuarantee.body, locale)}
                     </p>
-                  )}
+                  </div>
                 </div>
               </InView>
 
-              {/* Phone primary + email — above-fold contact touch-points */}
-              <InView
-                as="div"
-                motion="fade-in-up"
-                delay={140}
-                className="flex flex-col gap-4"
-              >
-                <a
-                  href={`tel:${telPrimary}`}
-                  className="group/tel inline-flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-                >
-                  <span
-                    aria-hidden
-                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-ink/20 text-slate-strong transition-colors duration-300 group-hover/tel:border-accent group-hover/tel:text-accent group-focus-visible/tel:border-accent"
+              {/* ── Contact facts: phone primary, phone secondary, email, address */}
+              <InView as="div" motion="fade-in-up" delay={140}>
+                <div className="flex flex-col divide-y divide-border">
+                  {/* Phone primary — large prominent touch-point */}
+                  <a
+                    href={`tel:${telPrimary}`}
+                    className="group/tel flex items-center gap-4 py-4 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2 focus-visible:ring-offset-paper hover:text-accent"
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden>
-                      <path d="M6.6 10.8a15.6 15.6 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.6 1 1 0 0 1 1 1V19a1 1 0 0 1-1 1 17 17 0 0 1-17-17 1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .6 3.6 1 1 0 0 1-.25 1L6.6 10.8z" />
-                    </svg>
-                  </span>
-                  <span className="flex flex-col">
-                    <span className="text-eyebrow font-semibold uppercase tracking-[0.14em] text-slate-strong eyebrow">
-                      {t(contactIntro.phoneLabel, locale)}
+                    <IconCircle
+                      name="phone"
+                      size="sm"
+                      className="shrink-0 transition-all duration-300 group-hover/tel:bg-mist group-hover/tel:text-ink"
+                    />
+                    <span className="flex flex-col">
+                      <span className="eyebrow text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
+                        {t(contactIntro.phoneLabel, locale)}
+                      </span>
+                      <span
+                        dir="ltr"
+                        className="font-mono text-[1.375rem] font-semibold tabular-nums text-ink transition-colors duration-300 group-hover/tel:text-accent"
+                      >
+                        {contactFacts.phonePrimary}
+                      </span>
+                      <span className="mt-0.5 text-[0.8125rem] text-slate-strong">
+                        {t(contactIntro.phoneHint, locale)}
+                      </span>
                     </span>
-                    <span
-                      dir="ltr"
-                      className="font-mono text-display-md font-medium tabular-nums text-ink transition-colors duration-300 group-hover/tel:text-accent"
-                    >
-                      {contactFacts.phonePrimary}
-                    </span>
-                  </span>
-                </a>
+                  </a>
 
-                <a
-                  href={`mailto:${contactFacts.email}`}
-                  className="group/mail inline-flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
-                >
-                  <span
-                    aria-hidden
-                    className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-ink/20 text-slate-strong transition-colors duration-300 group-hover/mail:border-accent group-hover/mail:text-accent group-focus-visible/mail:border-accent"
+                  {/* Phone secondary */}
+                  <a
+                    href={`tel:${telSecondary}`}
+                    className="group/tel2 flex items-center gap-4 py-4 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
                   >
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden>
-                      <rect x="2" y="4" width="20" height="16" rx="2" />
-                      <path d="M2 7l10 7 10-7" />
-                    </svg>
-                  </span>
-                  <span className="flex flex-col">
-                    <span className="text-eyebrow font-semibold uppercase tracking-[0.14em] text-slate-strong eyebrow">
-                      {t(contactIntro.emailLabel, locale)}
+                    <IconCircle
+                      name="phone"
+                      size="sm"
+                      className="shrink-0 opacity-60"
+                    />
+                    <span className="flex flex-col">
+                      <span className="eyebrow text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
+                        {t(contactIntro.phoneSecondaryLabel, locale)}
+                      </span>
+                      <span
+                        dir="ltr"
+                        className="font-mono text-[1rem] tabular-nums text-ink transition-colors duration-300 group-hover/tel2:text-accent"
+                      >
+                        {contactFacts.phoneSecondary}
+                      </span>
                     </span>
-                    <span
-                      dir="ltr"
-                      className="font-mono text-body-base text-ink transition-colors duration-300 group-hover/mail:text-accent"
-                    >
-                      {contactFacts.email}
+                  </a>
+
+                  {/* Email */}
+                  <a
+                    href={`mailto:${contactFacts.email}`}
+                    className="group/mail flex items-center gap-4 py-4 transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2 focus-visible:ring-offset-paper"
+                  >
+                    <IconCircle
+                      name="mail"
+                      size="sm"
+                      className="shrink-0 transition-all duration-300 group-hover/mail:bg-mist group-hover/mail:text-ink"
+                    />
+                    <span className="flex flex-col">
+                      <span className="eyebrow text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
+                        {t(contactIntro.emailLabel, locale)}
+                      </span>
+                      <span
+                        dir="ltr"
+                        className="font-mono text-[1rem] text-ink transition-colors duration-300 group-hover/mail:text-accent"
+                      >
+                        {contactFacts.email}
+                      </span>
                     </span>
-                  </span>
-                </a>
+                  </a>
+
+                  {/* Address */}
+                  <div className="flex items-start gap-4 py-4">
+                    <IconCircle name="mapPin" size="sm" className="shrink-0 opacity-70" />
+                    <div className="flex flex-col">
+                      <span className="eyebrow text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
+                        {t(contactIntro.addressLabel, locale)}
+                      </span>
+                      <span className="mt-0.5 text-[0.9375rem] leading-snug text-ink">
+                        {t(contactFacts.address, locale)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </InView>
             </div>
 
-            {/* RIGHT / MARGIN: secondary phone + address */}
-            <InView
-              as="dl"
-              motion="fade-in-up"
-              delay={200}
-              className="flex flex-col self-start border-t border-ink/20 lg:mt-0"
-            >
-              <ContactRow
-                href={`tel:${telSecondary}`}
-                label={t(contactIntro.phoneSecondaryLabel, locale)}
-                value={contactFacts.phoneSecondary}
-                ltr
-              />
-              <ContactRow
-                label={t(contactIntro.addressLabel, locale)}
-                value={t(contactFacts.address, locale)}
-              />
-            </InView>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Correspondence form section — the "05" becomes a watermark here ── */}
-      <section className="relative overflow-x-clip bg-paper pb-24 sm:pb-28 lg:pb-32">
-        {/* Folio "05" watermark — low-opacity, behind content, decorative only */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 select-none overflow-hidden"
-        >
-          <span
-            aria-hidden
-            className="absolute -top-8 end-0 block font-editorial leading-[0.8] tabular-nums text-ink/[0.06] [font-size:clamp(12rem,22vw,20rem)]"
-            dir="ltr"
-          >
-            05
-          </span>
-        </span>
-
-        <div className="relative mx-auto w-full max-w-[1280px] px-4 pt-10 sm:px-6 sm:pt-12 lg:px-8 lg:pt-14">
-
-          {/* Discretion guarantee — full passage directly above the form */}
-          <div className="mb-10 sm:mb-12">
-            <SectionHead
-              folio="§"
-              title={discretionGuarantee.sectionTitle}
-              locale={locale}
-            />
-            <InView
-              as="blockquote"
-              motion="fade-in-up"
-              delay={40}
-              className="mt-7 grid gap-x-16 gap-y-5 sm:mt-8 lg:grid-cols-[0.42fr_1fr]"
-            >
-              <p className="flex items-start gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-accent eyebrow lg:pt-1">
+            {/* ═══ RIGHT COLUMN — form card ════════════════════════════════ */}
+            <InView as="div" motion="fade-in-up" delay={100} className="w-full">
+              {/* Form card — double-bezel, rounded, mist accent top edge */}
+              <div className="relative overflow-hidden rounded-[20px] bg-paper shadow-[0_8px_40px_rgba(32,42,44,0.09)] ring-1 ring-ink/[0.09]">
+                {/* Mist accent top bar */}
+                <div
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-1 rounded-t-[20px] bg-mist"
+                />
+                {/* Ghost folio watermark */}
                 <span
                   aria-hidden
-                  className="mt-2 inline-block h-px w-8 shrink-0 bg-accent"
-                />
-                {t(discretionGuarantee.eyebrow, locale)}
-              </p>
-              <div>
-                <p className="max-w-[30ch] font-editorial text-display-lg leading-[1.12] text-ink">
-                  {t(discretionGuarantee.lead, locale)}
-                </p>
-                <p className="mt-5 max-w-[60ch] text-body-base leading-relaxed text-slate-strong">
-                  {t(discretionGuarantee.body, locale)}
-                </p>
+                  className="pointer-events-none absolute -bottom-4 end-0 select-none font-mono text-[10rem] font-semibold leading-none tabular-nums text-mist-100"
+                >
+                  <span dir="ltr">05</span>
+                </span>
+
+                <div className="relative px-6 pb-8 pt-8 sm:px-8 sm:pb-10 sm:pt-9 lg:px-10 lg:pb-12 lg:pt-10">
+                  {/* Form heading */}
+                  <div className="mb-7 border-b border-border pb-6">
+                    <Eyebrow className="mb-3" withRule>
+                      {t(contactForm.sectionTitle, locale)}
+                    </Eyebrow>
+                    <h2 className="text-[1.5rem] font-semibold leading-tight text-ink [letter-spacing:-0.015em]">
+                      {t(contactForm.heading, locale)}
+                    </h2>
+                    <p className="mt-2 text-[0.9375rem] leading-relaxed text-slate-strong">
+                      {t(contactForm.subhead, locale)}
+                    </p>
+                  </div>
+
+                  <ContactForm locale={locale} />
+                </div>
               </div>
             </InView>
           </div>
+        </div>
+      </section>
 
-          {/* ── The correspondence form ───────────────────────────────────── */}
+      {/* ── Clinic address / map slot ─────────────────────────────────────────── */}
+      <section className="bg-mist-50">
+        <div className="mx-auto w-full max-w-[1280px] px-[clamp(1.25rem,4vw,2.5rem)] py-[clamp(2.5rem,5vw,4rem)]">
           <SectionHead
-            folio="✎"
-            title={contactForm.sectionTitle}
+            folio="↯"
+            title={{ he: "מיקום", en: "Location" }}
             locale={locale}
           />
-
-          <div className="mt-10 grid gap-x-16 gap-y-10 sm:mt-12 lg:grid-cols-[0.42fr_1fr]">
-            <InView as="div" motion="fade-in-up">
-              <h2 className="max-w-[14ch] font-editorial text-display-lg leading-[1.08] text-ink">
-                {t(contactForm.heading, locale)}
-              </h2>
-              <p className="mt-5 max-w-[36ch] text-body-base text-slate-strong">
-                {t(contactForm.subhead, locale)}
-              </p>
+          <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start">
+            {/* Location details */}
+            <InView as="div" motion="fade-in-up" className="flex flex-col gap-5">
+              <div>
+                <p className="eyebrow text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
+                  {t(contactIntro.addressLabel, locale)}
+                </p>
+                <p className="mt-2 text-[1rem] leading-snug text-ink">
+                  {t(contactFacts.address, locale)}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-2">
+                <div>
+                  <p className="eyebrow text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
+                    {t(contactIntro.phoneLabel, locale)}
+                  </p>
+                  <a
+                    href={`tel:${telPrimary}`}
+                    dir="ltr"
+                    className="mt-1 block font-mono text-[0.9375rem] text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2"
+                  >
+                    {contactFacts.phonePrimary}
+                  </a>
+                </div>
+                <div>
+                  <p className="eyebrow text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
+                    {t(contactIntro.emailLabel, locale)}
+                  </p>
+                  <a
+                    href={`mailto:${contactFacts.email}`}
+                    dir="ltr"
+                    className="mt-1 block font-mono text-[0.9375rem] text-ink transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2"
+                  >
+                    {contactFacts.email}
+                  </a>
+                </div>
+              </div>
             </InView>
 
-            {/* The correspondence card */}
-            <InView
-              as="div"
-              motion="fade-in-up"
-              delay={100}
-              className="relative border border-ink/15 bg-paper-pure p-6 sm:p-8 lg:p-10"
-            >
-              <span
-                aria-hidden
-                className="pointer-events-none absolute -top-px start-0 h-1 w-16 bg-accent"
-              />
-              <ContactForm locale={locale} />
+            {/* Map slot — intentional placeholder, object-fit:cover ready */}
+            <InView as="div" motion="fade-in-up" delay={80}>
+              <div
+                className="clinic-shot relative overflow-hidden rounded-[20px]"
+                style={{ aspectRatio: "16/7" }}
+                data-slot="map"
+                role="img"
+                aria-label={
+                  locale === "he"
+                    ? "מפת מיקום מרפאת איל, תל אביב"
+                    : "Map showing Ayal Specialist Clinics location, Tel Aviv"
+                }
+              >
+                {/* Intentional placeholder content */}
+                <div className="clinic-shot__empty">
+                  <span className="clinic-shot__monogram">
+                    {locale === "he" ? "ת״א" : "TLV"}
+                  </span>
+                  <span className="clinic-shot__caption">
+                    {locale === "he"
+                      ? "מגדל רסיטל, דרך מנחם בגין 156"
+                      : "Recital Tower, 156 Menachem Begin Rd"}
+                  </span>
+                </div>
+              </div>
             </InView>
           </div>
         </div>
       </section>
     </>
-  );
-}
-
-/**
- * Refined contact-detail row — a hairline-ruled typographic lockup.
- */
-function ContactRow({
-  href,
-  label,
-  value,
-  ltr = false,
-  breakValue = false,
-}: {
-  href?: string;
-  label: string;
-  value: string;
-  ltr?: boolean;
-  breakValue?: boolean;
-}) {
-  const inner = (
-    <>
-      <dt className="text-caption uppercase tracking-[0.18em] text-slate-strong eyebrow">
-        {label}
-      </dt>
-      <dd
-        dir={ltr ? "ltr" : undefined}
-        className={
-          "min-w-0 text-end text-body-base text-ink" +
-          (ltr ? " font-mono tabular-nums" : "") +
-          (breakValue ? " break-all" : "")
-        }
-      >
-        {value}
-      </dd>
-    </>
-  );
-
-  const rowClass =
-    "flex items-baseline justify-between gap-6 border-b border-border py-5";
-
-  if (!href) {
-    return <div className={rowClass}>{inner}</div>;
-  }
-
-  return (
-    <a
-      href={href}
-      className={
-        rowClass +
-        " group/row transition-colors duration-300 hover:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-paper [&>dd]:transition-colors [&>dd]:duration-300 hover:[&>dd]:text-accent"
-      }
-    >
-      {inner}
-    </a>
   );
 }
