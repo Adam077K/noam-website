@@ -1,27 +1,38 @@
 import type { LocalizedString } from "./types";
 
 /**
- * About page content, authored bilingually ({ he, en }) from COPY-DECK.md
- * §"PAGE 2 — About". Hebrew is canonical; English is the parallel version, not a
- * translation. Founder-review items (personal voice, languages, legal-sensitive)
- * are wired with the copy deck's strongest draft as-is — they ship once the
- * founder approves. No facts beyond the copy deck are invented.
+ * About page content, authored bilingually ({ he, en }) from COPY-DECK-V2.md
+ * §"about.ts — PAGE 2 · The Physician". This is the DE-CLONED journal voice that
+ * replaces the earlier drkitrey.com-derived text. Hebrew is canonical and native;
+ * English is the parallel version, not a translation. Founder-review items
+ * (personal voice, languages, legal-sensitive) are wired with the deck's strongest
+ * draft as-is — they ship once the founder approves. No facts beyond the deck are
+ * invented.
  */
+
+/**
+ * Journal running head for the profile — the same "Vol. I" device as Home, recast
+ * for The Physician profile. Renders dir="ltr" in the masthead.
+ */
+export const folio = {
+  he: "גיליון א׳ · הרופא",
+  en: "Volume I · The Physician",
+} satisfies LocalizedString;
 
 /** Section 1 — Hero: eyebrow, headline, personal intro, in-context portrait. */
 export const hero = {
   eyebrow: {
-    he: "אודות",
-    en: "About",
+    he: "הרופא",
+    en: "The physician",
   } satisfies LocalizedString,
   headline: {
-    he: "מומחיות שנבנתה בחזית הרפואה — בשירות אדם אחד בכל פעם.",
-    en: "Expertise built at the front of medicine — in the service of one person at a time.",
+    he: "מי שכותב את ההנחיות, יושב גם מולכם בחדר.",
+    en: "The man who writes the guidelines also sits across from you in the room.",
   } satisfies LocalizedString,
   /** Personal intro, founder voice — pending founder approval, wired as-is. */
   intro: {
-    he: 'אני ד"ר נעם כתרי, אורולוג בכיר העוסק בתפקוד מיני של הגבר ובאורולוגיה פונקציונלית. אני מאמין שהתחומים האלה, דווקא משום שקשה לדבר עליהם, מחייבים את הרפואה הטובה ביותר ואת היחס האנושי ביותר. במרפאה אתם פוגשים אותי, לא תור במערכת.',
-    en: "I'm Dr. Noam Kitrey, a senior urologist focused on male sexual function and functional urology. I believe these fields — precisely because they're so hard to talk about — demand both the best medicine and the most human care. At the clinic you meet me, not a number in a system.",
+    he: "אני נעם כתרי. רוב חיי המקצועיים עברו על שני הקצוות של אותו תחום — לקבוע כיצד מטפלים במקרים הקשים בעולם, ולשבת עם אדם אחד שמתאר לי בקול נמוך משהו שדחה שנים. שני הקצוות האלה הם אותה רפואה. את שניהם אתם מקבלים כאן.",
+    en: "I'm Noam Kitrey. Most of my working life has run along two ends of the same field — setting how the hardest cases are treated worldwide, and sitting with one person describing, quietly, something they put off for years. Those two ends are the same medicine. You get both of them here.",
   } satisfies LocalizedString,
   portraitCaption: {
     he: 'ד"ר נעם כתרי',
@@ -36,28 +47,59 @@ export const hero = {
 /** Section 2 — The Story / Philosophy: eyebrow, headline, three founder-voice paragraphs. */
 export const story = {
   eyebrow: {
-    he: "הגישה שלי",
-    en: "My approach",
+    he: "דבר הרופא",
+    en: "Editor's note",
   } satisfies LocalizedString,
   headline: {
-    he: "למה בחרתי בתחום הזה.",
-    en: "Why I chose this field.",
+    he: "למה דווקא התחום הזה.",
+    en: "Why this field, of all of them.",
   } satisfies LocalizedString,
   /** Three paragraphs, founder voice — pending founder approval, wired as-is. */
   paragraphs: [
     {
-      he: "הרבה מהמטופלים שלי הגיעו אחרי שנים שבהן סבלו בשקט. הם ניסו להתעלם, חיפשו תשובות באינטרנט, או נבדקו ולא קיבלו מענה אמיתי. אני בחרתי בתחום הזה כי ראיתי כמה רחוק אפשר להחזיר אנשים — כשמתייחסים אליהם ברצינות ובכבוד.",
-      en: "Many of my patients arrive after years of suffering quietly. They tried to ignore it, searched online for answers, or were examined and never got a real one. I chose this field because I saw how far people can be brought back — when they're taken seriously and treated with respect.",
+      he: "בחרתי בתחום שרוב הרופאים מעדיפים לחלוף לידו, מפני שראיתי כמה הוא מוזנח וכמה רחוק אפשר להחזיר אדם כשמתייחסים אליו ברצינות. מי שמגיע אליי לרוב כבר עבר רופא או שניים שמיהרו, או חיפש תשובות במסכים. הוא לא צריך עוד מישהו שממהר.",
+      en: "I chose a field most physicians prefer to walk past, because I saw how neglected it is — and how far a person can be brought back when they're taken seriously. Most who reach me have already seen a doctor or two who rushed, or searched for answers on a screen. They don't need one more person in a hurry.",
     } satisfies LocalizedString,
     {
-      he: "רפואה טובה כאן היא שילוב של שני דברים: דיוק וביטחון מקצועי מצד אחד, ואוזן קשבת מצד שני. אני לא ממהר. אני שואל, מקשיב, ומסביר עד שהדברים ברורים. אתם יוצאים מהמרפאה כשאתם מבינים מה קורה לכם ומה הצעדים הבאים.",
-      en: "Good medicine here is two things at once: precision and clinical confidence on one side, and a genuine ear on the other. I don't rush. I ask, I listen, and I explain until it's clear. You leave understanding what's happening and what the next steps are.",
+      he: "עבודה טובה כאן מתחילה באבחנה מדויקת ולא בניחוש. אני בודק עד שאני יודע, ולא מציע טיפול לפני שהבנתי מה הסיבה. רק אז אנחנו בונים יחד דרך — לפי המצב שלכם, הציפיות שלכם והקצב שלכם.",
+      en: "Good work here begins with an exact diagnosis, not a guess. I examine until I know, and I don't propose a treatment before I understand the cause. Only then do we build a path together — around your situation, your expectations, your pace.",
     } satisfies LocalizedString,
     {
-      he: "לאורך השנים ליוויתי גם את המקרים המורכבים ביותר — בשיבא, בוועדות הקליניות באירופה, ובמרפאה הפרטית. אותה רמת מקצועיות מלווה כל מי שמגיע אליי, ולא משנה כמה פשוטה או מורכבת הפנייה.",
-      en: "Over the years I've handled the most complex cases — at Sheba, on the European clinical committees, and in private practice. That same standard follows everyone who comes to me, no matter how simple or complicated the reason for the visit.",
+      he: "מאז 2010 אני בשיבא, ובמקביל יושב בראש ועדה אירופית שקובעת כיצד מטפלים בחבלות אורולוגיות. את אותה רמת אחריות אני מביא לכל פנייה במרפאה — פשוטה ככל שתהיה.",
+      en: "I've been at Sheba since 2010, and at the same time I chair a European committee that decides how urological trauma is treated. I bring that same level of responsibility to every enquiry at the clinic — however simple it may be.",
     } satisfies LocalizedString,
   ] satisfies ReadonlyArray<LocalizedString>,
+  /**
+   * Marginalia — scholarly side-notes that annotate the prose (the asymmetric
+   * margin column). Each is a label + a short clause drawn only from the verified
+   * record; nothing invented. Renders as a hairline-led note, not a footnote ref.
+   */
+  marginalia: [
+    {
+      key: "practice-since",
+      label: { he: "במרפאה הפרטית", en: "Private practice" } satisfies LocalizedString,
+      note: {
+        he: "טיפול דיסקרטי בתל אביב — מי שבודק אתכם הוא מי שמטפל בכם.",
+        en: "Discreet care in Tel Aviv — the person who examines you is the one who treats you.",
+      } satisfies LocalizedString,
+    },
+    {
+      key: "sheba",
+      label: { he: "מרכז שיבא", en: "Sheba Medical Center" } satisfies LocalizedString,
+      note: {
+        he: "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה והמרכז לבריאות מינית.",
+        en: "Head of the Functional Urology & Andrology Unit and the Sexual Health Center.",
+      } satisfies LocalizedString,
+    },
+    {
+      key: "eau",
+      label: { he: "איגוד האורולוגיה האירופי", en: "European Urology (EAU)" } satisfies LocalizedString,
+      note: {
+        he: "יו״ר ועדת ההנחיות הקליניות לחבלות אורולוגיות.",
+        en: "Chair of the clinical guidelines committee for urological trauma.",
+      } satisfies LocalizedString,
+    },
+  ],
 } as const;
 
 /** A single credential row. `year` and `pending` are optional per-item. */
@@ -78,16 +120,16 @@ type CredentialGroup = {
  */
 export const credentials: {
   eyebrow: LocalizedString;
-  headline: LocalizedString;
+  standfirst: LocalizedString;
   groups: ReadonlyArray<CredentialGroup>;
 } = {
   eyebrow: {
-    he: "רקע מקצועי",
-    en: "Credentials",
+    he: "קורות מקצועיים",
+    en: "Curriculum",
   } satisfies LocalizedString,
-  headline: {
-    he: "למי שרוצה לבדוק לעומק.",
-    en: "For those who want to verify everything.",
+  standfirst: {
+    he: "למי שמבקש לבדוק הכול לפני שהוא מרים טלפון.",
+    en: "For anyone who wants to verify everything before lifting the phone.",
   } satisfies LocalizedString,
   groups: [
     {
@@ -168,8 +210,8 @@ export const credentials: {
 /** Section 4 — In-context portrait + pull-quote (founder voice, wired as-is). */
 export const quote = {
   text: {
-    he: "מטופל שמרגיש שמקשיבים לו ולא שופטים אותו — כבר עשה חצי מהדרך להחלמה.",
-    en: "A patient who feels heard and not judged is already halfway to getting better.",
+    he: "אדם שמרגיש שמקשיבים לו ולא שופטים אותו כבר עשה את החצי הקשה של הדרך.",
+    en: "A person who feels heard, not judged, has already done the hard half of the journey.",
   } satisfies LocalizedString,
   attribution: {
     he: 'ד"ר נעם כתרי',
@@ -188,11 +230,11 @@ export const quote = {
 /** SEO — About. */
 export const seo = {
   title: {
-    he: 'אודות ד"ר נעם כתרי — אורולוג בכיר, מנהל יחידה בשיבא',
-    en: "About Dr. Noam Kitrey — Senior Urologist, Head of Unit at Sheba",
+    he: 'הרופא — ד"ר נעם כתרי, אורולוג בכיר, מנהל יחידה בשיבא',
+    en: "The Physician — Dr. Noam Kitrey, Senior Urologist, Head of Unit at Sheba",
   } satisfies LocalizedString,
   description: {
-    he: 'ד"ר נעם כתרי, מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה בשיבא ויו"ר ועדת ההנחיות של ה-EAU לחבלות. גישה אישית ודיסקרטית.',
-    en: "Dr. Noam Kitrey, Head of Functional Urology & Andrology at Sheba and Chair of the EAU trauma-guidelines committee. A personal, discreet approach.",
+    he: 'ד"ר נעם כתרי — מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה בשיבא ויו"ר ועדת ההנחיות של ה־EAU. גישה מדויקת, אישית ודיסקרטית.',
+    en: "Dr. Noam Kitrey — Head of Functional Urology & Andrology at Sheba and Chair of the EAU guidelines committee. A precise, personal, discreet approach.",
   } satisfies LocalizedString,
 } as const;
