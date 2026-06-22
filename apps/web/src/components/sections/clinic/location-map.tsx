@@ -2,22 +2,23 @@ import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { location, MAP_QUERY } from "@/content/clinic";
 import { InView } from "@/components/ui";
+import { SectionHead } from "@/components/sections/home/journal";
 
 /**
- * Location + map — editorial conversion (v2 "Quiet Authority").
+ * The Dateline — a journal masthead/location article (v4 "The Journal", field-note).
  *
- * The address is a refined typographic lockup (mono index · eyebrow label · serif
- * line) on bone, set start-side as a hairline-ruled ledger — no card, no shadow,
- * no icon circle. The map sits end-side inside a single hairline frame.
+ * The address is set as a refined DATELINE LOCKUP: a small-caps label over the
+ * street line in the editorial serif, rendered dir="ltr" for street-number + floor
+ * ordering, with the parking note as a hairline-ruled marginal annotation. The map
+ * sits beside it as an editorial image PLATE — a hairline-framed surface with a
+ * clean caption (no "Fig." affectation).
  *
  * Map strategy — graceful degradation, never a broken embed:
  *  · NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY set → official Maps Embed iframe (lazy, a11y title).
- *  · No key → a warm, editorial placeholder (bone field + faint cartographic grid +
- *    hairline pin) whose whole surface links to Google Maps directions, so the
- *    panel is always useful.
+ *  · No key → a warm, editorial placeholder (cream field + faint cartographic grid +
+ *    hairline pin) whose whole surface links to Google Maps directions.
  *
- * RTL-correct via logical props; the address renders dir="ltr" for street-number
- * + floor ordering.
+ * RTL-correct via logical props; the address renders dir="ltr".
  */
 export function LocationMap({ locale }: { locale: Locale }) {
   const embedKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_KEY;
@@ -30,40 +31,45 @@ export function LocationMap({ locale }: { locale: Locale }) {
 
   return (
     <section className="bg-canvas px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-      <div className="mx-auto w-full max-w-[1240px]">
-        {/* Lead. */}
-        <div className="max-w-[26ch]">
-          <p className="flex items-center gap-3 text-eyebrow font-semibold uppercase tracking-[0.18em] text-slate eyebrow">
-            <span aria-hidden className="inline-block h-px w-8 bg-accent" />
-            {t(location.eyebrow, locale)}
-          </p>
-          <h2 className="mt-6 text-pretty font-editorial text-display-lg text-ink">
+      <div className="mx-auto w-full max-w-[1280px]">
+        <SectionHead
+          folio="02"
+          title={{ he: "המען", en: "The Dateline" }}
+          locale={locale}
+        />
+
+        {/* Section title + dateline standfirst as a contents-style preamble. */}
+        <div className="mt-10 grid gap-x-16 gap-y-6 sm:mt-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
+          <h2 className="max-w-[14ch] text-balance font-editorial text-display-lg text-ink">
             <InView as="span" className="block">
               {t(location.headline, locale)}
             </InView>
           </h2>
+          <InView as="p" motion="fade-in-up" delay={120} className="max-w-[48ch] text-body-base text-slate-strong">
+            {t(location.standfirst, locale)}
+          </InView>
         </div>
 
         <div className="mt-14 grid gap-x-16 gap-y-12 sm:mt-16 lg:grid-cols-[0.82fr_1.18fr] lg:items-stretch">
-          {/* Address — a typographic lockup on a hairline ledger. */}
+          {/* Dateline lockup — a hairline ledger: serif address + marginal parking note. */}
           <InView as="div" motion="fade-in-up" className="border-t border-ink pt-8">
             <dl className="flex flex-col gap-9">
               <div>
-                <dt className="flex items-center gap-2 text-caption uppercase tracking-[0.18em] text-slate eyebrow">
-                  <span className="font-mono text-[0.65rem] text-accent">01</span>
+                <dt className="flex items-center gap-2.5 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
+                  <span className="font-mono text-[0.65rem] tracking-[0.1em] text-accent">01</span>
                   {t(location.addressLabel, locale)}
                 </dt>
-                <dd className="mt-3 max-w-[30ch] font-editorial text-display-md leading-snug text-ink" dir="ltr">
+                <dd className="mt-3.5 max-w-[28ch] font-editorial text-display-md leading-snug text-ink" dir="ltr">
                   {t(location.address, locale)}
                 </dd>
               </div>
 
               <div className="border-t border-border pt-7">
-                <dt className="flex items-center gap-2 text-caption uppercase tracking-[0.18em] text-slate eyebrow">
-                  <span className="font-mono text-[0.65rem] text-accent">02</span>
+                <dt className="flex items-center gap-2.5 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
+                  <span className="font-mono text-[0.65rem] tracking-[0.1em] text-accent">02</span>
                   {t(location.parkingLabel, locale)}
                 </dt>
-                <dd className="mt-3 max-w-[40ch] text-body-base text-slate-strong">
+                <dd className="mt-3.5 max-w-[40ch] text-body-base text-slate-strong">
                   {t(location.parkingNote, locale)}
                 </dd>
               </div>
@@ -85,23 +91,27 @@ export function LocationMap({ locale }: { locale: Locale }) {
             </a>
           </InView>
 
-          {/* Map — official embed when keyed, warm editorial placeholder otherwise.
-              A single hairline frame, no card, no shadow, no radius. */}
-          <InView as="div" motion="fade-in-up" delay={120}>
+          {/* Map PLATE — official embed when keyed, warm editorial placeholder otherwise.
+              A single hairline frame + accent tick, with a clean caption below. */}
+          <InView as="figure" motion="fade-in-up" delay={120} className="relative">
             <div className="relative">
-              {/* Hairline mat — matches the hero interior frame. */}
+              {/* Hairline mat + accent tick — matches the interior plate frame. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute -inset-2.5 hidden border border-border sm:block"
+                className="pointer-events-none absolute -inset-2.5 hidden border border-ink/20 sm:block"
+              />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -bottom-2.5 -start-2.5 hidden h-12 w-px bg-accent sm:block"
               />
               {embedSrc ? (
-                <div className="relative h-full min-h-[22rem] overflow-hidden border border-border bg-paper">
+                <div className="relative h-full min-h-[24rem] overflow-hidden border border-ink/20 bg-paper">
                   <iframe
                     title={mapTitle}
                     src={embedSrc}
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    className="h-full min-h-[22rem] w-full border-0"
+                    className="h-full min-h-[24rem] w-full border-0"
                     allowFullScreen
                   />
                 </div>
@@ -111,7 +121,7 @@ export function LocationMap({ locale }: { locale: Locale }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={mapTitle}
-                  className="group/map relative flex h-full min-h-[22rem] flex-col items-center justify-center overflow-hidden border border-border bg-paper transition-colors duration-300 hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
+                  className="group/map relative flex h-full min-h-[24rem] flex-col items-center justify-center overflow-hidden border border-ink/20 bg-paper transition-colors duration-300 hover:border-border-strong focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-canvas"
                 >
                   {/* Faint cartographic grid so the field reads as a map surface. */}
                   <span
@@ -138,6 +148,10 @@ export function LocationMap({ locale }: { locale: Locale }) {
                 </a>
               )}
             </div>
+            {/* Clean plate caption — no "Fig." affectation. */}
+            <figcaption className="mt-3.5 font-editorial text-body-sm normal-case tracking-normal text-ink">
+              {t(location.mapCaption, locale)}
+            </figcaption>
           </InView>
         </div>
       </div>

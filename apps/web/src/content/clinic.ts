@@ -1,25 +1,26 @@
 import type { LocalizedString } from "./types";
 
 /**
- * The Clinic page content, authored bilingually ({ he, en }) from COPY-DECK.md
- * §"PAGE 4 — The Clinic". Hebrew is canonical; English is the parallel version,
- * not a translation. Founder-review items (parking/transit) carry the strongest
+ * The Clinic page content, authored bilingually ({ he, en }) from
+ * COPY-DECK-V2.md §"clinic.ts — PAGE 4 · The Visit" (de-cloned journal voice).
+ * Hebrew is canonical and native; English is the parallel version, not a
+ * translation. Founder-review items (parking/transit) carry the strongest
  * placeholder draft and ship once the founder supplies specifics.
  */
 
-/** Atmosphere hero — eyebrow, calm headline, anxiety-reducing intro, photo caption. */
+/** Atmosphere hero — eyebrow, calm headline, anxiety-reducing standfirst, photo caption. */
 export const atmosphere = {
   eyebrow: {
-    he: "המרפאה",
-    en: "The clinic",
+    he: "הביקור",
+    en: "The visit",
   } satisfies LocalizedString,
   headline: {
-    he: "מקום פרטי, שקט, שנבנה כדי שתרגישו בנוח.",
-    en: "A private, quiet space, built so you feel at ease.",
+    he: "חדר אחד, שקט, שבו יש לכם זמן.",
+    en: "One quiet room, where the time is yours.",
   } satisfies LocalizedString,
   body: {
-    he: "אצלנו לא תרגישו כמו עוד תור בתור. המרפאה פרטית ושקטה, הקבלה דיסקרטית, והזמן שלכם הוא שלכם. אנחנו יודעים שכבר הגעתם עד לכאן — נשתדל שזה יהיה הצעד הקל בתהליך.",
-    en: "Here you won't feel like one more name on a list. The clinic is private and quiet, the reception is discreet, and your time is your own. We know it took something to get here — we'll make this the easy part.",
+    he: "לא אולם המתנה עמוס ולא תור שנקרא בשם. מרפאה פרטית, קבלה דיסקרטית, ושיחה שלא ממהרת. הגעתם עד לכאן — את החלק הזה נעשה קל.",
+    en: "No crowded waiting hall, no name called across a queue. A private clinic, a discreet reception, and a conversation that won't rush. You made it this far — this part we'll make easy.",
   } satisfies LocalizedString,
   photoCaption: {
     he: "המרפאה — מגדל רסיטל, תל אביב",
@@ -41,9 +42,19 @@ export const location = {
     he: "איך מגיעים.",
     en: "Getting here.",
   } satisfies LocalizedString,
+  /** Dateline standfirst — a short orienting line under the headline. */
+  standfirst: {
+    he: "קומה 17 במגדל רסיטל, על דרך מנחם בגין. הנה הכתובת המלאה והדרך אליה.",
+    en: "The 17th floor of Recital Tower, on Menachem Begin Road. Here is the full address, and the way there.",
+  } satisfies LocalizedString,
   addressLabel: {
     he: "כתובת",
     en: "Address",
+  } satisfies LocalizedString,
+  /** Clean caption beneath the map plate (no "Fig." affectation). */
+  mapCaption: {
+    he: "מפה — מגדל רסיטל, דרך מנחם בגין 156, תל אביב",
+    en: "Map — Recital Tower, 156 Menachem Begin Rd, Tel Aviv",
   } satisfies LocalizedString,
   /** Address rendered dir="ltr" for the street-number + floor ordering. */
   address: {
@@ -56,8 +67,8 @@ export const location = {
   } satisfies LocalizedString,
   /** [FOUNDER-REVIEW: parking/transit] — placeholder until the founder supplies specifics. */
   parkingNote: {
-    he: "פרטי החניה והתחבורה הציבורית יתווספו בקרוב. בינתיים נשמח לכוון אתכם טלפונית.",
-    en: "Parking and public-transit details are coming soon. In the meantime we're glad to guide you by phone.",
+    he: "פרטי חניה ותחבורה יתווספו בקרוב; בינתיים נשמח לכוון טלפונית.",
+    en: "Parking and transit details are coming soon; in the meantime we're glad to guide you by phone.",
   } satisfies LocalizedString,
   /** a11y title for the embedded map iframe / placeholder link. */
   mapTitle: {
@@ -78,47 +89,52 @@ export const location = {
  */
 export const MAP_QUERY = "Ayal Specialist Clinics, Recital Tower, 156 Menachem Begin Rd, Tel Aviv";
 
-/** What to expect — eyebrow, headline, four calm process steps (anxiety reduction). */
+/** What to expect — "The course of a visit": eyebrow, headline, four calm steps. */
 export const expect = {
   eyebrow: {
-    he: "מה צפוי",
-    en: "What to expect",
+    he: "מהלך הביקור",
+    en: "The course of a visit",
   } satisfies LocalizedString,
   headline: {
-    he: "מהפנייה הראשונה ועד הליווי המתמשך.",
-    en: "From your first message to ongoing care.",
+    he: "מהשורה הראשונה ועד הליווי שאחרי.",
+    en: "From the first line to the care that follows.",
+  } satisfies LocalizedString,
+  /** Itinerary preamble — a calm field-note standfirst before the four steps. */
+  standfirst: {
+    he: "ארבעה שלבים, בלי הפתעות. כך נראה הביקור — מהשורה הראשונה שתכתבו ועד הליווי שאחרי.",
+    en: "Four stages, no surprises. Here is the visit — from the first line you write to the care that follows.",
   } satisfies LocalizedString,
   steps: [
     {
       key: "first-contact",
-      title: { he: "פנייה ראשונה", en: "First contact" },
+      title: { he: "פנייה", en: "First contact" },
       blurb: {
-        he: "פונים בטלפון או דרך הטופס. הצוות חוזר אליכם בדיסקרטיות ומתאם מועד שנוח לכם.",
-        en: "You reach out by phone or through the form. The office gets back to you discreetly and arranges a time that works for you.",
+        he: "שורה בטלפון או בכתב. חוזרים אליכם בדיסקרטיות ומתאמים מועד נוח.",
+        en: "A line by phone or in writing. We reply discreetly and arrange a time that suits you.",
       },
     },
     {
       key: "first-consultation",
       title: { he: "הייעוץ הראשון", en: "First consultation" },
       blurb: {
-        he: "פגישה רגועה ולא ממהרת עם ד\"ר כתרי. מקשיבים, בודקים, ומסבירים בשפה ברורה מה קורה ומה האפשרויות.",
-        en: "An unhurried, relaxed meeting with Dr. Kitrey. He listens, examines, and explains in plain language what's going on and what the options are.",
+        he: "פגישה שאינה ממהרת. מקשיבים, בודקים, ומסבירים בשפה ברורה מה קורה ומה האפשרויות.",
+        en: "An unhurried meeting. We listen, examine, and explain in plain language what's happening and what the options are.",
       },
     },
     {
       key: "treatment-plan",
-      title: { he: "תוכנית טיפול", en: "Treatment plan" },
+      title: { he: "תוכנית טיפול", en: "The plan" },
       blurb: {
-        he: "בונים יחד תוכנית שמתאימה לכם — למצב, לציפיות ולקצב שלכם. אתם מחליטים מתוך הבנה מלאה.",
-        en: "Together you build a plan that fits you — your condition, your expectations, your pace. You decide with full understanding.",
+        he: "בונים יחד דרך שמתאימה למצב, לציפיות ולקצב שלכם. אתם מחליטים מתוך הבנה מלאה.",
+        en: "Together we build a path that fits your situation, expectations, and pace. You decide with full understanding.",
       },
     },
     {
       key: "ongoing-care",
       title: { he: "ליווי מתמשך", en: "Ongoing care" },
       blurb: {
-        he: "ד\"ר כתרי מלווה את התהליך לאורך זמן, עוקב אחר ההתקדמות ומתאים את הטיפול לפי הצורך.",
-        en: "Dr. Kitrey stays with the process over time, follows your progress, and adjusts the treatment as needed.",
+        he: "ד\"ר כתרי נשאר אתכם לאורך הדרך, עוקב ומתאים את הטיפול לפי הצורך.",
+        en: "Dr. Kitrey stays with you along the way, following progress and adjusting as needed.",
       },
     },
   ] satisfies ReadonlyArray<{
@@ -128,14 +144,14 @@ export const expect = {
   }>,
 } as const;
 
-/** SEO — title + meta description from COPY-DECK.md §"SEO block — The Clinic". */
+/** SEO — title + meta description from COPY-DECK-V2.md §"SEO — Clinic". */
 export const seo = {
   title: {
-    he: "המרפאה — ד\"ר נעם כתרי · מגדל רסיטל, תל אביב",
-    en: "The Clinic — Dr. Noam Kitrey · Recital Tower, Tel Aviv",
+    he: "הביקור — המרפאה של ד\"ר נעם כתרי · מגדל רסיטל, תל אביב",
+    en: "The Visit — Dr. Noam Kitrey's Clinic · Recital Tower, Tel Aviv",
   } satisfies LocalizedString,
   description: {
-    he: "מרפאה פרטית ודיסקרטית בדרך מנחם בגין 156, תל אביב. מה צפוי בפנייה ובייעוץ הראשון אצל ד\"ר נעם כתרי, ואיך מגיעים.",
-    en: "A private, discreet clinic at 156 Menachem Begin Rd, Tel Aviv. What to expect at your first consultation with Dr. Noam Kitrey, and how to get here.",
+    he: "מרפאה פרטית ודיסקרטית, דרך מנחם בגין 156, תל אביב. מה צפוי בביקור הראשון אצל ד\"ר נעם כתרי, ואיך מגיעים.",
+    en: "A private, discreet clinic at 156 Menachem Begin Rd, Tel Aviv. What to expect at your first visit with Dr. Noam Kitrey, and how to get here.",
   } satisfies LocalizedString,
 } as const;
