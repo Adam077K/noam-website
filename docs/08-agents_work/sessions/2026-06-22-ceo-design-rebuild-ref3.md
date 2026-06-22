@@ -3,8 +3,8 @@ date: 2026-06-22
 role: ceo
 task: design-audit-rebuild-ref3
 tier: irreversible
-qa_verdict: PENDING   # binding T5 qa.js gate NOT yet run — blocked by monthly spend limit
-status: PAUSED_PENDING_QA
+qa_verdict: PASS   # binding T5 qa.js gate, full tier — PASS, 0 blockers, 16 advisory fast-follows
+status: COMPLETE_PENDING_FOUNDER_MERGE
 branch: feat/website-v2-editorial
 ---
 
@@ -30,6 +30,19 @@ Execute handoff `2026-06-22-design-audit-redesign-handoff.md`: ruthless pixel-ve
 - **Monthly spend limit hit** → cannot run the **binding T5 `qa.js` gate** (a11y/RTL/visual/build/security) or the final critic↔polish loop. Raise at claude.ai/settings/usage.
 - **No merge yet** — per the sacred QA gate, merge requires `qa.js` PASS **+ founder sign-off**. `qa_verdict` is **PENDING**, not PASS.
 - Remaining polish (founder-gated/optional): tighten Expertise first-screen density; drop real founder photos into the slots; minor section-label residue; final consistency polish.
+
+## Final pass + QA (after spend limit raised)
+- **Polish round:** critic scored 6.5/10 → 5 polishers (all completed clean) fixed the top P1/P2: HE home primary CTA now ink-filled (weight parity); expertise top-padding cut so service cards enter the fold; removed stray ghost "05" on mobile contact; balanced About credential pills; button-shape consistency. Commit `f58929b`.
+- **Binding QA gate (`qa.js`, full tier): PASS** — 0 block-eligible findings survived 3-way adversarial verification; both critical dimensions (correctness, security) reviewed, no coverage gap. 16 advisory P2/P3 fast-follows (none block).
+- **A11y advisories my redesign introduced — fixed** (`3f6a4e0`): expertise desktop h2 restored to a11y tree (removed redundant aria-hidden); about-credentials institution label → text-slate-strong (AA at 11px).
+
+## Advisory fast-follows (do NOT block merge; mostly pre-existing / founder-gated)
+- **Launch-gated (founder/devops):** `email.ts` hardcoded sandbox sender → set verified Resend production domain before launch (else mail silently drops); raw `X-Forwarded-For` rate-limit (derive IP from trusted proxy hop); real founder photos into the composed portrait/media slots; HTTP security headers; restrict Maps API key.
+- **Craft/test fast-follows:** move inline localized strings to content layer (home credentials, ClinicCta, about-hero chips, atmosphere-hero address); drop unnecessary "use client" on about-hero; add a test runner + cover normalizeIsraeliPhone / submitContact error branches / swapLocaleInPath.
+
+## Final state: COMPLETE pending founder merge sign-off
+- Commits `f80fbcc` (foundation) → `47a7ef8` (rebuild) → `c1fb5dc` (repair/cleanup) → `f58929b` (polish) → `3f6a4e0` (a11y). All 10 routes 200; lint 0 errors; QA PASS.
+- **Merge requires founder sign-off** (sacred gate). Branch `feat/website-v2-editorial` not merged to main.
 
 ## Artifacts
 - Audit + master plan: `/tmp/noam-audit-full.json`, `/tmp/noam-master-plan.json`
