@@ -7,27 +7,32 @@ import type { LocalizedString } from "./types";
  * strongest draft from the copy deck — they ship once the founder approves.
  */
 
-/** Hero — eyebrow, headline, subhead (Tier-1 credential), dual CTA, portrait caption. */
+/** Hero — folio, eyebrow, headline, subhead (standfirst), dual CTA, portrait caption. */
 export const hero = {
+  /** Journal volume line (running head device). */
+  folio: {
+    he: "גיליון א׳ · אורולוגיה תפקודית ורפואה מינית",
+    en: "Volume I · Functional Urology & Sexual Medicine",
+  } satisfies LocalizedString,
   eyebrow: {
-    he: "אורולוג בכיר · רפואה מינית ותפקודית",
-    en: "Senior urologist · Sexual & functional medicine",
+    he: 'מן המרפאה של ד"ר נעם כתרי',
+    en: "From the practice of Dr. Noam Kitrey",
   } satisfies LocalizedString,
   headline: {
-    he: "טיפול מקצועי, בדיסקרטיות מלאה, במצבים שקשה לדבר עליהם.",
-    en: "Expert, discreet care for the conditions that are hardest to talk about.",
+    he: "יש מצבים שלוקח שנים לומר עליהם מילה. כאן אומרים אותם פעם אחת, ומטפלים.",
+    en: "Some conditions take years to say aloud. Here you say them once — and they are treated.",
   } satisfies LocalizedString,
   subhead: {
-    he: 'ד"ר נעם כתרי — מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה במרכז הרפואי שיבא, ומנהל המרכז לבריאות מינית (SHSQ).',
-    en: "Dr. Noam Kitrey — Head of Functional Urology & Andrology at Sheba Medical Center, and Director of the Sexual Health Center (SHSQ).",
+    he: 'ד"ר נעם כתרי מנהל את היחידה לאורולוגיה תפקודית ואנדרולוגיה במרכז שיבא ואת המרכז לבריאות מינית (SHSQ). את אותה רמת רפואה הוא מביא אל המרפאה הפרטית — לאדם אחד בכל פעם.',
+    en: "Dr. Noam Kitrey heads the Functional Urology & Andrology Unit at Sheba and directs its Sexual Health Center (SHSQ). He brings that same standard of medicine to private practice — for one person at a time.",
   } satisfies LocalizedString,
   primaryCta: {
-    he: "לפנייה לייעוץ",
+    he: "לבקשת ייעוץ",
     en: "Request a Consultation",
   } satisfies LocalizedString,
   secondaryCta: {
-    he: "על ד\"ר כתרי",
-    en: "About Dr. Kitrey",
+    he: "על הרופא",
+    en: "About the physician",
   } satisfies LocalizedString,
   portraitCaption: {
     he: 'ד"ר נעם כתרי',
@@ -45,18 +50,23 @@ export const hero = {
   ] satisfies LocalizedString[],
 } as const;
 
-/** Credentials bar — the trust moat. Four authority items. */
+/** Credentials — "Appointments". The trust moat as a journal register. */
 export const credentials = {
   eyebrow: {
-    he: "רקע מקצועי",
-    en: "Background",
+    he: "רשימת המינויים",
+    en: "Appointments",
+  } satisfies LocalizedString,
+  /** Journal standfirst under the heading — frames the list, not a CV dump. */
+  standfirst: {
+    he: "לא רשימת תארים — אלא היכן מוכרעות ההחלטות הקשות בתחום.",
+    en: "Not a list of titles — but where the field's hardest calls are decided.",
   } satisfies LocalizedString,
   items: [
     {
       key: "sheba",
       institution: { he: "המרכז הרפואי שיבא", en: "Sheba Medical Center" },
       title: {
-        he: "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה",
+        he: "מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה",
         en: "Head of Functional Urology & Andrology Unit",
       },
     },
@@ -78,10 +88,13 @@ export const credentials = {
     },
     {
       key: "associations",
-      institution: { he: "איגודים מקצועיים", en: "Professional associations" },
+      institution: {
+        he: "איגודי הרפואה המינית — היל\"ם ו־ESSM",
+        en: "Sexual Medicine Associations — HILAM & ESSM",
+      },
       title: {
-        he: "חבר באיגודים הישראלי והאירופי לרפואה מינית",
-        en: "Member, Israeli & European Sexual Medicine Associations",
+        he: "חבר באיגודים הישראלי (היל\"ם) והאירופי (ESSM)",
+        en: "Member, Israeli (HILAM) & European (ESSM) Associations",
       },
     },
   ] satisfies ReadonlyArray<{
@@ -91,23 +104,24 @@ export const credentials = {
   }>,
 } as const;
 
-/** Service overview — eyebrow, title, intro, four teaser cards, CTA to Areas of Care. */
+/** Service overview — "Table of contents". Eyebrow, title, standfirst, cards, CTA. */
 export const services = {
   eyebrow: {
-    he: "תחומי הטיפול",
-    en: "What we treat",
+    he: "תוכן העניינים",
+    en: "Table of contents",
   } satisfies LocalizedString,
   title: {
-    he: "תחום אחד של מומחיות, מענה רחב.",
-    en: "One field of expertise, a wide range of care.",
+    he: "שני תחומים. כל אחד מהם, לעומק.",
+    en: "Two fields. Each one, in depth.",
   } satisfies LocalizedString,
-  intro: {
-    he: 'ד"ר כתרי מתמחה בתפקוד מיני של הגבר ובאורולוגיה פונקציונלית — שני תחומים שבהם נדרשים גם דיוק רפואי וגם רגישות אישית. כל פנייה מטופלת באותה רצינות ובאותה דיסקרטיות.',
-    en: "Dr. Kitrey specializes in male sexual function and functional urology — two fields that call for both technical precision and personal sensitivity. Every inquiry is treated with the same seriousness and the same discretion.",
+  /** Journal standfirst (replaces the generic intro). */
+  standfirst: {
+    he: "התמחות צרה, מכוונת — לא מרפאה שעושה הכול. תפקוד מיני של הגבר, ואורולוגיה תפקודית: שני נושאים שדורשים גם יד בוטחת וגם אוזן סבלנית.",
+    en: "A narrow, deliberate specialty — not a clinic that does everything. Male sexual function, and functional urology: two subjects that ask for both a sure hand and a patient ear.",
   } satisfies LocalizedString,
   cta: {
     he: "לכל תחומי הטיפול",
-    en: "See All Areas of Care",
+    en: "Read all subjects of care",
   } satisfies LocalizedString,
   /**
    * The four strongest teaser cards (the home subset) in a calm 2×2 preview; the
@@ -121,8 +135,8 @@ export const services = {
       icon: "pulse",
       title: { he: "הפרעות זקפה", en: "Erectile Dysfunction" },
       blurb: {
-        he: "אבחון מדויק וטיפול מותאם אישית, בכל גיל.",
-        en: "Accurate diagnosis and treatment tailored to you, at any age.",
+        he: "כמעט תמיד יש סיבה שאפשר לזהות, וכמעט תמיד יש מה לעשות איתה.",
+        en: "There is almost always a cause that can be found — and almost always something to do about it.",
       },
     },
     {
@@ -131,18 +145,18 @@ export const services = {
       icon: "timer",
       title: { he: "שפיכה מוקדמת", en: "Premature Ejaculation" },
       blurb: {
-        he: "בעיה שכיחה ופתירה — עם הגישה הנכונה.",
-        en: "A common, treatable issue — with the right approach.",
+        he: "מהתלונות השכיחות אצל גברים, ומהפתירות שבהן.",
+        en: "Among the most common complaints in men, and among the most solvable.",
       },
     },
     {
       key: "incontinence",
       anchor: "/expertise#incontinence",
       icon: "drop",
-      title: { he: "אי-נקיטת שתן", en: "Urinary Incontinence" },
+      title: { he: "אי־נקיטת שתן", en: "Urinary Incontinence" },
       blurb: {
-        he: "פתרונות לנשים ולגברים, מותאמים למקור הבעיה.",
-        en: "Solutions for women and men, matched to the cause.",
+        he: "לנשים ולגברים — האבחנה של סוג הדליפה היא חצי מהפתרון.",
+        en: "For women and men — naming the type of leakage is half the answer.",
       },
     },
     {
@@ -151,8 +165,8 @@ export const services = {
       icon: "compass",
       title: { he: "חבלות אורולוגיות", en: "Urological Trauma" },
       blurb: {
-        he: "מומחיות מובילה בטיפול בפגיעות אורולוגיות.",
-        en: "Leading expertise in urological injury.",
+        he: 'התחום שבו ד"ר כתרי כותב את ההנחיות לרופאי אירופה.',
+        en: "The field in which Dr. Kitrey writes the guidelines for Europe's physicians.",
       },
     },
   ] satisfies ReadonlyArray<{
@@ -164,68 +178,70 @@ export const services = {
   }>,
 } as const;
 
-/** Video / intro — eyebrow, headline, pull-quote (founder voice), placeholder subtitle. */
+/** Video / intro — "A note from the physician" (editor's-note framing). */
 export const video = {
   eyebrow: {
-    he: "היכרות",
-    en: "Introduction",
+    he: "דבר הרופא",
+    en: "A note from the physician",
   } satisfies LocalizedString,
   headline: {
-    he: 'כמה מילים מד"ר כתרי.',
-    en: "A few words from Dr. Kitrey.",
+    he: "למה בכלל לטרוח לבוא.",
+    en: "Why it's worth coming in at all.",
   } satisfies LocalizedString,
+  // [FOUNDER-REVIEW: personal voice] — strongest draft, ships on founder approval.
   quote: {
-    he: "אנשים מגיעים אליי אחרי שנים של היסוס. התפקיד שלי הוא לקבל אותם בלי שיפוטיות, להגיע לאבחנה הנכונה, ולהחזיר להם את השליטה.",
-    en: "People come to me after years of hesitation. My job is to meet them without judgment, reach the right diagnosis, and help them get their lives back.",
+    he: "רוב מי שמגיע אליי דחה את זה שנים. אני לא שופט את זה — אני רק רוצה שזו תהיה הפעם האחרונה שהם נושאים את זה לבד.",
+    en: "Most people who come to me put it off for years. I don't judge that — I just want it to be the last time they carry it alone.",
   } satisfies LocalizedString,
   quoteAttribution: {
     he: 'ד"ר נעם כתרי',
     en: "Dr. Noam Kitrey",
   } satisfies LocalizedString,
   placeholderSubtitle: {
-    he: "בקרוב — סרטון היכרות קצר עם ד\"ר כתרי.",
-    en: "Coming soon — a short introduction from Dr. Kitrey.",
+    he: 'בקרוב — דבר קצר מד"ר כתרי.',
+    en: "Coming soon — a short note from Dr. Kitrey.",
   } satisfies LocalizedString,
 } as const;
 
-/** Trust / "why me" band (dark ink section) — drawn from the About philosophy voice. */
+/** Trust / approach band — "On method". */
 export const trust = {
   eyebrow: {
-    he: "הגישה שלי",
-    en: "My approach",
+    he: "על השיטה",
+    en: "On method",
   } satisfies LocalizedString,
   headline: {
-    he: "רפואה מדויקת, יחס אנושי, ובלי למהר.",
-    en: "Precise medicine, a human ear, and no rush.",
+    he: "רפואה מדויקת, נמסרת לאט.",
+    en: "Exact medicine, delivered slowly.",
   } satisfies LocalizedString,
+  // [FOUNDER-REVIEW: personal voice] — strongest draft, ships on founder approval.
   body: {
-    he: "רפואה טובה כאן היא שילוב של שני דברים: דיוק וביטחון מקצועי מצד אחד, ואוזן קשבת מצד שני. אני שואל, מקשיב, ומסביר עד שהדברים ברורים — אתם יוצאים מהמרפאה כשאתם מבינים מה קורה לכם ומה הצעדים הבאים.",
-    en: "Good medicine here is two things at once: precision and clinical confidence on one side, and a genuine ear on the other. I ask, I listen, and I explain until it's clear — you leave understanding what's happening and what the next steps are.",
+    he: "שני דברים נפגשים כאן: דיוק קליני שאינו מתפשר, ושיחה שאינה ממהרת. אני שואל, מקשיב, ומסביר עד שברור — ואתם יוצאים ביודעים מה קורה ומה הצעד הבא. זה לא מותרות; זו הדרך שבה רפואה טובה נראית.",
+    en: "Two things meet here: clinical precision that won't compromise, and a conversation that won't rush. I ask, I listen, and I explain until it's clear — and you leave knowing what's happening and what comes next. That isn't a luxury; it's what good medicine looks like.",
   } satisfies LocalizedString,
   /** Three discreet pillars distilled from the practice's positioning. */
   pillars: [
     {
       key: "discretion",
-      title: { he: "דיסקרטיות מלאה", en: "Full discretion" },
+      title: { he: "סודיות מלאה", en: "Full confidence" },
       blurb: {
-        he: "כל פנייה נשמרת בסודיות מוחלטת — בין המטופל לרופא בלבד.",
-        en: "Every inquiry is kept in complete confidence — between patient and doctor alone.",
+        he: "בין המטופל לרופא בלבד — בלי תיק גלוי ובלי רשימות.",
+        en: "Between patient and physician alone — no open file, no lists.",
       },
     },
     {
       key: "personal",
-      title: { he: "אתם פוגשים אותי", en: "You meet me, not a system" },
+      title: { he: "הרופא, לא מערכת", en: "The physician, not a system" },
       blurb: {
-        he: "במרפאה אתם פוגשים את ד\"ר כתרי עצמו, לא תור במערכת.",
-        en: "At the clinic you meet Dr. Kitrey himself, not a number in a system.",
+        he: 'מי שבודק אתכם הוא מי שמטפל בכם — ד"ר כתרי עצמו.',
+        en: "The person who examines you is the person who treats you — Dr. Kitrey himself.",
       },
     },
     {
       key: "authority",
-      title: { he: "מומחיות מהחזית", en: "Front-line expertise" },
+      title: { he: "מן החזית", en: "From the front" },
       blurb: {
-        he: "אותה רמת מקצועיות שמלווה את המקרים המורכבים בשיבא ובוועדות באירופה.",
-        en: "The same standard that guides the most complex cases at Sheba and on Europe's clinical committees.",
+        he: "אותה רמה שמכריעה את המקרים הקשים בשיבא ובוועדות באירופה.",
+        en: "The same standard that settles the hard cases at Sheba and on Europe's committees.",
       },
     },
   ] satisfies ReadonlyArray<{
@@ -235,22 +251,22 @@ export const trust = {
   }>,
 } as const;
 
-/** Shared Contact CTA block, reused at the foot of Home / About / Expertise / Clinic. */
+/** Shared Contact CTA block — "Correspondence". Foot of Home / About / Expertise / Clinic. */
 export const contactCta = {
   eyebrow: {
-    he: "מוכנים לצעד הראשון?",
-    en: "Ready for the first step?",
+    he: "פנייה",
+    en: "Correspondence",
   } satisfies LocalizedString,
   headline: {
-    he: "ייעוץ דיסקרטי, בקצב שמתאים לך.",
-    en: "A discreet consultation, at the pace that's right for you.",
+    he: "שורה אחת, ומתחיל מענה אמיתי.",
+    en: "One line, and a real answer begins.",
   } satisfies LocalizedString,
   body: {
-    he: "פנייה אחת היא ההתחלה של מענה אמיתי. כל פרט נשמר בסודיות מלאה.",
-    en: "One message is the start of a real answer. Every detail is kept in full confidence.",
+    he: "אפשר בטלפון ואפשר בכתב. כל פרט נשמר בסודיות מלאה.",
+    en: "By phone or in writing. Every detail is kept in full confidence.",
   } satisfies LocalizedString,
   primaryCta: {
-    he: "לפנייה לייעוץ",
+    he: "לבקשת ייעוץ",
     en: "Request a Consultation",
   } satisfies LocalizedString,
   callPrefix: {

@@ -11,26 +11,32 @@ export const brand = {
     he: 'ד"ר נעם כתרי',
     en: "Dr. Noam Kitrey",
   } satisfies LocalizedString,
+  // Recast as a masthead credential line (was a plain title).
   role: {
-    he: "ראש היחידה לאורולוגיה תפקודית ואנדרולוגיה, מרכז שיבא",
-    en: "Head of Functional Urology & Andrology, Sheba Medical Center",
+    he: "אורולוגיה תפקודית ורפואה מינית · מרכז רפואי שיבא",
+    en: "Functional Urology & Sexual Medicine · Sheba Medical Center",
+  } satisfies LocalizedString,
+  // Journal running-head, sits in the header beside the name.
+  masthead: {
+    he: "כתב־עת קליני · גיליון המרפאה",
+    en: "A Clinical Record · The Practice Edition",
   } satisfies LocalizedString,
 };
 
-/** Routes are locale-prefixed; `path` is appended to `/{locale}`. */
+/** Routes are locale-prefixed; `path` is appended to `/{locale}`. Journal "contents" labels. */
 export const nav: ReadonlyArray<{ key: string; href: string; label: LocalizedString }> = [
-  { key: "home", href: "", label: { he: "ראשי", en: "Home" } },
-  { key: "about", href: "/about", label: { he: "אודות", en: "About" } },
-  { key: "expertise", href: "/expertise", label: { he: "שירותים", en: "Expertise" } },
-  { key: "clinic", href: "/clinic", label: { he: "הקליניקה", en: "Clinic" } },
-  { key: "contact", href: "/contact", label: { he: "צור קשר", en: "Contact" } },
+  { key: "home", href: "", label: { he: "המרפאה", en: "The Practice" } },
+  { key: "about", href: "/about", label: { he: "הרופא", en: "The Physician" } },
+  { key: "expertise", href: "/expertise", label: { he: "תחומי הטיפול", en: "Subjects of Care" } },
+  { key: "clinic", href: "/clinic", label: { he: "הביקור", en: "The Visit" } },
+  { key: "contact", href: "/contact", label: { he: "פנייה", en: "Enquiries" } },
 ];
 
 export const cta = {
   // The site runs a discreet inquiry flow — there is no public booking calendar.
   // Header/mobile CTA uses consultation language consistent with Home/Contact.
   consult: {
-    he: "לפנייה לייעוץ",
+    he: "לבקשת ייעוץ",
     en: "Request a Consultation",
   } satisfies LocalizedString,
 };
@@ -52,8 +58,18 @@ export const footer = {
   emailLabel: { he: 'דוא"ל', en: "Email" } satisfies LocalizedString,
   addressLabel: { he: "כתובת", en: "Address" } satisfies LocalizedString,
   rights: {
-    he: 'כל הזכויות שמורות',
-    en: "All rights reserved",
+    he: 'כל הזכויות שמורות · ד"ר נעם כתרי',
+    en: "All rights reserved · Dr. Noam Kitrey",
+  } satisfies LocalizedString,
+  /** Privacy reassurance line in the footer. */
+  privacyNote: {
+    he: "כל פנייה נשמרת בסודיות מלאה. פרטיכם אינם נמסרים לאיש.",
+    en: "Every enquiry is kept in full confidence. Your details are shared with no one.",
+  } satisfies LocalizedString,
+  /** Journal colophon line. */
+  colophon: {
+    he: 'נערך ומטופל על ידי ד"ר נעם כתרי, תל אביב.',
+    en: "Edited and attended by Dr. Noam Kitrey, Tel Aviv.",
   } satisfies LocalizedString,
 };
 

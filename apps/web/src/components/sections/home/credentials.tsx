@@ -24,15 +24,9 @@ export function Credentials({ locale }: { locale: Locale }) {
           locale={locale}
         />
 
-        {/* A one-line framing statement under the running head. */}
+        {/* Journal standfirst under the running head. */}
         <p className="mt-10 max-w-[60ch] text-body-lg leading-relaxed text-ink-80 sm:mt-12">
-          {t(
-            {
-              he: "רקע מקצועי מלא — מתפקידי ניהול בשיבא ועד יו\"ר ועדת הנחיות באיגוד האורולוגיה האירופי.",
-              en: "A complete professional record — from unit leadership at Sheba to chairing a clinical-guidelines committee for the European Association of Urology.",
-            },
-            locale,
-          )}
+          {t(credentials.standfirst, locale)}
         </p>
 
         {/* The ledger. */}

@@ -18,15 +18,12 @@ import { Folio, SectionHead } from "./journal";
  * with the writing direction. The descriptor sits beneath each entry, small.
  */
 export function ServicesIndex({ locale }: { locale: Locale }) {
-  // Journal-style folios for the "see p." markers — evocative, not literal pages.
-  const folios = ["p. 12", "p. 18", "p. 24", "p. 31"];
-
   return (
     <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
       <div className="mx-auto w-full max-w-[1280px]">
         <SectionHead
           folio="03"
-          title={{ he: "תוכן — תחומי טיפול", en: "Contents — Areas of Care" }}
+          title={{ he: "תוכן העניינים", en: "Table of Contents" }}
           locale={locale}
         />
 
@@ -38,7 +35,7 @@ export function ServicesIndex({ locale }: { locale: Locale }) {
             </InView>
           </h2>
           <InView as="p" motion="fade-in-up" delay={120} className="max-w-[48ch] text-body-base text-slate-strong">
-            {t(services.intro, locale)}
+            {t(services.standfirst, locale)}
           </InView>
         </div>
 
@@ -59,9 +56,10 @@ export function ServicesIndex({ locale }: { locale: Locale }) {
                   />
 
                   <div className="min-w-0">
-                    {/* The contents line: title · dot-leaders · folio marker. The
-                        title may wrap on narrow screens; the leader+folio stay on the
-                        baseline of the LAST line and never force horizontal overflow. */}
+                    {/* The contents line: title · dot-leaders · a clean directional
+                        mark (no page-number affectation). The title may wrap on narrow
+                        screens; the leader + arrow stay on the last baseline and never
+                        force horizontal overflow. */}
                     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 sm:flex-nowrap">
                       <span className="min-w-0 font-editorial text-index leading-tight text-ink">
                         {t(card.title, locale)}
@@ -71,8 +69,11 @@ export function ServicesIndex({ locale }: { locale: Locale }) {
                         aria-hidden
                         className="toc-leader order-3 h-[0.4em] w-full min-w-6 translate-y-[-0.15em] text-ink/25 transition-colors duration-300 group-hover/toc:text-accent/60 sm:order-none sm:w-auto sm:flex-1"
                       />
-                      <span className="shrink-0 font-mono text-caption tracking-[0.06em] text-slate transition-colors duration-300 group-hover/toc:text-accent">
-                        <span dir="ltr">{folios[i] ?? "p. —"}</span>
+                      <span
+                        aria-hidden
+                        className="shrink-0 self-center text-base leading-none text-slate transition-all duration-300 group-hover/toc:text-accent group-hover/toc:translate-x-0.5 rtl:rotate-180 rtl:group-hover/toc:-translate-x-0.5"
+                      >
+                        &#8594;
                       </span>
                     </div>
                     <span className="mt-2.5 block max-w-[52ch] text-body-base text-slate">

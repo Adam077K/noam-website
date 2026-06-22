@@ -6,64 +6,42 @@ import { contact } from "@/content/site";
 import { InView } from "@/components/ui";
 import { Folio, SectionHead } from "./journal";
 
-/** Scholarly superscript reference marker; mirrors via logical spacing. */
-function Ref({ n }: { n: string }) {
-  return (
-    <sup className="ms-0.5 align-super font-mono text-[0.4em] font-normal text-accent">
-      <span dir="ltr">{n}</span>
-    </sup>
-  );
-}
-
 /**
- * Hero — "The Journal" opening article (v4).
+ * Hero — "The Journal" opening article (v4, dial-down).
  *
- * An oversized folio "01" anchors the page like a chapter number. The headline
- * carries scholarly superscript references (¹ ² ³) that resolve to journal-style
- * FOOTNOTE credentials set small in the margin column — the trust moat as
- * marginalia, not badges. The warm-duotone portrait BREAKS the grid: it bleeds
- * out of the margin past the page's type edge rather than sitting in a tidy box,
- * keeping the designed empty state (cream + NK) until a real photo lands.
+ * An oversized folio "01" anchors the page like a chapter number. The credentials
+ * sit as a clean MARGINAL CREDENTIAL NOTE beside/under the headline — a small,
+ * hairline-led scholarly list, with no floating reference numbers (the earlier
+ * superscript ¹²³ clump read as a stray number and is gone). The warm-duotone
+ * portrait BREAKS the grid: it bleeds up past the section-head rule and out past
+ * the page edge, keeping the designed cream/NK empty state until a photo lands.
  *
- * RTL-correct: logical props, mirrored bleed + arrows; phone/volume render dir=ltr;
- * the superscript markers and footnotes mirror naturally.
+ * RTL-correct: logical props, mirrored bleed + arrows; phone renders dir="ltr";
+ * the marginal note mirrors to the correct side.
  */
 export function Hero({ locale }: { locale: Locale }) {
-  // Footnote credentials — the moat, presented as scholarly references.
-  const footnotes: Array<{ ref: string; value: { he: string; en: string } }> = [
+  // Marginal credential note — the moat, set small and scholarly. No ref numbers.
+  const appointments: LocalizedPair[] = [
     {
-      ref: "1",
-      value: {
-        he: "המרכז הרפואי שיבא · מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה",
-        en: "Sheba Medical Center · Head of Functional Urology & Andrology",
-      },
+      he: "מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה, שיבא",
+      en: "Head of Functional Urology & Andrology, Sheba",
     },
     {
-      ref: "2",
-      value: {
-        he: "יו״ר ועדת ההנחיות הקליניות, איגוד האורולוגיה האירופי (EAU)",
-        en: "Chair, Clinical Guidelines Committee, European Association of Urology",
-      },
+      he: "יו״ר ועדת ההנחיות הקליניות, איגוד האורולוגיה האירופי",
+      en: "Chair, Clinical Guidelines Committee, EAU",
     },
     {
-      ref: "3",
-      value: {
-        he: "מנהל המרכז לבריאות מינית (SHSQ), שיבא",
-        en: "Director, Sexual Health Center (SHSQ), Sheba",
-      },
+      he: "מנהל המרכז לבריאות מינית (SHSQ), שיבא",
+      en: "Director, Sexual Health Center (SHSQ), Sheba",
     },
   ];
 
   return (
     <section className="relative overflow-x-clip bg-paper">
       <div className="mx-auto w-full max-w-[1280px] px-4 pt-8 sm:px-6 sm:pt-10 lg:px-8 lg:pt-14">
-        <SectionHead
-          folio="01"
-          title={{ he: "פרופיל", en: "Profile" }}
-          locale={locale}
-        />
+        <SectionHead folio="01" title={{ he: "המרפאה", en: "The Practice" }} locale={locale} />
 
-        {/* Primary type column (wide) + margin column (footnotes + portrait). */}
+        {/* Primary type column (wide) + margin column (credential note + portrait). */}
         <div className="mt-10 grid gap-x-10 gap-y-12 sm:mt-12 lg:grid-cols-[minmax(0,1fr)_19rem] lg:gap-x-16">
           {/* PRIMARY. */}
           <div className="relative order-1">
@@ -73,13 +51,13 @@ export function Hero({ locale }: { locale: Locale }) {
               className="pointer-events-none absolute -top-6 -z-0 text-[7rem] -start-2 sm:text-[10rem] lg:-top-10 lg:text-[13rem]"
             />
 
-            <h1 className="relative max-w-[20ch] text-pretty font-editorial text-ink [font-size:clamp(2.25rem,4.4vw,4rem)] [line-height:1.04] [letter-spacing:-0.02em] sm:max-w-[16ch]">
+            <p className="relative mb-6 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
+              {t(hero.eyebrow, locale)}
+            </p>
+
+            <h1 className="relative max-w-[20ch] text-pretty font-editorial text-ink [font-size:clamp(2.1rem,4.2vw,3.75rem)] [line-height:1.06] [letter-spacing:-0.02em] sm:max-w-[18ch]">
               <InView as="span" className="block pb-[0.12em]">
                 {t(hero.headline, locale)}
-                {/* References sit at the end of the headline like a journal title. */}
-                <Ref n="1" />
-                <Ref n="2" />
-                <Ref n="3" />
               </InView>
             </h1>
 
@@ -94,7 +72,7 @@ export function Hero({ locale }: { locale: Locale }) {
               as="p"
               motion="fade-in-up"
               delay={120}
-              className="mt-7 max-w-[48ch] text-body-lg text-ink-80 sm:mt-8"
+              className="mt-7 max-w-[50ch] text-body-lg text-ink-80 sm:mt-8"
             >
               {t(hero.subhead, locale)}
             </InView>
@@ -130,28 +108,14 @@ export function Hero({ locale }: { locale: Locale }) {
               </a>
             </InView>
 
-            {/* Footnote credentials — scholarly marginalia. On mobile they sit here,
-                inline beneath the primary; on lg they move to the margin column. */}
-            <ol className="mt-12 space-y-3 border-t border-ink/15 pt-6 lg:hidden">
-              {footnotes.map((f) => (
-                <li key={f.ref} className="flex gap-3 text-body-sm text-slate-strong">
-                  <span className="font-mono text-caption text-accent">
-                    <span dir="ltr">{f.ref}</span>
-                  </span>
-                  <span className="leading-snug">{t(f.value, locale)}</span>
-                </li>
-              ))}
-            </ol>
+            {/* Marginal credential note — MOBILE position (inline beneath primary). */}
+            <CredentialNote items={appointments} locale={locale} className="mt-12 lg:hidden" />
           </div>
 
-          {/* MARGIN — footnotes (lg) + the grid-breaking portrait. */}
+          {/* MARGIN — credential note + the grid-breaking portrait (lg only). */}
           <aside className="relative order-2 hidden lg:block">
-            {/* The portrait BREAKS the grid: it overlaps UP past the section-head rule
-                and bleeds OUT past the page's outer edge, wider than its column, with a
-                fine offset hairline mat. Not a tidy box. Empty state = cream + NK. */}
             <InView as="figure" motion="fade-in-up" delay={160} className="relative">
-              <div className="relative -mt-44 w-[150%] -translate-x-0 max-w-none lg:-me-[max(0px,calc((100vw-1280px)/2+2rem))] xl:-mt-52">
-                {/* Folio-style frame: a hairline mat offset toward the type column. */}
+              <div className="relative -mt-44 w-[150%] max-w-none lg:-me-[max(0px,calc((100vw-1280px)/2+2rem))] xl:-mt-52">
                 <span
                   aria-hidden
                   className="pointer-events-none absolute -inset-x-3 -inset-y-3 border border-ink/25"
@@ -172,37 +136,18 @@ export function Hero({ locale }: { locale: Locale }) {
                     </span>
                   </span>
                 </div>
-                <figcaption className="mt-3.5 flex items-baseline justify-between gap-2 text-caption text-slate">
-                  <span className="font-editorial text-body-sm normal-case tracking-normal text-ink">
-                    {t(hero.portraitCaption, locale)}
-                  </span>
-                  <span className="font-mono text-[0.65rem] tracking-[0.06em] text-slate-60">
-                    <span dir="ltr">Fig. 1</span>
-                  </span>
+                {/* Clean caption — no "Fig." affectation. */}
+                <figcaption className="mt-3.5 font-editorial text-body-sm normal-case tracking-normal text-ink">
+                  {t(hero.portraitCaption, locale)}
                 </figcaption>
               </div>
             </InView>
 
-            {/* Footnotes set small in the margin, under the portrait. */}
-            <ol className="mt-10 space-y-3.5 border-t border-ink/15 pt-5">
-              {footnotes.map((f) => (
-                <li key={f.ref} className="flex gap-2.5 text-body-sm leading-snug text-slate-strong">
-                  <span className="font-mono text-caption text-accent">
-                    <span dir="ltr">{f.ref}</span>
-                  </span>
-                  <span>{t(f.value, locale)}</span>
-                </li>
-              ))}
-            </ol>
+            <CredentialNote items={appointments} locale={locale} className="mt-10" />
           </aside>
 
-          {/* Portrait for MOBILE — below the text, capped, still grid-breaking-lite. */}
-          <InView
-            as="figure"
-            motion="fade-in-up"
-            delay={160}
-            className="order-3 lg:hidden"
-          >
+          {/* Portrait — MOBILE (below text, capped). */}
+          <InView as="figure" motion="fade-in-up" delay={160} className="order-3 lg:hidden">
             <div className="relative mx-auto w-full max-w-[340px]">
               <span
                 aria-hidden
@@ -220,18 +165,49 @@ export function Hero({ locale }: { locale: Locale }) {
                   </span>
                 </span>
               </div>
-              <figcaption className="mt-3 flex items-baseline justify-between gap-2 text-caption text-slate">
-                <span className="font-editorial text-body-sm normal-case tracking-normal text-ink">
-                  {t(hero.portraitCaption, locale)}
-                </span>
-                <span className="font-mono text-[0.65rem] text-slate-60">
-                  <span dir="ltr">Fig. 1</span>
-                </span>
+              <figcaption className="mt-3 font-editorial text-body-sm normal-case tracking-normal text-ink">
+                {t(hero.portraitCaption, locale)}
               </figcaption>
             </div>
           </InView>
         </div>
       </div>
     </section>
+  );
+}
+
+type LocalizedPair = { he: string; en: string };
+
+/**
+ * The marginal credential note: a hairline-led "Appointments" label over a small
+ * scholarly list. Each line is preceded by a fine accent rule (not a number), so
+ * it reads as an intentional credential note rather than orphaned footnote refs.
+ */
+function CredentialNote({
+  items,
+  locale,
+  className,
+}: {
+  items: LocalizedPair[];
+  locale: Locale;
+  className?: string;
+}) {
+  return (
+    <div className={["border-t border-ink/20 pt-5", className ?? ""].join(" ")}>
+      <p className="mb-4 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
+        {t({ he: "מינויים", en: "Appointments" }, locale)}
+      </p>
+      <ul className="space-y-3.5">
+        {items.map((item, i) => (
+          <li key={i} className="flex gap-2.5 text-body-sm leading-snug text-slate-strong">
+            <span
+              aria-hidden
+              className="mt-[0.5em] h-px w-3 shrink-0 bg-accent"
+            />
+            <span>{t(item, locale)}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

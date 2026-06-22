@@ -5,23 +5,22 @@ import { InView } from "@/components/ui";
 import { SectionHead } from "./journal";
 
 /**
- * Pull-quote — a full-bleed EPIGRAPH on deep ink (v4 "The Journal").
+ * Pull-quote — a full-bleed EPIGRAPH on deep ink (v4, dial-down).
  *
  * The composition deliberately BREAKS the margin: an oversized opening quotation
  * glyph bleeds off the start edge, and the founder's voice runs as a large serif
- * epigraph that spans wider than the body measure of the other sections — the
- * page's loudest typographic moment, by contrast quiet everywhere else. Beneath,
- * a slow institutional marquee carries the affiliations like a journal footer.
+ * epigraph. Beneath sits a STATIC, restrained affiliation line — a hairline-led
+ * row of institutions (the earlier scrolling marquee is gone, per the dial-down).
  *
- * Dark section → the serif earns its keep. RTL-correct; marquee pauses on hover
- * and is disabled under prefers-reduced-motion (see globals.css).
+ * Dark section → the serif earns its keep. RTL-correct; no motion beyond the
+ * quiet reveal/rule-draw (reduced-motion safe via globals.css).
  */
 export function QuoteBand({ locale }: { locale: Locale }) {
   const institutions = [
-    { he: "המרכז הרפואי שיבא", en: "Sheba Medical Center" },
+    { he: "מרכז שיבא", en: "Sheba Medical Center" },
     { he: "איגוד האורולוגיה האירופי", en: "European Association of Urology" },
     { he: "המרכז לבריאות מינית", en: "Sexual Health Center" },
-    { he: "האיגוד הישראלי לרפואה מינית", en: "Israeli Society for Sexual Medicine" },
+    { he: 'היל"ם · ESSM', en: "HILAM · ESSM" },
   ];
 
   return (
@@ -60,26 +59,17 @@ export function QuoteBand({ locale }: { locale: Locale }) {
         </figure>
       </div>
 
-      {/* Institutional marquee — a slow journal footer of affiliations. */}
-      <div className="mt-16 border-t border-paper/15 pt-8 sm:mt-20">
-        <div className="marquee group/mq" aria-hidden>
-          <div className="marquee__track">
-            {[0, 1].map((dup) => (
-              <ul key={dup} className="marquee__group" aria-hidden={dup === 1}>
-                {institutions.map((inst, i) => (
-                  <li key={i} className="flex items-center gap-6 text-caption uppercase tracking-[0.2em] text-paper/55 eyebrow">
-                    <span>{t(inst, locale)}</span>
-                    <span aria-hidden className="text-accent-light/60">&#9670;</span>
-                  </li>
-                ))}
-              </ul>
-            ))}
-          </div>
-        </div>
-        {/* Accessible static list for SR / reduced-motion (visually hidden). */}
-        <ul className="sr-only">
+      {/* Static affiliation line — a quiet, hairline-led row, no scrolling. */}
+      <div className="mx-auto mt-16 w-full max-w-[1280px] border-t border-paper/15 pt-7 sm:mt-20">
+        <p className="mb-4 text-caption uppercase tracking-[0.22em] text-paper/45 eyebrow">
+          {t({ he: "שיוכים", en: "Affiliations" }, locale)}
+        </p>
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-2.5 text-caption uppercase tracking-[0.16em] text-paper/65 eyebrow">
           {institutions.map((inst, i) => (
-            <li key={i}>{t(inst, locale)}</li>
+            <li key={i} className="flex items-center gap-x-6">
+              {i > 0 && <span aria-hidden className="text-paper/25">/</span>}
+              <span>{t(inst, locale)}</span>
+            </li>
           ))}
         </ul>
       </div>

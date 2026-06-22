@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import type { LocalizedString } from "@/content/types";
+import { hero } from "@/content/home";
+import { brand } from "@/content/site";
 import { InView } from "@/components/ui";
 
 /**
@@ -15,20 +17,16 @@ import { InView } from "@/components/ui";
  * RTL-correct via logical properties throughout; numerals/volume render dir="ltr".
  */
 
-/** The masthead running head: volume line over the page, like a journal issue. */
+/** The masthead running head: the journal volume line + clinical-record masthead. */
 export function RunningHead({ locale }: { locale: Locale }) {
-  const volume: LocalizedString = {
-    he: "כרך א׳ — אורולוגיה תפקודית ורפואה מינית",
-    en: "Vol. I — Functional Urology & Sexual Medicine",
-  };
   return (
     <div className="border-b border-ink/15 bg-paper">
       <div className="mx-auto flex w-full max-w-[1280px] items-center justify-between gap-4 px-4 py-2.5 sm:px-6 lg:px-8">
         <p className="text-caption uppercase tracking-[0.2em] text-slate eyebrow">
-          {t(volume, locale)}
+          {t(hero.folio, locale)}
         </p>
-        <p className="hidden font-mono text-caption tracking-[0.08em] text-slate-60 sm:block">
-          <span dir="ltr">Tel Aviv · Est. 2010</span>
+        <p className="hidden text-caption uppercase tracking-[0.2em] text-slate-60 eyebrow sm:block">
+          {t(brand.masthead, locale)}
         </p>
       </div>
     </div>
