@@ -4,6 +4,7 @@ import { isLocale, type Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
 import { seo } from "@/content/clinic";
+import { RunningHead } from "@/components/sections/home/journal";
 import { AtmosphereHero } from "@/components/sections/clinic/atmosphere-hero";
 import { LocationMap } from "@/components/sections/clinic/location-map";
 import { WhatToExpect } from "@/components/sections/clinic/what-to-expect";
@@ -35,6 +36,7 @@ export default async function ClinicPage({
 
   return (
     <>
+      <RunningHead locale={locale} />
       <AtmosphereHero locale={locale} />
       <LocationMap locale={locale} />
       <WhatToExpect locale={locale} />

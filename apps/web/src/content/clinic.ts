@@ -41,9 +41,19 @@ export const location = {
     he: "איך מגיעים.",
     en: "Getting here.",
   } satisfies LocalizedString,
+  /** Dateline standfirst — a short orienting line under the headline. */
+  standfirst: {
+    he: "המרפאה יושבת בקומה ה־17 של מגדל רסיטל, על דרך מנחם בגין. הנה המען המלא והדרך אליו.",
+    en: "The clinic sits on the 17th floor of Recital Tower, on Menachem Begin Road. Here is the full dateline, and the way there.",
+  } satisfies LocalizedString,
   addressLabel: {
     he: "כתובת",
     en: "Address",
+  } satisfies LocalizedString,
+  /** Clean caption beneath the map plate (no "Fig." affectation). */
+  mapCaption: {
+    he: "מפה — מגדל רסיטל, דרך מנחם בגין 156, תל אביב",
+    en: "Map — Recital Tower, 156 Menachem Begin Rd, Tel Aviv",
   } satisfies LocalizedString,
   /** Address rendered dir="ltr" for the street-number + floor ordering. */
   address: {
@@ -87,6 +97,11 @@ export const expect = {
   headline: {
     he: "מהפנייה הראשונה ועד הליווי המתמשך.",
     en: "From your first message to ongoing care.",
+  } satisfies LocalizedString,
+  /** Itinerary preamble — a calm field-note standfirst before the four steps. */
+  standfirst: {
+    he: "ארבעה שלבים, ללא הפתעות. כך נראה הביקור מהרגע שפניתם ועד הליווי שאחרי.",
+    en: "Four stages, no surprises. Here is the visit, from the moment you reach out to the care that follows.",
   } satisfies LocalizedString,
   steps: [
     {
