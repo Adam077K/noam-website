@@ -130,7 +130,6 @@ export function ExpertiseGroup({
           {/* h2 on desktop only — mobile h2 is in the anchor strip above */}
           <InView as="div" motion="fade-in-up" delay={0} className="hidden lg:block">
             <h2
-              aria-hidden
               className="max-w-[18ch] text-balance font-semibold text-ink [font-size:clamp(1.75rem,2.5vw,2.25rem)] [letter-spacing:-0.012em] [line-height:1.15]"
             >
               {t(group.title, locale)}

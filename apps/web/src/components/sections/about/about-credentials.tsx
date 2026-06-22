@@ -70,9 +70,9 @@ export function AboutCredentials({ locale }: { locale: Locale }) {
                       <span className="font-editorial text-display-md leading-tight text-ink">
                         {t(item.title, locale)}
                       </span>
-                      {/* LEVEL 2 — institution / body: slate uppercase tracked label. */}
+                      {/* LEVEL 2 — institution / body: slate-strong uppercase tracked label (AA at this size). */}
                       {item.institution && (
-                        <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate">
+                        <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate-strong">
                           {t(item.institution, locale)}
                         </span>
                       )}
