@@ -81,8 +81,34 @@ export function ExpertiseGroup({
     >
       {/* ── Section running head ─────────────────────────────────────────── */}
       <div className="mb-10 sm:mb-12">
+        {/* ── Mobile anchor strip (< lg) ──────────────────────────────────────
+            Full-width section-header row with a 2px ink hairline rule above,
+            20px top/bottom padding, folio label + bold group title. This gives
+            the user a strong visual pause and scannable anchor between the three
+            specialty groups on narrow viewports. The h2 is placed here (the
+            semantic heading for the section); on desktop it is repositioned via
+            the grid below and visually hidden here to avoid duplicate headings. */}
+        <div className="border-t-2 border-ink/20 py-5 lg:hidden">
+          <div className="mb-1.5 flex items-center gap-3">
+            <span
+              className="font-mono text-[0.7rem] tracking-[0.1em] text-mist"
+              aria-hidden
+              dir="ltr"
+            >
+              {folio}
+            </span>
+            <Eyebrow tone="default">
+              {t(group.eyebrow, locale)}
+            </Eyebrow>
+          </div>
+          <h2 className="font-semibold text-ink [font-size:clamp(1.375rem,5vw,1.625rem)] [letter-spacing:-0.012em] [line-height:1.2]">
+            {t(group.title, locale)}
+          </h2>
+        </div>
+
+        {/* ── Desktop eyebrow row + 2-col grid (lg+) ───────────────────────── */}
         {/* Eyebrow row — folio numeral + label */}
-        <div className="mb-5 flex items-center gap-3 border-b border-ink/15 pb-3">
+        <div className="mb-5 hidden items-center gap-3 border-b border-ink/15 pb-3 lg:flex">
           <span
             className="font-mono text-[0.7rem] tracking-[0.1em] text-mist"
             aria-hidden
@@ -101,8 +127,12 @@ export function ExpertiseGroup({
 
         {/* Title + intro — asymmetric 2-col on desktop */}
         <div className="grid gap-x-[clamp(2.5rem,6vw,5rem)] gap-y-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
-          <InView as="div" motion="fade-in-up" delay={0}>
-            <h2 className="max-w-[18ch] text-balance font-semibold text-ink [font-size:clamp(1.75rem,2.5vw,2.25rem)] [letter-spacing:-0.012em] [line-height:1.15]">
+          {/* h2 on desktop only — mobile h2 is in the anchor strip above */}
+          <InView as="div" motion="fade-in-up" delay={0} className="hidden lg:block">
+            <h2
+              aria-hidden
+              className="max-w-[18ch] text-balance font-semibold text-ink [font-size:clamp(1.75rem,2.5vw,2.25rem)] [letter-spacing:-0.012em] [line-height:1.15]"
+            >
               {t(group.title, locale)}
             </h2>
           </InView>

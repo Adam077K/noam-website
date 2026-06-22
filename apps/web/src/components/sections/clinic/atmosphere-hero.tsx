@@ -176,8 +176,11 @@ export function AtmosphereHero({ locale }: { locale: Locale }) {
                 />
               </div>
 
-              {/* Figcaption — location credit below the plate */}
-              <figcaption className="mt-3 overflow-visible pb-1 text-[0.875rem] normal-case tracking-normal text-ink-80">
+              {/* Figcaption — location tag below the plate.
+                  13px full ink + mist underline so it reads as a legible
+                  location credit, not a faint footnote. self-start keeps the
+                  underline flush to the text width in both LTR and RTL. */}
+              <figcaption className="mt-3 inline-flex self-start overflow-visible border-b border-mist/50 pb-0.5 text-[0.8125rem] normal-case tracking-normal text-ink">
                 {t(atmosphere.photoCaption, locale)}
               </figcaption>
             </div>

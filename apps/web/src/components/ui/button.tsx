@@ -13,13 +13,15 @@ const SIZE: Record<Size, string> = {
 
 const VARIANT: Record<Variant, string> = {
   /**
-   * Primary — mist pill, ink text. Calm, premium, not generic medical-blue.
-   * Darkens slightly on hover. Presses with scale on active.
+   * Primary — ink fill, paper text. Maximum visual weight; the commanding action.
+   * Matches the ink-fill treatment used on about-hero and atmosphere-hero.
+   * Lightens on hover. Presses with scale on active.
    */
   primary:
-    "bg-mist text-ink hover:bg-mist-hover active:scale-[0.98]",
+    "bg-ink text-paper hover:bg-ink-80 active:scale-[0.98]",
   /**
    * Ghost / secondary — ink outline, transparent fill. Fills mist-tint on hover.
+   * Intentionally lighter than primary so hierarchy reads correctly.
    */
   ghost:
     "bg-transparent text-ink ring-1 ring-border hover:bg-mist-50 hover:ring-mist-soft active:scale-[0.98]",
@@ -28,8 +30,8 @@ const VARIANT: Record<Variant, string> = {
    */
   link: "bg-transparent px-0 text-ink hover:text-ink-80",
   /**
-   * Inverse — for dark ink sections: mist fill, ink text (same as primary but
-   * explicitly called out for clarity at dark-bg call sites).
+   * Inverse — for dark ink sections (quote-band etc.): mist fill, ink text.
+   * Use this on bg-ink backgrounds where the primary ink fill would disappear.
    */
   inverse:
     "bg-mist text-ink hover:bg-mist-hover active:scale-[0.98]",

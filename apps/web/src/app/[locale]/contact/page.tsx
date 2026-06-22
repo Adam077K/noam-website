@@ -234,14 +234,6 @@ export default async function ContactPage({
                   aria-hidden
                   className="absolute inset-x-0 top-0 h-1 rounded-t-[20px] bg-mist"
                 />
-                {/* Ghost folio watermark */}
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute -bottom-4 end-0 select-none font-mono text-[10rem] font-semibold leading-none tabular-nums text-mist-100"
-                >
-                  <span dir="ltr">05</span>
-                </span>
-
                 <div className="relative px-6 pb-8 pt-8 sm:px-8 sm:pb-10 sm:pt-9 lg:px-10 lg:pb-12 lg:pt-10">
                   {/* Form heading */}
                   <div className="mb-7 border-b border-border pb-6">

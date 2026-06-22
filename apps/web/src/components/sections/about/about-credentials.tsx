@@ -65,11 +65,17 @@ export function AboutCredentials({ locale }: { locale: Locale }) {
                     </span>
 
                     {/* Role + institution — two-level typographic hierarchy. */}
-                    <dt className="flex flex-col gap-1">
-                      {/* LEVEL 1 — the role / position title (most important read). */}
+                    <dt className="flex flex-col gap-1.5">
+                      {/* LEVEL 1 — role / position title: ink, editorial weight, primary read. */}
                       <span className="font-editorial text-display-md leading-tight text-ink">
                         {t(item.title, locale)}
                       </span>
+                      {/* LEVEL 2 — institution / body: slate uppercase tracked label. */}
+                      {item.institution && (
+                        <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.14em] text-slate">
+                          {t(item.institution, locale)}
+                        </span>
+                      )}
                     </dt>
 
                     {/* Year — right-aligned mono numeral. */}

@@ -47,7 +47,9 @@ export function AboutHero({ locale }: { locale: Locale }) {
               </p>
             </div>
 
-            {/* Credential row — primary role + secondary role as inline pills */}
+            {/* Credential row — primary role + secondary role as inline pills.
+                RTL: logical props; whitespace-nowrap + min-w-fit prevents the
+                third tag from collapsing to an orphaned narrow chip. */}
             <div className="mb-7 flex flex-wrap gap-2 sm:mb-8">
               {[
                 isHe
@@ -62,7 +64,7 @@ export function AboutHero({ locale }: { locale: Locale }) {
               ].map((cred, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center rounded-full bg-mist-50 px-3 py-1.5 text-[0.8125rem] font-medium leading-snug text-ink-80 ring-1 ring-mist-soft"
+                  className="inline-flex min-w-fit items-center whitespace-nowrap rounded-full bg-mist-50 px-4 py-1.5 text-[0.8125rem] font-medium leading-snug text-ink-80 ring-1 ring-mist-soft"
                 >
                   {cred}
                 </span>

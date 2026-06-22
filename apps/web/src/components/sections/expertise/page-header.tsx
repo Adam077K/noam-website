@@ -24,7 +24,11 @@ export function ExpertiseHeader({ locale }: { locale: Locale }) {
   const isHe = locale === "he";
 
   return (
-    <Section tone="canvas" className="border-b border-ink/10">
+    <Section
+      tone="canvas"
+      className="border-b border-ink/10"
+      innerClassName="pt-10 sm:pt-12 lg:pt-14"
+    >
       {/* ── Row 1: eyebrow + H1 | deck ──────────────────────────────────────── */}
       <div className="grid gap-x-[clamp(2.5rem,6vw,5rem)] gap-y-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end">
 

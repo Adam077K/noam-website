@@ -458,6 +458,20 @@ html[lang="he"] .eyebrow {
 }
 
 /* ============================================================================
+   RESPONSIVE TYPE OVERRIDES
+   Reduce --text-masthead on small viewports so headline + paragraph + CTAs
+   fit within the first ~750px of scroll (above the fold on 390px devices).
+   Desktop value (clamp 2.75–4rem) is preserved at ≥ 640px.
+   ========================================================================== */
+
+@media (max-width: 639px) {
+  :root {
+    --text-masthead: 2rem;            /* 32px — fits 3-line RTL and 3-line EN headline above fold */
+    --text-masthead--line-height: 1.15;
+  }
+}
+
+/* ============================================================================
    MOTION — scroll-reveal + reduced-motion
    ========================================================================== */
 
