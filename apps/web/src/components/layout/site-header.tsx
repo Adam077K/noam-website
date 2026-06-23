@@ -43,7 +43,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           : "border-border/50",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-[clamp(1.25rem,4vw,2.5rem)] lg:h-[72px]">
+      <div className="mx-auto flex h-[68px] max-w-[1200px] items-center justify-between gap-4 px-[clamp(1.25rem,4vw,2.5rem)] lg:h-[84px]">
 
         {/* Wordmark — clean sans, no serif */}
         <Link

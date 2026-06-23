@@ -20,7 +20,7 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
     <div
       role="group"
       aria-label={t(a11y.switchLanguage, locale)}
-      className="inline-flex items-center gap-0.5 rounded-[10px] border border-border bg-paper p-0.5"
+      className="inline-flex items-center gap-0.5 rounded-[8px] border border-border bg-paper p-[2px]"
     >
       {locales.map((code) => {
         const isActive = code === locale;
@@ -31,7 +31,7 @@ export function LanguageToggle({ locale }: { locale: Locale }) {
             lang={code}
             aria-current={isActive ? "true" : undefined}
             className={cn(
-              "inline-flex h-8 min-w-[2.5rem] items-center justify-center rounded-[7px] px-3 text-[0.8125rem] transition-colors duration-200",
+              "inline-flex h-[26px] min-w-[1.875rem] items-center justify-center rounded-[6px] px-2 text-[0.75rem] transition-colors duration-200",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-1",
               isActive
                 ? "bg-ink font-semibold text-paper"
