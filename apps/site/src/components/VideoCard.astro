@@ -10,15 +10,13 @@ const isFeature = variant === 'feature';
     type="button" class="yt-facade relative block w-full overflow-hidden text-start" data-yt={id}
     style={`aspect-ratio:${isFeature ? '16/10' : '16/11'}`} aria-label={`${watch}: ${title}`}
   >
-    <!-- monochrome-navy duotone so YouTube stills belong to the design system -->
     <img
       src={thumb} data-fallback={fallback} alt="" loading="lazy" decoding="async"
-      class="absolute inset-0 h-full w-full object-cover grayscale transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+      class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
       onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback}"
     />
-    <span class="pointer-events-none absolute inset-0 bg-ink mix-blend-multiply" aria-hidden="true"></span>
-    <span class="pointer-events-none absolute inset-0 bg-blue opacity-40 mix-blend-screen transition-opacity duration-500 group-hover:opacity-25" aria-hidden="true"></span>
-    <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-ink/10" aria-hidden="true"></span>
+    <!-- bottom scrim only (for title legibility) — no color overlay -->
+    <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/40 to-transparent" aria-hidden="true"></span>
 
     <!-- play -->
     <span class="absolute inset-0 grid place-items-center">

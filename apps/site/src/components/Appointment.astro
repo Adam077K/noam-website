@@ -71,22 +71,16 @@ const field = 'w-full rounded-xl border border-white/25 bg-white/[0.07] px-4 py-
       <a
         href="https://www.google.com/maps/search/?api=1&query=Menachem+Begin+156+Tel+Aviv"
         target="_blank" rel="noopener noreferrer"
-        class="group relative mt-7 block overflow-hidden rounded-xl border border-white/12"
-        style="aspect-ratio:16/10;background:linear-gradient(135deg,#16314a,#0e2236);"
+        class="group relative mt-7 block overflow-hidden rounded-xl border border-white/12 ring-1 ring-white/5"
+        style="aspect-ratio:16/10"
         aria-label={locale === 'he' ? 'צפייה במפה ב-Google Maps' : 'View on Google Maps'}
       >
-        <span class="pointer-events-none absolute inset-0 opacity-[0.5]" aria-hidden="true"
-          style="background:repeating-linear-gradient(0deg,transparent 0 26px,rgba(255,255,255,0.05) 26px 27px),repeating-linear-gradient(90deg,transparent 0 26px,rgba(255,255,255,0.05) 26px 27px);"></span>
-        <span class="pointer-events-none absolute inset-0" aria-hidden="true"
-          style="background:radial-gradient(60% 70% at 50% 42%, rgba(74,146,209,0.22), transparent 70%);"></span>
-        <span class="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
-          <span class="grid h-11 w-11 place-items-center rounded-full bg-blue text-white shadow-lg transition-transform duration-300 group-hover:-translate-y-0.5">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>
-          </span>
-          <span class="inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
-            {locale === 'he' ? 'צפייה במפה' : 'View on map'}
-            <span class="text-blue-bright">{locale === 'he' ? '←' : '→'}</span>
-          </span>
+        <img src="/img/clinic-map.png" alt="" width="720" height="450" loading="lazy" decoding="async"
+          class="h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]" />
+        <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" aria-hidden="true"></span>
+        <span class="absolute bottom-3 inline-flex items-center gap-1.5 rounded-full bg-ink/85 px-3.5 py-1.5 text-[13px] font-semibold text-white backdrop-blur-sm ltr:left-3 rtl:right-3">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" class="text-blue-bright" aria-hidden="true"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>
+          {locale === 'he' ? 'צפייה במפה' : 'View on map'}
         </span>
       </a>
     </aside>

@@ -37,9 +37,9 @@ const parseStat = (n: string) => {
           const p = parseStat(s.n);
           return (
             <div class={`p-5 ${i % 2 === 1 ? 'border-s border-white/12' : ''} ${i >= 2 ? 'border-t border-white/12 sm:border-t-0' : ''} ${i % 4 !== 0 ? 'sm:border-s sm:border-white/12' : ''}`}>
-              <div class="font-serif text-[27px] font-bold leading-none text-white" dir="ltr" style="text-align:start">
+              <div class="font-serif text-[27px] font-bold leading-none text-white" style="text-align:start">
                 {p.countable
-                  ? <span data-count-to={p.num} data-count-prefix={p.prefix} data-count-suffix={p.suffix} data-count-decimals={p.decimals}>{p.prefix}{p.num.toFixed(p.decimals)}{p.suffix}</span>
+                  ? <span dir="ltr" class="inline-block" data-count-to={p.num} data-count-prefix={p.prefix} data-count-suffix={p.suffix} data-count-decimals={p.decimals}>{p.prefix}{p.num.toFixed(p.decimals)}{p.suffix}</span>
                   : s.n}
               </div>
               <div class="mt-2 text-[12.5px] font-medium leading-snug text-white">{s.label}</div>
