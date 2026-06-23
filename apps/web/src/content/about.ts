@@ -102,8 +102,19 @@ export const story = {
   ],
 } as const;
 
-/** A single credential row. `year` and `pending` are optional per-item. */
-type CredentialItem = { title: LocalizedString; year?: string; pending?: boolean };
+/**
+ * A single credential row.
+ * - `title`  — the role / position (primary, rendered in ink at display size)
+ * - `institution` — the org / body (secondary, rendered in slate uppercase label)
+ * - `year`   — optional right-aligned mono numeral
+ * - `pending` — not yet displayed publicly
+ */
+type CredentialItem = {
+  title: LocalizedString;
+  institution?: LocalizedString;
+  year?: string;
+  pending?: boolean;
+};
 /** A grouped node on the credential timeline. */
 type CredentialGroup = {
   key: string;
@@ -139,20 +150,32 @@ export const credentials: {
       items: [
         {
           title: {
-            he: "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה, המרכז הרפואי שיבא",
-            en: "Head of Functional Urology & Andrology Unit, Sheba Medical Center",
+            he: "מנהל היחידה לאורולוגיה פונקציונלית ואנדרולוגיה",
+            en: "Head of Functional Urology & Andrology Unit",
+          },
+          institution: {
+            he: "המרכז הרפואי שיבא",
+            en: "Sheba Medical Center",
           },
         },
         {
           title: {
-            he: "מנהל המרכז לבריאות מינית (SHSQ), שיבא",
-            en: "Director, Sexual Health Center (SHSQ), Sheba",
+            he: "מנהל המרכז לבריאות מינית (SHSQ)",
+            en: "Director, Sexual Health Center (SHSQ)",
+          },
+          institution: {
+            he: "המרכז הרפואי שיבא",
+            en: "Sheba Medical Center",
           },
         },
         {
           title: {
-            he: "רופא במרכז הרפואי שיבא",
-            en: "At Sheba Medical Center",
+            he: "רופא בכיר",
+            en: "Senior Physician",
+          },
+          institution: {
+            he: "המרכז הרפואי שיבא",
+            en: "Sheba Medical Center",
           },
           year: "2010",
         },
@@ -168,21 +191,33 @@ export const credentials: {
       items: [
         {
           title: {
-            he: 'יו"ר ועדת ההנחיות הקליניות של איגוד האורולוגיה האירופי (EAU) — חבלות אורולוגיות',
-            en: "Chair, EAU Clinical Guidelines Committee — Urological Trauma",
+            he: 'יו"ר ועדת ההנחיות הקליניות — חבלות אורולוגיות',
+            en: "Chair, Clinical Guidelines Committee — Urological Trauma",
+          },
+          institution: {
+            he: "איגוד האורולוגיה האירופי (EAU)",
+            en: "European Association of Urology (EAU)",
           },
         },
         {
           title: {
-            he: "חבר באיגוד הישראלי לרפואה מינית (היל\"ם) ובאיגוד האירופי (ESSM)",
-            en: "Member, Israeli (HILAM) and European (ESSM) Sexual Medicine Associations",
+            he: "חבר",
+            en: "Member",
+          },
+          institution: {
+            he: 'האיגוד הישראלי לרפואה מינית (היל"ם) והאיגוד האירופי (ESSM)',
+            en: "Israeli (HILAM) and European (ESSM) Sexual Medicine Associations",
           },
         },
         {
           // [FOUNDER-REVIEW: legal-sensitive] — wired as-is from the copy deck.
           title: {
-            he: "חבר בוועדה הלאומית להתאמה מגדרית, משרד הבריאות",
-            en: "Member, National Committee for Gender Affirmation, Ministry of Health",
+            he: "חבר",
+            en: "Member",
+          },
+          institution: {
+            he: "הוועדה הלאומית להתאמה מגדרית, משרד הבריאות",
+            en: "National Committee for Gender Affirmation, Ministry of Health",
           },
         },
       ],
@@ -194,8 +229,12 @@ export const credentials: {
       items: [
         {
           title: {
-            he: 'ד"ר לרפואה (M.D.), אוניברסיטת תל אביב',
-            en: "M.D., Tel Aviv University",
+            he: 'ד"ר לרפואה (M.D.)',
+            en: "Doctor of Medicine (M.D.)",
+          },
+          institution: {
+            he: "אוניברסיטת תל אביב",
+            en: "Tel Aviv University",
           },
           year: "1997",
         },

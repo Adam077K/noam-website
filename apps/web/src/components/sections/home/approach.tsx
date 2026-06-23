@@ -1,74 +1,94 @@
 import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { trust } from "@/content/home";
-import { InView } from "@/components/ui";
-import { SectionHead } from "./journal";
+import { Section } from "@/components/ui/section";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { MediaSlot } from "@/components/ui/media-slot";
+import { InView } from "@/components/ui/in-view";
 
 /**
- * The approach — a journal MARGIN-NOTE article (v4 "The Journal").
+ * Authority / Feature band — ref #3 structure.
  *
- * The lead statement runs as the primary column body text (editorial serif lead-in
- * + grotesk body), while the three pillars are set as numbered MARGINALIA in the
- * narrow side column — annotations to the main argument, like a scholar's notes.
- * Distinct from the contents TOC and the hero: this is the "reading" moment.
- *
- * RTL-correct: logical props place the margin on the end side; on mobile it
- * collapses and the notes flow inline beneath the lead.
+ * Two-column split: clinic photo slot (start) + text block (end).
+ * On mobile: stacks, photo first.
+ * Eyebrow → h2 → body → 3 pillar chips.
+ * Photo uses MediaSlot (intentional placeholder, object-fit:cover ready).
  */
 export function Approach({ locale }: { locale: Locale }) {
   return (
-    <section className="bg-canvas px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-      <div className="mx-auto w-full max-w-[1280px]">
-        <SectionHead
-          folio="02"
-          title={{ he: "הגישה", en: "The Approach" }}
-          locale={locale}
-        />
+    <Section tone="canvas" id="approach">
+      <div className="grid items-center gap-x-[clamp(2.5rem,6vw,5rem)] gap-y-12 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
 
-        <div className="mt-10 grid gap-x-16 gap-y-12 sm:mt-14 lg:grid-cols-[minmax(0,1fr)_18rem]">
-          {/* PRIMARY — a serif drop-headline leading into the body argument. */}
-          <div className="max-w-[60ch]">
-            <h2 className="text-pretty font-editorial text-display-lg text-ink">
-              <InView as="span" className="block">
-                {t(trust.headline, locale)}
-              </InView>
-            </h2>
-            <InView as="p" motion="fade-in-up" delay={120} className="mt-8 text-body-lg leading-relaxed text-ink-80">
-              {t(trust.body, locale)}
-            </InView>
-          </div>
+        {/* ── MEDIA SLOT ──────────────────────────────────────────── */}
+        <InView motion="fade-in-up" delay={0} className="w-full">
+          <MediaSlot
+            ratio="4/5"
+            alt={t(
+              {
+                he: 'ד"ר כתרי במרפאה — אורולוגיה תפקודית ורפואה מינית',
+                en: "Dr. Kitrey in clinic — functional urology and sexual medicine",
+              },
+              locale,
+            )}
+            caption={t(
+              { he: "מרפאה פרטית · תל אביב", en: "Private clinic · Tel Aviv" },
+              locale,
+            )}
+            slot="approach-clinic"
+            blob
+            monogram="NK"
+            className="mx-auto w-full max-w-[420px] lg:max-w-none"
+          />
+        </InView>
 
-          {/* MARGIN — the three pillars as numbered marginal annotations. */}
-          <aside className="lg:pt-2">
-            <p className="mb-6 text-caption uppercase tracking-[0.2em] text-slate eyebrow">
-              {t({ he: "הערות שוליים", en: "Notes" }, locale)}
-            </p>
-            <ol className="space-y-7">
-              {trust.pillars.map((pillar, i) => (
-                <InView
-                  as="li"
-                  motion="fade-in-up"
-                  delay={i * 90}
-                  key={pillar.key}
-                  className="border-t border-ink/15 pt-4"
-                >
-                  <div className="flex items-baseline gap-2.5">
-                    <span className="font-mono text-caption text-accent">
-                      <span dir="ltr">{`0${i + 1}`}</span>
-                    </span>
-                    <h3 className="font-editorial text-display-md leading-tight text-ink">
-                      {t(pillar.title, locale)}
-                    </h3>
-                  </div>
-                  <p className="mt-2.5 text-body-sm leading-relaxed text-slate-strong">
+        {/* ── TEXT BLOCK ──────────────────────────────────────────── */}
+        <div className="flex flex-col gap-6">
+          <InView as="div" motion="fade-in-up" delay={80}>
+            <Eyebrow tone="default" withRule>
+              {t(trust.eyebrow, locale)}
+            </Eyebrow>
+          </InView>
+
+          <InView as="h2" motion="fade-in-up" delay={130}
+            className="max-w-[20ch] text-balance text-[length:var(--text-display-md)] font-semibold leading-[var(--text-display-md--line-height)] tracking-[var(--text-display-md--letter-spacing)] text-ink"
+          >
+            {t(trust.headline, locale)}
+          </InView>
+
+          <InView as="p" motion="fade-in-up" delay={180}
+            className="max-w-[50ch] text-[length:var(--text-body-lg)] leading-[var(--text-body-lg--line-height)] text-ink-80"
+          >
+            {t(trust.body, locale)}
+          </InView>
+
+          {/* Three pillars */}
+          <ul className="mt-2 flex flex-col gap-5">
+            {trust.pillars.map((pillar, i) => (
+              <InView
+                key={pillar.key}
+                as="li"
+                motion="fade-in-up"
+                delay={240 + i * 70}
+                className="flex gap-4 border-t border-border pt-5"
+              >
+                {/* Mist dot accent */}
+                <span
+                  aria-hidden
+                  className="mt-1 h-2 w-2 shrink-0 rounded-full bg-mist"
+                />
+                <div className="flex flex-col gap-1">
+                  <span className="text-[length:var(--text-body-base)] font-semibold leading-snug text-ink">
+                    {t(pillar.title, locale)}
+                  </span>
+                  <span className="text-[length:var(--text-body-sm)] leading-[var(--text-body-sm--line-height)] text-slate">
                     {t(pillar.blurb, locale)}
-                  </p>
-                </InView>
-              ))}
-            </ol>
-          </aside>
+                  </span>
+                </div>
+              </InView>
+            ))}
+          </ul>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

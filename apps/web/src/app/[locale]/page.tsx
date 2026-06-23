@@ -3,12 +3,11 @@ import { notFound } from "next/navigation";
 import { isLocale, type Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
-import { RunningHead } from "@/components/sections/home/journal";
 import { Hero } from "@/components/sections/home/hero";
 import { Credentials } from "@/components/sections/home/credentials";
 import { ServicesIndex } from "@/components/sections/home/services-index";
-import { QuoteBand } from "@/components/sections/home/quote-band";
 import { Approach } from "@/components/sections/home/approach";
+import { QuoteBand } from "@/components/sections/home/quote-band";
 import { ContactClose } from "@/components/sections/home/contact-close";
 
 const seo = {
@@ -47,14 +46,24 @@ export default async function HomePage({
   const locale: Locale = raw;
 
   return (
-    <>
-      <RunningHead locale={locale} />
+    <main id="main-content">
+      {/* (1) Hero — display headline + portrait + CTAs */}
       <Hero locale={locale} />
-      <Approach locale={locale} />
-      <ServicesIndex locale={locale} />
-      <QuoteBand locale={locale} />
+
+      {/* (2) Trust / Stats belt — 4 credential facts */}
       <Credentials locale={locale} />
+
+      {/* (3) Services grid — 2×2 rounded cards */}
+      <ServicesIndex locale={locale} />
+
+      {/* (4) Authority band — clinic photo + approach text */}
+      <Approach locale={locale} />
+
+      {/* (5) Pull-quote — dark ink epigraph band */}
+      <QuoteBand locale={locale} />
+
+      {/* (6) Contact CTA — phone + book appointment */}
       <ContactClose locale={locale} />
-    </>
+    </main>
   );
 }

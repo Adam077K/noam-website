@@ -1,75 +1,66 @@
 import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
-import { credentials } from "@/content/home";
-import { InView } from "@/components/ui";
-import { SectionHead } from "./journal";
+import { InView } from "@/components/ui/in-view";
 
 /**
- * Professional record — the trust moat read in full (v3). Where the hero register
- * is the at-a-glance scan, this is the deliberate, verifiable ledger: a two-column
- * editorial table with a numbered spine, the institution in the display serif, the
- * exact appointment beneath, and a foot-rule carrying the qualifying detail (MD,
- * Tel Aviv University · in practice since 2010). Reads like the credentials page of
- * an institution's annual report — serious, top-of-field, nothing decorative.
+ * Trust / Stats belt — ref #3 structure.
  *
- * RTL-correct via logical props; rules + grid mirror naturally.
+ * Four credential stats in a tight horizontal row on a mist-50 tinted band.
+ * Reads like a fact-sheet: bold metric + quiet label. No decorative elements.
+ * On mobile: 2×2 grid. On lg: single row of 4.
+ *
+ * Verified facts only — no invented numbers.
  */
 export function Credentials({ locale }: { locale: Locale }) {
+  const stats = [
+    {
+      key: "sheba",
+      metric: { he: "ראש היחידה", en: "Head of Unit" },
+      label: { he: "אורולוגיה תפקודית ואנדרולוגיה · שיבא", en: "Functional Urology & Andrology · Sheba" },
+    },
+    {
+      key: "eau",
+      metric: { he: 'יו"ר ועדה', en: "Committee Chair" },
+      label: { he: "הנחיות קליניות · חבלות אורולוגיות · EAU", en: "Clinical Guidelines · Urological Trauma · EAU" },
+    },
+    {
+      key: "shsq",
+      metric: { he: "מנהל המרכז", en: "Center Director" },
+      label: { he: "המרכז לבריאות מינית (SHSQ) · שיבא", en: "Sexual Health Center (SHSQ) · Sheba" },
+    },
+    {
+      key: "md",
+      metric: { he: "רופא", en: "Physician" },
+      label: { he: "MD, אוניברסיטת תל אביב · בשיבא משנת 2010", en: "MD, Tel Aviv University · At Sheba since 2010" },
+    },
+  ] as const;
+
   return (
-    <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-      <div className="mx-auto w-full max-w-[1280px]">
-        <SectionHead
-          folio="05"
-          title={{ he: "רקע מקצועי", en: "Professional Record" }}
-          locale={locale}
-        />
-
-        {/* Journal standfirst under the running head. */}
-        <p className="mt-10 max-w-[60ch] text-body-lg leading-relaxed text-ink-80 sm:mt-12">
-          {t(credentials.standfirst, locale)}
-        </p>
-
-        {/* The ledger. */}
-        <dl className="mt-14 border-t border-ink/20 sm:mt-16">
-          {credentials.items.map((item, i) => (
+    <section
+      className="bg-mist-50 px-[clamp(1.25rem,4vw,2.5rem)]"
+      aria-label={t({ he: "אישורים", en: "Credentials" }, locale)}
+    >
+      <div className="mx-auto max-w-[1200px] py-10 sm:py-12">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 lg:grid-cols-4">
+          {stats.map((stat, i) => (
             <InView
+              key={stat.key}
               as="div"
               motion="fade-in-up"
               delay={i * 60}
-              key={item.key}
-              className="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-5 border-b border-border py-7 sm:grid-cols-[3.5rem_minmax(0,1.1fr)_minmax(0,1fr)] sm:gap-x-10 sm:py-8"
+              className="flex flex-col gap-1.5"
             >
-              <span aria-hidden className="font-mono text-body-sm tabular-nums text-accent">
-                {String(i + 1).padStart(2, "0")}
+              <span
+                className="text-[length:var(--text-display-sm)] font-semibold leading-tight text-ink"
+              >
+                {t(stat.metric, locale)}
               </span>
-              <dt className="font-editorial text-display-md leading-tight text-ink">
-                {t(item.institution, locale)}
-              </dt>
-              <dd className="col-span-2 mt-2.5 text-body-base leading-relaxed text-slate sm:col-span-1 sm:mt-0 sm:pt-1.5">
-                {t(item.title, locale)}
-              </dd>
+              <span className="text-[length:var(--text-body-sm)] leading-[var(--text-body-sm--line-height)] text-slate">
+                {t(stat.label, locale)}
+              </span>
             </InView>
           ))}
-        </dl>
-
-        {/* Foot-rule — the qualifying detail, in quiet utility type. */}
-        <InView
-          as="div"
-          motion="fade-in-up"
-          className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-3 text-caption uppercase tracking-[0.16em] text-slate eyebrow"
-        >
-          <span className="flex items-center gap-2.5">
-            <span aria-hidden className="inline-block h-px w-6 bg-border-strong" />
-            {t({ he: "בוגר רפואה, אוניברסיטת תל אביב", en: "MD, Tel Aviv University" }, locale)}
-          </span>
-          <span className="flex items-center gap-2.5">
-            <span aria-hidden className="inline-block h-px w-6 bg-border-strong" />
-            <span className="normal-case">
-              {t({ he: "בעיסוק פרטי משנת", en: "In private practice since" }, locale)}{" "}
-              <span className="font-mono" dir="ltr">2010</span>
-            </span>
-          </span>
-        </InView>
+        </div>
       </div>
     </section>
   );

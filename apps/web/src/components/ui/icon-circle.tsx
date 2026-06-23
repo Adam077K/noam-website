@@ -16,10 +16,10 @@ const GLYPH: Record<Size, string> = {
 };
 
 /**
- * Soft-blue circular icon container. The pale `accent-tint` fill keeps the bright
- * `accent` glyph legible (ink-on-soft-blue contrast is AAA per ART-DIRECTION-V2)
- * while reading warm and hand-placed rather than a sterile chip. `inverse` adapts
- * it for the dark ink band. Decorative — the label beside it carries meaning.
+ * Mist-tinted circular icon container — ref-#3 style.
+ * The mist-200 fill with mist icon reads calm and premium.
+ * `inverse` adapts it for the dark ink-band sections.
+ * Decorative — the label beside it carries meaning.
  */
 export function IconCircle({
   name,
@@ -35,10 +35,10 @@ export function IconCircle({
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-pill",
+        "inline-flex shrink-0 items-center justify-center rounded-full",
         inverse
-          ? "bg-accent-light/15 text-accent-light ring-1 ring-accent-light/25"
-          : "bg-accent-tint text-accent ring-1 ring-accent-soft/70",
+          ? "bg-mist/20 text-mist ring-1 ring-mist/30"
+          : "bg-mist-200 text-ink-80 ring-1 ring-mist-soft",
         RING[size],
         className,
       )}

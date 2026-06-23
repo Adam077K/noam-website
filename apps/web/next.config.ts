@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  // Hide the dev-mode "N" indicator badge — never ships to prod, distracting in review.
+  devIndicators: false,
 };
 
 export default nextConfig;

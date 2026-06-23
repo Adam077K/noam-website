@@ -2,67 +2,106 @@ import type { Locale } from "@/i18n/config";
 import { t } from "@/content/types";
 import { expect } from "@/content/clinic";
 import { InView } from "@/components/ui";
-import { Folio, SectionHead } from "@/components/sections/home/journal";
+import { Card } from "@/components/ui/card";
+import { IconCircle } from "@/components/ui/icon-circle";
+import type { IconName } from "@/components/ui/icons";
+import { SectionHead } from "@/components/sections/home/journal";
 
 /**
- * The Itinerary — a journal NUMBERED ITINERARY (v4 "The Journal", field-note cut).
+ * What to Expect — ref-#3 service-card grid style.
  *
- * The four-step visit reads as a numbered itinerary: a contents-style preamble
- * (headline + standfirst), then four hairline-ruled stages, each anchored by an
- * oversized folio numeral (01–04) sitting like a chapter mark beside a serif step
- * title and a grotesk blurb. No medallions, no accent-tint pills, no connecting
- * rail — restraint as the point, to lower pre-visit anxiety.
+ * Four visit steps rendered as rounded surface cards (Card, interactive hover)
+ * with a mist icon-circle, step title (h3), and calm blurb. Follows ref-#3
+ * exactly: icon circle top → title → blurb, on a tinted canvas background.
  *
- * RTL-correct via logical props; rows stack to a single column on mobile.
+ * Grid: 1 col (mobile) → 2 col (sm) → 4 col (lg) — symmetric cards, equal height.
+ * Section eyebrow + headline + standfirst above the grid.
+ *
+ * Icons: mapped to step keys. Uses the icon system in ui/icons.tsx.
+ * RTL-correct: logical props throughout; no italics in Hebrew.
  */
+
+/* Step icon mapping — each visit phase has a semantically matching icon */
+const STEP_ICONS: Record<string, IconName> = {
+  "first-contact":       "phone",
+  "first-consultation":  "user",
+  "treatment-plan":      "shieldCheck",
+  "ongoing-care":        "pulse",
+};
+
+/* Step index ordinal labels — always LTR, monospace, accent-tinted */
+const STEP_ORDINALS = ["01", "02", "03", "04"];
+
 export function WhatToExpect({ locale }: { locale: Locale }) {
   return (
-    <section className="bg-paper px-4 py-24 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
-      <div className="mx-auto w-full max-w-[1280px]">
+    <section className="bg-mist-50 px-[clamp(1.25rem,4vw,2.5rem)] py-[clamp(4rem,8vw,7rem)]">
+      <div className="mx-auto w-full max-w-[1200px]">
+
         <SectionHead
           folio="03"
-          title={{ he: "מהלך הביקור", en: "The Itinerary" }}
+          title={{ he: "מהלך הביקור", en: "The Visit" }}
           locale={locale}
         />
 
-        {/* Itinerary preamble — headline + calm field-note standfirst. */}
-        <div className="mt-10 grid gap-x-16 gap-y-6 sm:mt-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:items-end">
-          <h2 className="max-w-[16ch] text-balance font-editorial text-display-lg text-ink">
+        {/* Section headline + standfirst preamble */}
+        <div className="mt-10 grid gap-x-16 gap-y-5 sm:mt-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-end">
+          <h2 className="font-editorial text-ink text-balance max-w-[18ch] [font-size:clamp(1.75rem,2.5vw,2.25rem)] [line-height:1.15] [letter-spacing:-0.012em]">
             <InView as="span" className="block">
               {t(expect.headline, locale)}
             </InView>
           </h2>
-          <InView as="p" motion="fade-in-up" delay={120} className="max-w-[48ch] text-body-base text-slate-strong">
+          <InView
+            as="p"
+            motion="fade-in-up"
+            delay={100}
+            className="max-w-[48ch] text-[1rem] leading-relaxed text-slate-strong"
+          >
             {t(expect.standfirst, locale)}
           </InView>
         </div>
 
-        {/* The itinerary — hairline-topped numbered stages. */}
-        <ol className="mt-14 border-t border-ink/20 sm:mt-16">
+        {/*
+          Card grid — ref-#3 style: rounded cards with icon circles.
+          1 col mobile, 2 col sm, 4 col lg. Equal height per row (h-full on Card).
+          gap follows 8px grid: gap-5 (40px) at lg.
+        */}
+        <div className="mt-12 grid grid-cols-1 gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
           {expect.steps.map((step, i) => (
-            <li key={step.key} className="border-b border-ink/12">
-              <InView
-                as="div"
-                motion="fade-in-up"
-                delay={i * 80}
-                className="grid grid-cols-[2.5rem_minmax(0,1fr)] items-baseline gap-x-5 py-9 sm:grid-cols-[5rem_minmax(0,1fr)] sm:gap-x-10 sm:py-11 lg:grid-cols-[6rem_minmax(0,24ch)_minmax(0,1fr)] lg:gap-x-12"
-              >
-                {/* Oversized folio anchor — the itinerary stage mark. */}
-                <Folio
-                  n={String(i + 1).padStart(2, "0")}
-                  tone="accent"
-                  className="text-[2rem] leading-none sm:text-[3rem] lg:text-[3.5rem]"
-                />
-                <h3 className="font-editorial text-display-md leading-tight text-ink">
-                  {t(step.title, locale)}
-                </h3>
-                <p className="col-span-2 mt-3 max-w-[52ch] text-body-lg text-slate-strong sm:col-span-1 sm:mt-0 lg:col-auto">
-                  {t(step.blurb, locale)}
-                </p>
-              </InView>
-            </li>
+            <InView
+              key={step.key}
+              motion="fade-in-up"
+              delay={i * 70}
+            >
+              <Card interactive className="flex h-full flex-col gap-5 p-6 sm:p-7">
+                {/* Icon circle — mist-tinted, semantic icon for each step */}
+                <div className="flex items-center justify-between">
+                  <IconCircle
+                    name={STEP_ICONS[step.key] ?? "compass"}
+                    size="lg"
+                  />
+                  {/* Ordinal — monospace, accent, decorative */}
+                  <span
+                    aria-hidden
+                    className="font-mono text-[0.65rem] tracking-[0.12em] text-mist"
+                    dir="ltr"
+                  >
+                    {STEP_ORDINALS[i]}
+                  </span>
+                </div>
+
+                {/* Step title (h3) + blurb */}
+                <div className="flex flex-1 flex-col gap-2.5">
+                  <h3 className="text-[1.125rem] font-semibold leading-snug tracking-tight text-ink">
+                    {t(step.title, locale)}
+                  </h3>
+                  <p className="text-[0.9375rem] leading-relaxed text-slate">
+                    {t(step.blurb, locale)}
+                  </p>
+                </div>
+              </Card>
+            </InView>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );
