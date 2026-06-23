@@ -1,0 +1,19 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+---
+<section class="relative overflow-hidden bg-ink">
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true"
+    style="background:radial-gradient(90% 120% at 50% 0%, rgba(60,122,110,0.16), transparent 60%);"></div>
+  <div class="relative mx-auto grid max-w-[1240px] grid-cols-1 divide-y divide-white/10 px-6 py-14 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:px-10 rtl:sm:divide-x-reverse">
+    {t.statsBand.map((s, i) => (
+      <div class="reveal px-4 py-6 text-center sm:py-2" style={`transition-delay:${i * 0.08}s`}>
+        <div class="font-serif text-[clamp(2.6rem,5vw,3.4rem)] font-bold leading-none text-white" dir="ltr">{s.n}</div>
+        <div class="mx-auto mt-3 max-w-[18rem] text-[14px] leading-snug text-bone-muted">{s.label}</div>
+      </div>
+    ))}
+  </div>
+</section>

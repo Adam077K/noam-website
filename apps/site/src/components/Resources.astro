@@ -1,0 +1,25 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+import Eyebrow from './Eyebrow.astro';
+import VideoCard from './VideoCard.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+---
+<section class="border-t border-sand bg-bone">
+  <div class="mx-auto max-w-[1240px] px-6 py-20 lg:px-10 lg:py-28">
+    <div class="reveal mb-12 max-w-[42rem]">
+      <Eyebrow text={t.resources.eyebrow} class="mb-5" />
+      <h2 class="mb-4 font-serif text-[clamp(1.9rem,3.6vw,2.85rem)] font-bold leading-[1.12] text-ink">{t.resources.heading}</h2>
+      <p class="text-[17px] leading-relaxed text-clay">{t.resources.intro}</p>
+    </div>
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+      {t.resources.videos.map((v, i) => (
+        <div class="reveal" style={`transition-delay:${i * 0.07}s`}>
+          <VideoCard id={v.id} title={v.title} kicker={v.kicker} watch={t.resources.watch} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

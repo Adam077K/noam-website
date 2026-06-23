@@ -1,0 +1,26 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+import Icon from './Icon.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+const isHe = locale === 'he';
+---
+<section class="bg-bone">
+  <div class="mx-auto -mt-14 grid max-w-[1240px] grid-cols-1 gap-5 px-6 pb-2 sm:grid-cols-3 lg:-mt-16 lg:px-10">
+    {t.status.items.map((c, i) => (
+      <article class="reveal group rounded-[4px] border border-sand bg-bone-2 p-7 shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)]" style={`transition-delay:${i * 0.08}s`}>
+        <span class="mb-5 grid h-12 w-12 place-items-center rounded-full bg-green/10 text-green">
+          <Icon name={c.icon} size={22} />
+        </span>
+        <h3 class="mb-2 font-serif text-[21px] font-bold text-ink">{c.title}</h3>
+        <p class="mb-4 text-[15.5px] leading-relaxed text-clay">{c.line}</p>
+        <a href="#services" class="inline-flex items-center gap-2 text-[14.5px] font-semibold text-green">
+          {t.status.link}
+          <span class="transition-transform group-hover:-translate-x-1">{isHe ? '←' : '→'}</span>
+        </a>
+      </article>
+    ))}
+  </div>
+</section>

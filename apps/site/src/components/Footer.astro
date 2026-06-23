@@ -1,0 +1,52 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+const year = 2026;
+---
+<footer class="border-t border-white/8 bg-ink text-bone-muted">
+  <div class="mx-auto grid max-w-[1240px] grid-cols-1 gap-10 px-6 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1.3fr_1.1fr] lg:gap-12 lg:px-10">
+    <!-- brand -->
+    <div>
+      <div class="font-serif text-[22px] font-bold text-white">{t.footer.brandLine}</div>
+      <p class="mt-2 max-w-[22rem] text-[14.5px] leading-relaxed">{t.footer.tagline}</p>
+    </div>
+
+    <!-- explore -->
+    <nav aria-label={t.footer.exploreTitle}>
+      <h4 class="mb-4 text-[12px] font-semibold tracking-[0.14em] text-green-2 uppercase">{t.footer.exploreTitle}</h4>
+      <ul class="space-y-2.5 text-[15px]">
+        {t.footer.explore.map((it) => (
+          <li><a href={it.href} class="transition-colors hover:text-white">{it.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <!-- contact -->
+    <div>
+      <h4 class="mb-4 text-[12px] font-semibold tracking-[0.14em] text-green-2 uppercase">{t.footer.contactTitle}</h4>
+      <ul class="space-y-2.5 text-[15px] leading-relaxed">
+        <li><a href={t.utility.phoneHref} dir="ltr" class="inline-block transition-colors hover:text-white">{t.utility.phone}</a></li>
+        <li><a href={t.utility.emailHref} class="transition-colors hover:text-white">{t.utility.email}</a></li>
+        <li class="max-w-[20rem] text-[14px]">{t.footer.address}</li>
+        <li class="text-[14px]">{t.footer.clinic}</li>
+      </ul>
+    </div>
+
+    <!-- book -->
+    <div>
+      <h4 class="mb-4 text-[12px] font-semibold tracking-[0.14em] text-green-2 uppercase">{t.footer.bookTitle}</h4>
+      <p class="mb-4 max-w-[20rem] text-[14.5px] leading-relaxed">{t.footer.bookBody}</p>
+      <a href="#contact" class="inline-flex rounded-[3px] bg-green px-6 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-green-2">{t.footer.book}</a>
+    </div>
+  </div>
+
+  <div class="border-t border-white/8">
+    <div class="mx-auto flex max-w-[1240px] flex-col gap-3 px-6 py-6 text-[12.5px] sm:flex-row sm:items-center sm:justify-between lg:px-10">
+      <p>© {year} {t.footer.brandLine} · {t.footer.rights}</p>
+      <p class="max-w-[40rem] text-bone-muted/70">{t.footer.disclaimer}</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* Self-hosted variable fonts (Hebrew + Latin subsets included) */
+@import "@fontsource-variable/frank-ruhl-libre";
+@import "@fontsource-variable/assistant";
+
+/* ----------------------------------------------------------------------------
+   Quiet Authority — design tokens
+   Dr. Noam Kitrey. Warm dark ink + bone paper + a single deep healing green.
+---------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #16201d;        /* warm near-black — dark anchor sections, body text on bone */
+  --color-ink-2: #1e2b27;      /* raised dark surface */
+  --color-ink-3: #2a3a35;      /* hairlines on dark / tertiary */
+  --color-bone: #f5f2ec;       /* warm paper — primary background */
+  --color-bone-2: #fbfaf6;     /* cards on bone */
+  --color-green: #2e5d54;      /* the single accent — CTAs, links, eyebrows */
+  --color-green-2: #3c7a6e;    /* hover / brighter-on-dark */
+  --color-green-soft: #e4ece9; /* faint green tint surface */
+  --color-sand: #e7e0d3;       /* warm divider / tint */
+  --color-clay: #6b746f;       /* secondary text on bone */
+  --color-bone-muted: #aeb7b1; /* secondary text on ink */
+  --color-brass: #c29b5b;      /* warm metallic — review stars only */
+
+  --font-serif: "Frank Ruhl Libre Variable", Georgia, "Times New Roman", serif;
+  --font-sans: "Assistant Variable", system-ui, -apple-system, sans-serif;
+
+  --shadow-card: 0 24px 50px -34px rgba(22, 32, 29, 0.42);
+  --shadow-card-hover: 0 34px 64px -34px rgba(22, 32, 29, 0.55);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    font-feature-settings: "tnum" 0;
+  }
+  body {
+    background-color: var(--color-bone);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  /* Hebrew serif looks best slightly heavier weight tracked tighter; Latin handled inline */
+  ::selection {
+    background: var(--color-green);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-green-2);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* Reveal-on-scroll primitive (progressive enhancement; visible by default if JS off) */
+@layer utilities {
+  /* Only hide when JS is present (progressive enhancement: no-JS = fully visible) */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+    will-change: opacity, transform;
+  }
+  .js .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal { opacity: 1; transform: none; }
+  }
+}

@@ -1,0 +1,32 @@
+---
+import Base from '@/layouts/Base.astro';
+import Nav from '@/components/Nav.astro';
+import Hero from '@/components/Hero.astro';
+import StatusStrip from '@/components/StatusStrip.astro';
+import About from '@/components/About.astro';
+import Services from '@/components/Services.astro';
+import Consult from '@/components/Consult.astro';
+import Reviews from '@/components/Reviews.astro';
+import Recognition from '@/components/Recognition.astro';
+import StatsBand from '@/components/StatsBand.astro';
+import Resources from '@/components/Resources.astro';
+import Appointment from '@/components/Appointment.astro';
+import Footer from '@/components/Footer.astro';
+const locale = 'en' as const;
+---
+<Base locale={locale}>
+  <Nav locale={locale} />
+  <main id="main">
+    <Hero locale={locale} />
+    <StatusStrip locale={locale} />
+    <About locale={locale} />
+    <Services locale={locale} />
+    <Consult locale={locale} />
+    <Reviews locale={locale} />
+    <Recognition locale={locale} />
+    <StatsBand locale={locale} />
+    <Resources locale={locale} />
+    <Appointment locale={locale} />
+  </main>
+  <Footer locale={locale} />
+</Base>

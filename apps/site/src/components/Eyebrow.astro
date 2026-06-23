@@ -1,0 +1,10 @@
+---
+interface Props { text: string; tone?: 'green' | 'light'; class?: string }
+const { text, tone = 'green', class: cls = '' } = Astro.props;
+const color = tone === 'green' ? 'text-green' : 'text-green-2';
+const rule = tone === 'green' ? 'bg-green' : 'bg-green-2';
+---
+<p class={`flex items-center gap-3 text-[13px] font-semibold tracking-[0.08em] uppercase ${color} ${cls}`}>
+  <span class={`inline-block h-0.5 w-7 ${rule}`}></span>
+  {text}
+</p>

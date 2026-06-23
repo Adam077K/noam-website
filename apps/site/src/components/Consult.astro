@@ -1,0 +1,37 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+import Eyebrow from './Eyebrow.astro';
+import Icon from './Icon.astro';
+import VideoCard from './VideoCard.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+---
+<section class="bg-ink">
+  <div class="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-[1fr_0.92fr] lg:gap-16 lg:px-10 lg:py-28">
+    <!-- benefits -->
+    <div class="reveal">
+      <Eyebrow text={t.consult.eyebrow} tone="light" class="mb-5" />
+      <h2 class="mb-9 max-w-[14em] font-serif text-[clamp(1.9rem,3.6vw,2.85rem)] font-bold leading-[1.12] text-white">{t.consult.heading}</h2>
+      <ul class="space-y-7">
+        {t.consult.benefits.map((b) => (
+          <li class="flex gap-5">
+            <span class="mt-0.5 grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/6 text-green-2 ring-1 ring-white/10">
+              <Icon name={b.icon} size={22} />
+            </span>
+            <div>
+              <h3 class="mb-1.5 font-serif text-[20px] font-bold text-white">{b.title}</h3>
+              <p class="max-w-[34rem] text-[15.5px] leading-relaxed text-bone-muted">{b.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- featured video -->
+    <div class="reveal" style="transition-delay:.1s">
+      <VideoCard id={t.consult.featured.id} title={t.consult.featured.title} kicker={t.consult.featured.kicker} watch={t.consult.watch} variant="feature" />
+    </div>
+  </div>
+</section>
