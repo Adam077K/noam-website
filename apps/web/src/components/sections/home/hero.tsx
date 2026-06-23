@@ -60,7 +60,7 @@ export function Hero({ locale }: { locale: Locale }) {
       />
 
       <div className="mx-auto max-w-[1200px] py-[clamp(2.5rem,4.5vw,4.25rem)]">
-        <div className="grid items-center gap-x-[clamp(2rem,5vw,4rem)] gap-y-9 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.85fr)]">
+        <div className="grid items-start gap-x-[clamp(2rem,5vw,4rem)] gap-y-9 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.85fr)]">
 
           {/* ── TEXT COLUMN ─────────────────────────────────────────────── */}
           <div className="flex flex-col gap-5">
@@ -75,12 +75,12 @@ export function Hero({ locale }: { locale: Locale }) {
               <h1
                 className={[
                   "text-balance text-ink",
-                  "[font-size:var(--text-masthead)]",
-                  "[line-height:var(--text-masthead--line-height)]",
+                  /* Sized to break onto TWO lines in the hero column (was 3) */
+                  "[font-size:clamp(2.5rem,4.6vw,4.125rem)]",
+                  "[line-height:1.08]",
                   "[letter-spacing:var(--text-masthead--letter-spacing)]",
                   "[font-weight:var(--text-masthead--font-weight)]",
-                  /* Let the column grid constrain the width */
-                  "max-w-[20ch]",
+                  "max-w-[15ch]",
                 ].join(" ")}
               >
                 {isHe
@@ -181,7 +181,7 @@ export function Hero({ locale }: { locale: Locale }) {
               slot="hero-portrait"
               blob
               monogram="NK"
-              className="mx-auto w-full max-w-[440px] lg:max-w-none"
+              className="mx-auto w-full max-w-[440px] lg:max-w-[400px]"
             />
           </InView>
         </div>
