@@ -29,11 +29,6 @@ import { InView } from "@/components/ui/in-view";
 export function Hero({ locale }: { locale: Locale }) {
   const isHe = locale === "he";
 
-  /* Credential chip label — floating above portrait panel */
-  const chipLabel = isHe
-    ? 'שיבא · אורולוגיה תפקודית'
-    : 'Sheba · Functional Urology';
-
   return (
     <section
       className="relative overflow-hidden bg-paper px-[clamp(1.25rem,4vw,2.5rem)]"
@@ -165,15 +160,6 @@ export function Hero({ locale }: { locale: Locale }) {
             delay={100}
             className="order-first lg:order-none flex flex-col items-center lg:items-start gap-4"
           >
-            {/* Floating institution chip — above the portrait panel, gives composition life */}
-            <span
-              aria-hidden
-              className="credential-chip ms-auto me-auto lg:ms-6"
-            >
-              <span className="credential-chip__dot" />
-              {chipLabel}
-            </span>
-
             <MediaSlot
               ratio="4/5"
               alt={t(hero.portraitAlt, locale)}

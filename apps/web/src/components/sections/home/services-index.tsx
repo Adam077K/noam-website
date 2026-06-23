@@ -67,7 +67,7 @@ export function ServicesIndex({ locale }: { locale: Locale }) {
       >
         <Button
           href={localeHref(locale, "/expertise")}
-          variant="ghost"
+          variant="link"
           withArrow
         >
           {t(services.cta, locale)}
