@@ -5,27 +5,34 @@ const thumb = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 const fallback = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 const isFeature = variant === 'feature';
 ---
-<article class={`group overflow-hidden rounded-[22px] border border-line bg-paper-2 ${isFeature ? '' : 'shadow-[var(--shadow-card)]'}`}>
+<article class={`group relative overflow-hidden rounded-[22px] bg-ink ${isFeature ? 'shadow-[var(--shadow-float)]' : 'shadow-[var(--shadow-card)]'}`}>
   <button
-    type="button" class="yt-facade relative block w-full overflow-hidden" data-yt={id}
-    style="aspect-ratio:16/9" aria-label={`${watch}: ${title}`}
+    type="button" class="yt-facade relative block w-full overflow-hidden text-start" data-yt={id}
+    style={`aspect-ratio:${isFeature ? '16/10' : '16/11'}`} aria-label={`${watch}: ${title}`}
   >
+    <!-- monochrome-navy duotone so YouTube stills belong to the design system -->
     <img
       src={thumb} data-fallback={fallback} alt="" loading="lazy" decoding="async"
-      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+      class="absolute inset-0 h-full w-full object-cover grayscale transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
       onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback}"
     />
-    <span class="absolute inset-0 bg-ink/25 transition-colors group-hover:bg-ink/15"></span>
+    <span class="pointer-events-none absolute inset-0 bg-ink mix-blend-multiply" aria-hidden="true"></span>
+    <span class="pointer-events-none absolute inset-0 bg-blue opacity-40 mix-blend-screen transition-opacity duration-500 group-hover:opacity-25" aria-hidden="true"></span>
+    <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/35 to-ink/10" aria-hidden="true"></span>
+
+    <!-- play -->
     <span class="absolute inset-0 grid place-items-center">
-      <span class="grid h-16 w-16 place-items-center rounded-full bg-white/95 text-ink shadow-lg transition-transform duration-300 group-hover:scale-110">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5Z"/></svg>
+      <span class={`grid place-items-center rounded-full bg-white/95 text-ink shadow-lg ring-1 ring-white/40 backdrop-blur-sm transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110 ${isFeature ? 'h-16 w-16' : 'h-14 w-14'}`}>
+        <svg width={isFeature ? 26 : 22} height={isFeature ? 26 : 22} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5Z"/></svg>
       </span>
     </span>
+
+    <!-- title overlaid on the poster -->
+    <span class="absolute inset-x-0 bottom-0 p-5 lg:p-6">
+      <span class="block text-[11px] font-semibold tracking-[0.14em] text-blue-bright uppercase">{kicker}</span>
+      <span class={`mt-1.5 block font-serif font-bold leading-snug text-white ${isFeature ? 'text-[22px]' : 'text-[17px]'}`}>{title}</span>
+    </span>
   </button>
-  <div class={isFeature ? 'p-6' : 'p-5'}>
-    <span class="text-[11px] font-semibold tracking-[0.12em] text-blue uppercase">{kicker}</span>
-    <h3 class={`mt-1.5 font-serif font-bold leading-snug text-ink ${isFeature ? 'text-[22px]' : 'text-[17px]'}`}>{title}</h3>
-  </div>
 </article>
 
 <script>

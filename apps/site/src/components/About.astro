@@ -6,36 +6,54 @@ import CtaButton from './CtaButton.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = getContent(locale);
+const parseStat = (n: string) => {
+  const m = n.match(/^(\D*)(\d+(?:\.\d+)?)(\D*)$/);
+  if (!m) return { countable: false } as const;
+  const num = parseFloat(m[2]);
+  return { countable: num <= 100, num, prefix: m[1], suffix: m[3], decimals: m[2].includes('.') ? 1 : 0 };
+};
 ---
 <section id="about" class="scroll-mt-24 bg-paper">
-  <div class="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16 lg:px-10 lg:py-28">
-    <!-- portrait -->
-    <div class="reveal relative">
-      <div class="overflow-hidden rounded-[22px] bg-line shadow-[var(--shadow-card)]" style="aspect-ratio:4/5">
-        <img src="/img/noam-about.avif" alt={t.about.photoAlt} width="800" height="1000" loading="lazy" decoding="async" class="h-full w-full object-cover" />
-      </div>
-      <span class="pointer-events-none absolute -bottom-3 -end-3 -z-0 h-28 w-28 rounded-[22px] border border-blue/30" aria-hidden="true"></span>
+  <div class="grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
+    <!-- portrait panel: full-bleed to the page edge, navy duotone to match the hero -->
+    <div class="relative min-h-[440px] overflow-hidden bg-ink lg:min-h-[660px]">
+      <img
+        src="/img/noam-about.avif" alt={t.about.photoAlt} width="900" height="1100"
+        loading="lazy" decoding="async"
+        class="absolute inset-0 h-full w-full object-cover object-top grayscale"
+      />
+      <span class="pointer-events-none absolute inset-0 bg-[#142a40] mix-blend-multiply" aria-hidden="true"></span>
+      <span class="pointer-events-none absolute inset-0 bg-blue opacity-[0.18] mix-blend-screen" aria-hidden="true"></span>
     </div>
 
-    <!-- text -->
-    <div class="reveal" style="transition-delay:.08s">
-      <Eyebrow text={t.about.eyebrow} class="mb-5" />
-      <h2 class="mb-6 max-w-[15em] font-serif text-[clamp(1.9rem,3.6vw,2.85rem)] font-bold leading-[1.12] text-ink">{t.about.heading}</h2>
-      {t.about.body.map((p) => (
-        <p class="mb-4 max-w-[40rem] text-[17px] leading-[1.75] text-[#46586a]">{p}</p>
-      ))}
-
-      <!-- dark stat box -->
-      <div class="mt-8 grid grid-cols-2 overflow-hidden rounded-[22px] bg-ink sm:grid-cols-4">
-        {t.about.stats.map((s, i) => (
-          <div class={`p-5 ${i % 2 === 1 ? 'border-s border-white/8' : ''} ${i >= 2 ? 'border-t border-white/8 sm:border-t-0' : ''} ${i % 4 !== 0 ? 'sm:border-s sm:border-white/8' : ''}`}>
-            <div class="font-serif text-[26px] font-bold leading-none text-white" dir="ltr" style="text-align:start">{s.n}</div>
-            <div class="mt-2 text-[12.5px] leading-snug text-cloud">{s.label}</div>
-          </div>
+    <!-- text panel -->
+    <div class="reveal px-6 py-16 sm:px-10 lg:px-16 lg:py-28">
+      <div class="max-w-[40rem]">
+        <Eyebrow text={t.about.eyebrow} class="mb-5" />
+        <h2 class="reveal-title mb-6 max-w-[15em] font-serif text-[clamp(1.9rem,3.6vw,2.95rem)] font-bold leading-[1.12] text-ink">{t.about.heading}</h2>
+        {t.about.body.map((p) => (
+          <p class="mb-4 text-[17px] leading-[1.78] text-[#46586a]">{p}</p>
         ))}
-      </div>
 
-      <div class="mt-8"><CtaButton href="#contact" label={t.about.cta} locale={locale} variant="solid" /></div>
+        <!-- stat box -->
+        <div class="mt-9 grid grid-cols-2 overflow-hidden rounded-[18px] bg-ink sm:grid-cols-4">
+          {t.about.stats.map((s, i) => {
+            const p = parseStat(s.n);
+            return (
+              <div class={`p-5 ${i % 2 === 1 ? 'border-s border-white/8' : ''} ${i >= 2 ? 'border-t border-white/8 sm:border-t-0' : ''} ${i % 4 !== 0 ? 'sm:border-s sm:border-white/8' : ''}`}>
+                <div class="font-serif text-[26px] font-bold leading-none text-white" dir="ltr" style="text-align:start">
+                  {p.countable
+                    ? <span data-count-to={p.num} data-count-prefix={p.prefix} data-count-suffix={p.suffix} data-count-decimals={p.decimals}>{p.prefix}0{p.suffix}</span>
+                    : s.n}
+                </div>
+                <div class="mt-2 text-[12.5px] leading-snug text-cloud">{s.label}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div class="mt-9"><CtaButton href="#contact" label={t.about.cta} locale={locale} variant="solid" /></div>
+      </div>
     </div>
   </div>
 </section>

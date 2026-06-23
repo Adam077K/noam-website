@@ -114,7 +114,7 @@ const he: SiteContent = {
   },
   about: {
     eyebrow: 'אודות',
-    heading: 'רפואה אורולוגית מהשורה הראשונה — באופן אישי',
+    heading: 'אורולוגיה תפקודית ורפואת מין — באופן אישי',
     body: [
       'ד״ר נעם כתרי הוא מומחה בכירורגיה אורולוגית, המתמחה בהפרעות בתפקוד המיני ובהטלת השתן. הוא מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה ומנהל שסק — המרכז לבריאות מינית, במרכז הרפואי שיבא, תל השומר.',
       'לאורך למעלה משני עשורים מלווה ד״ר כתרי גברים ונשים בבעיות רפואיות רגישות, מתוך מחויבות לטיפול מקצועי, דיסקרטי ומכבד. הוא משלב ניסיון קליני עשיר עם פעילות מחקרית ובין-לאומית, וכיהן כיו״ר ועדת ההנחיות הקליניות של האיגוד האורולוגי האירופי (EAU) בנושא טראומה אורולוגית.',
@@ -183,7 +183,7 @@ const he: SiteContent = {
   ],
   reviews: {
     eyebrow: 'מה אומרים המטופלים',
-    heading: 'חוות דעת אמיתיות',
+    heading: 'חוות דעת מטופלים',
     rating: '4.7',
     count: 'מתוך 46 חוות דעת',
     sourceLabel: 'מקור: MedReviews',
@@ -274,7 +274,7 @@ const en: SiteContent = {
   },
   about: {
     eyebrow: 'About',
-    heading: 'Front-line urological medicine — made personal',
+    heading: 'Functional urology & sexual medicine — made personal',
     body: [
       'Dr. Noam Kitrey is a specialist in urological surgery, focusing on male sexual dysfunction and urinary disorders. He heads the Functional Urology & Andrology Unit and directs SHSQ — the Center for Sexual Health — at Sheba Medical Center, Tel HaShomer.',
       'For over two decades he has cared for men and women with sensitive medical conditions, with a commitment to professional, discreet and respectful treatment. He combines deep clinical experience with research and international work, and chaired the European Association of Urology (EAU) clinical-guidelines committee on urological trauma.',
@@ -343,7 +343,7 @@ const en: SiteContent = {
   ],
   reviews: {
     eyebrow: 'What patients say',
-    heading: 'Real patient reviews',
+    heading: 'Patient reviews',
     rating: '4.7',
     count: 'from 46 reviews',
     sourceLabel: 'Source: MedReviews',

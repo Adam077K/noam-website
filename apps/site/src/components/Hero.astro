@@ -33,12 +33,12 @@ const isHe = locale === 'he';
           <span class="text-blue-bright transition-transform group-hover:-translate-x-1 rtl:group-hover:translate-x-0 rtl:group-hover:-translate-x-1">{isHe ? '←' : '→'}</span>
         </a>
       </div>
-      <!-- honor rail -->
-      <ul class="reveal flex flex-wrap items-stretch gap-y-3 border-t border-white/12 pt-5" style="transition-delay:.2s">
+      <!-- quiet credential line (decluttered) -->
+      <ul class="reveal flex flex-wrap items-center gap-x-3.5 gap-y-2 border-t border-white/10 pt-5 text-[13.5px] text-[#9fb3c7]" style="transition-delay:.2s">
         {t.hero.rail.map((r, i) => (
-          <li class={`flex flex-col justify-center ${i === 0 ? 'pe-5' : 'border-s border-white/12 px-5'}`}>
-            <span class="text-[10.5px] font-semibold tracking-[0.14em] text-blue-bright uppercase">{r.kicker}</span>
-            <span class="mt-0.5 font-serif text-[14.5px] leading-tight text-[#b9c9da]">{r.label}</span>
+          <li class="flex items-center gap-3.5">
+            {i > 0 && <span class="text-white/20" aria-hidden="true">·</span>}
+            <span><span class="font-semibold text-blue-bright" dir="ltr">{r.kicker}</span> {r.label}</span>
           </li>
         ))}
       </ul>

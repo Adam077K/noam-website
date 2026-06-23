@@ -38,21 +38,40 @@ const ratingPct = Math.max(0, Math.min(100, (parseFloat(t.reviews.rating) / 5) *
       </div>
     </div>
 
-    <div class="grid grid-cols-1 gap-5 md:grid-cols-3">
-      {t.reviews.items.map((r, i) => (
-        <figure class="reveal flex flex-col rounded-[22px] border border-line bg-paper-2 p-7 shadow-[var(--shadow-card)]" style={`transition-delay:${i * 0.07}s`}>
-          <div class="mb-4 flex gap-0.5 text-brass" aria-label={`${r.stars} / 5`}>
-            {Stars(r.stars).map((on) => (
-              <svg width="15" height="15" viewBox="0 0 24 24" fill={on ? 'currentColor' : 'none'} stroke="currentColor" stroke-width="1.4"><path d="M12 3.5 14.6 9l5.9.5-4.5 3.9 1.4 5.8L12 16.9 6.6 19.2 8 13.4 3.5 9.5 9.4 9Z"/></svg>
-            ))}
-          </div>
-          <blockquote class="mb-6 grow text-[16.5px] leading-[1.7] text-[#27384a]">{r.quote}</blockquote>
-          <figcaption class="border-t border-line pt-4">
-            <div class="font-semibold text-ink">{r.name}</div>
-            <div class="text-[13.5px] text-slate">{r.meta}</div>
-          </figcaption>
-        </figure>
-      ))}
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1.45fr_1fr] lg:gap-10">
+      <!-- oversized featured testimonial -->
+      <figure class="reveal relative flex flex-col justify-center overflow-hidden rounded-[26px] bg-sky p-9 lg:p-14">
+        <span class="pointer-events-none absolute -top-6 select-none font-serif text-[150px] leading-none text-blue/10 ltr:left-6 rtl:right-6" aria-hidden="true">&rdquo;</span>
+        <div class="mb-5 flex gap-0.5 text-brass" aria-label={`${t.reviews.items[0].stars} / 5`}>
+          {Stars(t.reviews.items[0].stars).map(() => (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d={STAR}/></svg>
+          ))}
+        </div>
+        <blockquote class="relative font-serif text-[clamp(1.45rem,2.4vw,2rem)] font-medium leading-[1.4] text-ink">{t.reviews.items[0].quote}</blockquote>
+        <figcaption class="mt-7 flex items-center gap-3 text-[15px]">
+          <span class="h-px w-8 bg-blue/40"></span>
+          <span class="font-semibold text-ink">{t.reviews.items[0].name}</span>
+          <span class="text-slate">· {t.reviews.items[0].meta}</span>
+        </figcaption>
+      </figure>
+
+      <!-- supporting testimonials -->
+      <div class="flex flex-col">
+        {t.reviews.items.slice(1).map((r, i) => (
+          <figure class={`reveal flex flex-col py-7 ${i > 0 ? 'border-t border-line' : ''}`} style={`transition-delay:${i * 0.08}s`}>
+            <div class="mb-3 flex gap-0.5 text-brass" aria-label={`${r.stars} / 5`}>
+              {Stars(r.stars).map(() => (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d={STAR}/></svg>
+              ))}
+            </div>
+            <blockquote class="mb-4 text-[16px] leading-[1.7] text-[#27384a]">{r.quote}</blockquote>
+            <figcaption class="text-[14px]">
+              <span class="font-semibold text-ink">{r.name}</span>
+              <span class="text-slate"> · {r.meta}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
     </div>
 
     <p class="reveal mt-7 text-[13.5px] text-slate">
