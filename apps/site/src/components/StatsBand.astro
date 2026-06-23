@@ -5,14 +5,14 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = getContent(locale);
 ---
-<section class="relative overflow-hidden bg-ink">
+<section class="relative overflow-hidden" style="background:linear-gradient(110deg, #0e2236 0%, #1c4f7a 55%, #2d72b0 100%);">
   <div class="pointer-events-none absolute inset-0" aria-hidden="true"
-    style="background:radial-gradient(90% 120% at 50% 0%, rgba(60,122,110,0.16), transparent 60%);"></div>
-  <div class="relative mx-auto grid max-w-[1240px] grid-cols-1 divide-y divide-white/10 px-6 py-14 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:px-10 rtl:sm:divide-x-reverse">
+    style="background:radial-gradient(80% 120% at 85% 0%, rgba(120,180,230,0.25), transparent 55%);"></div>
+  <div class="relative mx-auto grid max-w-[1240px] grid-cols-1 divide-y divide-white/15 px-6 py-16 sm:grid-cols-3 sm:divide-x sm:divide-y-0 lg:px-10 rtl:sm:divide-x-reverse">
     {t.statsBand.map((s, i) => (
       <div class="reveal px-4 py-6 text-center sm:py-2" style={`transition-delay:${i * 0.08}s`}>
         <div class="font-serif text-[clamp(2.6rem,5vw,3.4rem)] font-bold leading-none text-white" dir="ltr">{s.n}</div>
-        <div class="mx-auto mt-3 max-w-[18rem] text-[14px] leading-snug text-bone-muted">{s.label}</div>
+        <div class="mx-auto mt-3 max-w-[18rem] text-[14px] leading-snug text-white/80">{s.label}</div>
       </div>
     ))}
   </div>

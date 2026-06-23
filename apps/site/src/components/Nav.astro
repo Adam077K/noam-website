@@ -8,7 +8,7 @@ const t = getContent(locale);
 ---
 <header id="top" class="absolute inset-x-0 top-0 z-40" data-nav>
   <!-- utility bar -->
-  <div class="hidden border-b border-white/8 bg-ink/95 text-bone-muted md:block" data-util>
+  <div class="hidden border-b border-white/8 bg-ink/95 text-cloud md:block" data-util>
     <div class="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-2 text-[13px] lg:px-10">
       <div class="flex items-center gap-6">
         <a href={t.utility.phoneHref} class="inline-flex items-center gap-2 transition-colors hover:text-white">
@@ -33,21 +33,21 @@ const t = getContent(locale);
     <div class="mx-auto flex max-w-[1240px] items-center gap-8 px-6 py-4 lg:px-10">
       <a href="#top" class="shrink-0 leading-none">
         <span class="block font-serif text-[22px] font-bold text-white">{t.nav.brand}</span>
-        <span class="mt-0.5 block text-[10.5px] font-medium tracking-[0.18em] text-green-2 uppercase">{t.nav.brandSub}</span>
+        <span class="mt-0.5 block text-[10.5px] font-medium tracking-[0.18em] text-blue-bright uppercase">{t.nav.brandSub}</span>
       </a>
 
       <!-- desktop menu -->
       <div class="ms-auto hidden items-center gap-8 lg:flex">
         {t.nav.items.map((it) => (
-          <a href={it.href} class="text-[15.5px] font-medium text-[#e6e9e6]/85 transition-colors hover:text-white">{it.label}</a>
+          <a href={it.href} class="text-[15.5px] font-medium text-[#dde7f1]/85 transition-colors hover:text-white">{it.label}</a>
         ))}
-        <a href="#contact" class="rounded-[3px] bg-green px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-green-2">{t.nav.cta}</a>
+        <a href="#contact" class="rounded-full bg-blue px-5 py-2.5 text-[15px] font-semibold text-white transition-colors hover:bg-blue-deep">{t.nav.cta}</a>
       </div>
 
       <!-- mobile controls -->
       <div class="ms-auto flex items-center gap-3 lg:hidden">
-        <a href="#contact" class="rounded-[3px] bg-green px-4 py-2 text-sm font-semibold text-white">{t.nav.cta}</a>
-        <button type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" class="grid h-10 w-10 place-items-center rounded-[3px] border border-white/15 text-white">
+        <a href="#contact" class="rounded-full bg-blue px-4 py-2 text-sm font-semibold text-white">{t.nav.cta}</a>
+        <button type="button" data-menu-toggle aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" class="grid h-10 w-10 place-items-center rounded-xl border border-white/15 text-white">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" data-icon-open><path d="M4 7h16M4 12h16M4 17h16"/></svg>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="hidden" data-icon-close><path d="m6 6 12 12M18 6 6 18"/></svg>
         </button>
@@ -58,11 +58,11 @@ const t = getContent(locale);
     <div id="mobile-menu" data-menu-panel class="hidden border-t border-white/8 bg-ink lg:hidden">
       <div class="mx-auto max-w-[1240px] px-6 py-3">
         {t.nav.items.map((it) => (
-          <a href={it.href} data-menu-link class="block border-b border-white/6 py-3.5 text-[17px] font-medium text-[#e6e9e6]">{it.label}</a>
+          <a href={it.href} data-menu-link class="block border-b border-white/6 py-3.5 text-[17px] font-medium text-[#dde7f1]">{it.label}</a>
         ))}
         <div class="flex items-center justify-between py-4">
-          <a href={t.utility.phoneHref} dir="ltr" class="text-[15px] text-bone-muted">{t.utility.phone}</a>
-          <a href={t.langSwitch.otherHref} class="inline-flex items-center gap-1.5 text-[15px] font-semibold text-green-2">{t.langSwitch.other}</a>
+          <a href={t.utility.phoneHref} dir="ltr" class="text-[15px] text-cloud">{t.utility.phone}</a>
+          <a href={t.langSwitch.otherHref} class="inline-flex items-center gap-1.5 text-[15px] font-semibold text-blue-bright">{t.langSwitch.other}</a>
         </div>
       </div>
     </div>

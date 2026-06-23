@@ -2,18 +2,19 @@
 import type { Locale } from '@/lib/i18n';
 import { getContent } from '@/lib/content';
 import Eyebrow from './Eyebrow.astro';
+import CtaButton from './CtaButton.astro';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = getContent(locale);
 ---
-<section id="about" class="scroll-mt-24 bg-bone">
+<section id="about" class="scroll-mt-24 bg-paper">
   <div class="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-12 px-6 py-20 lg:grid-cols-[0.82fr_1.18fr] lg:gap-16 lg:px-10 lg:py-28">
     <!-- portrait -->
     <div class="reveal relative">
-      <div class="overflow-hidden rounded-[4px] bg-sand shadow-[var(--shadow-card)]" style="aspect-ratio:4/5">
+      <div class="overflow-hidden rounded-[22px] bg-line shadow-[var(--shadow-card)]" style="aspect-ratio:4/5">
         <img src="/img/noam-about.avif" alt={t.about.photoAlt} width="800" height="1000" loading="lazy" decoding="async" class="h-full w-full object-cover" />
       </div>
-      <span class="pointer-events-none absolute -bottom-3 -end-3 -z-0 h-28 w-28 rounded-[4px] border border-green/30" aria-hidden="true"></span>
+      <span class="pointer-events-none absolute -bottom-3 -end-3 -z-0 h-28 w-28 rounded-[22px] border border-blue/30" aria-hidden="true"></span>
     </div>
 
     <!-- text -->
@@ -21,20 +22,20 @@ const t = getContent(locale);
       <Eyebrow text={t.about.eyebrow} class="mb-5" />
       <h2 class="mb-6 max-w-[15em] font-serif text-[clamp(1.9rem,3.6vw,2.85rem)] font-bold leading-[1.12] text-ink">{t.about.heading}</h2>
       {t.about.body.map((p) => (
-        <p class="mb-4 max-w-[40rem] text-[17px] leading-[1.75] text-[#3c463f]">{p}</p>
+        <p class="mb-4 max-w-[40rem] text-[17px] leading-[1.75] text-[#46586a]">{p}</p>
       ))}
 
       <!-- dark stat box -->
-      <div class="mt-8 grid grid-cols-2 overflow-hidden rounded-[4px] bg-ink sm:grid-cols-4">
+      <div class="mt-8 grid grid-cols-2 overflow-hidden rounded-[22px] bg-ink sm:grid-cols-4">
         {t.about.stats.map((s, i) => (
           <div class={`p-5 ${i % 2 === 1 ? 'border-s border-white/8' : ''} ${i >= 2 ? 'border-t border-white/8 sm:border-t-0' : ''} ${i % 4 !== 0 ? 'sm:border-s sm:border-white/8' : ''}`}>
             <div class="font-serif text-[26px] font-bold leading-none text-white" dir="ltr" style="text-align:start">{s.n}</div>
-            <div class="mt-2 text-[12.5px] leading-snug text-bone-muted">{s.label}</div>
+            <div class="mt-2 text-[12.5px] leading-snug text-cloud">{s.label}</div>
           </div>
         ))}
       </div>
 
-      <a href="#contact" class="mt-8 inline-flex rounded-[3px] bg-green px-7 py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-green-2">{t.about.cta}</a>
+      <div class="mt-8"><CtaButton href="#contact" label={t.about.cta} locale={locale} variant="solid" /></div>
     </div>
   </div>
 </section>

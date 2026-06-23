@@ -1,10 +1,12 @@
 ---
-interface Props { text: string; tone?: 'green' | 'light'; class?: string }
-const { text, tone = 'green', class: cls = '' } = Astro.props;
-const color = tone === 'green' ? 'text-green' : 'text-green-2';
-const rule = tone === 'green' ? 'bg-green' : 'bg-green-2';
+interface Props { text: string; tone?: 'blue' | 'light'; class?: string }
+const { text, tone = 'blue', class: cls = '' } = Astro.props;
+const shell = tone === 'blue'
+  ? 'bg-blue/8 text-blue ring-1 ring-blue/12'
+  : 'bg-white/10 text-blue-bright ring-1 ring-white/15';
+const dot = tone === 'blue' ? 'bg-blue' : 'bg-blue-bright';
 ---
-<p class={`flex items-center gap-3 text-[13px] font-semibold tracking-[0.08em] uppercase ${color} ${cls}`}>
-  <span class={`inline-block h-0.5 w-7 ${rule}`}></span>
+<span class={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.16em] uppercase ${shell} ${cls}`}>
+  <span class={`inline-block h-1.5 w-1.5 rounded-full ${dot}`}></span>
   {text}
-</p>
+</span>

@@ -6,7 +6,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = getContent(locale);
 ---
-<section class="border-t border-sand bg-bone">
+<section class="bg-sky">
   <div class="mx-auto max-w-[1240px] px-6 py-20 lg:px-10 lg:py-24">
     <div class="reveal mb-12 max-w-[40rem]">
       <Eyebrow text={t.recognition.eyebrow} class="mb-5" />
@@ -14,9 +14,9 @@ const t = getContent(locale);
     </div>
     <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
       {t.recognition.cards.map((c, i) => (
-        <article class="reveal border-t-2 border-green/30 pt-6" style={`transition-delay:${i * 0.07}s`}>
+        <article class="reveal border-t-2 border-blue/30 pt-6" style={`transition-delay:${i * 0.07}s`}>
           <h3 class="mb-2.5 font-serif text-[21px] font-bold leading-snug text-ink">{c.org}</h3>
-          <p class="text-[15.5px] leading-relaxed text-clay">{c.detail}</p>
+          <p class="text-[15.5px] leading-relaxed text-slate">{c.detail}</p>
         </article>
       ))}
     </div>

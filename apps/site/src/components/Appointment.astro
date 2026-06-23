@@ -6,7 +6,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = getContent(locale);
 const a = t.appointment;
-const field = 'w-full rounded-[3px] border border-white/15 bg-white/5 px-4 py-3 text-[15.5px] text-white placeholder-bone-muted/70 transition-colors focus:border-green-2 focus:bg-white/8 focus:outline-none';
+const field = 'w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-[15.5px] text-white placeholder-cloud/70 transition-colors focus:border-blue-bright focus:bg-white/8 focus:outline-none';
 ---
 <section id="contact" class="scroll-mt-20 bg-ink">
   <div class="mx-auto grid max-w-[1240px] grid-cols-1 gap-12 px-6 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 lg:px-10 lg:py-28">
@@ -14,61 +14,61 @@ const field = 'w-full rounded-[3px] border border-white/15 bg-white/5 px-4 py-3 
     <div class="reveal">
       <Eyebrow text={a.eyebrow} tone="light" class="mb-5" />
       <h2 class="mb-3 font-serif text-[clamp(1.9rem,3.6vw,2.85rem)] font-bold leading-[1.12] text-white">{a.heading}</h2>
-      <p class="mb-8 max-w-[34rem] text-[17px] leading-relaxed text-bone-muted">{a.sub}</p>
+      <p class="mb-8 max-w-[34rem] text-[17px] leading-relaxed text-cloud">{a.sub}</p>
 
       <form id="appt-form" class="space-y-4" novalidate>
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <label class="block">
-            <span class="mb-1.5 block text-[13.5px] font-medium text-bone-muted">{a.fields.name}</span>
+            <span class="mb-1.5 block text-[13.5px] font-medium text-cloud">{a.fields.name}</span>
             <input name="name" type="text" required autocomplete="name" class={field} />
           </label>
           <label class="block">
-            <span class="mb-1.5 block text-[13.5px] font-medium text-bone-muted">{a.fields.phone}</span>
+            <span class="mb-1.5 block text-[13.5px] font-medium text-cloud">{a.fields.phone}</span>
             <input name="phone" type="tel" required autocomplete="tel" dir="ltr" class={field} />
           </label>
         </div>
         <label class="block">
-          <span class="mb-1.5 block text-[13.5px] font-medium text-bone-muted">{a.fields.email}</span>
+          <span class="mb-1.5 block text-[13.5px] font-medium text-cloud">{a.fields.email}</span>
           <input name="email" type="email" required autocomplete="email" dir="ltr" class={field} />
         </label>
         <label class="block">
-          <span class="mb-1.5 block text-[13.5px] font-medium text-bone-muted">{a.fields.message}</span>
+          <span class="mb-1.5 block text-[13.5px] font-medium text-cloud">{a.fields.message}</span>
           <textarea name="message" rows="4" class={`${field} resize-none`}></textarea>
         </label>
         <!-- honeypot -->
         <input type="text" name="company" tabindex="-1" autocomplete="off" class="absolute -left-[9999px] h-0 w-0" aria-hidden="true" />
 
         <div class="flex flex-wrap items-center gap-4 pt-1">
-          <button type="submit" class="rounded-[3px] bg-green px-8 py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-green-2 disabled:opacity-60">
+          <button type="submit" class="rounded-xl bg-blue px-8 py-3.5 text-[16px] font-semibold text-white transition-colors hover:bg-blue-bright disabled:opacity-60">
             <span data-label>{a.submit}</span>
           </button>
-          <span class="text-[14px] text-bone-muted">
-            {a.phoneLabel} <a href={a.phoneHref} dir="ltr" class="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-green-2">{a.phone}</a>
+          <span class="text-[14px] text-cloud">
+            {a.phoneLabel} <a href={a.phoneHref} dir="ltr" class="font-semibold text-white underline decoration-white/30 underline-offset-4 hover:decoration-blue-bright">{a.phone}</a>
           </span>
         </div>
-        <p data-status role="status" aria-live="polite" class="hidden rounded-[3px] px-4 py-3 text-[14.5px]"></p>
-        <p class="text-[12.5px] leading-relaxed text-bone-muted/80">{a.consent}</p>
+        <p data-status role="status" aria-live="polite" class="hidden rounded-xl px-4 py-3 text-[14.5px]"></p>
+        <p class="text-[12.5px] leading-relaxed text-cloud/80">{a.consent}</p>
       </form>
     </div>
 
     <!-- clinic card -->
-    <aside id="clinic" class="reveal scroll-mt-24 self-start rounded-[4px] border border-white/10 bg-white/4 p-7 lg:p-8" style="transition-delay:.08s">
+    <aside id="clinic" class="reveal scroll-mt-24 self-start rounded-[22px] border border-white/10 bg-white/4 p-7 lg:p-8" style="transition-delay:.08s">
       <h3 class="mb-6 font-serif text-[22px] font-bold text-white">{t.footer.clinic}</h3>
       <dl class="space-y-5 text-[15.5px]">
         <div class="flex gap-3.5">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="mt-0.5 shrink-0 text-green-2" aria-hidden="true"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>
-          <dd class="leading-relaxed text-[#dfe4e0]">{t.footer.address}</dd>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="mt-0.5 shrink-0 text-blue-bright" aria-hidden="true"><path d="M12 21s-7-5.2-7-10a7 7 0 0 1 14 0c0 4.8-7 10-7 10Z"/><circle cx="12" cy="11" r="2.5"/></svg>
+          <dd class="leading-relaxed text-[#cdd9e6]">{t.footer.address}</dd>
         </div>
         <div class="flex gap-3.5">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="mt-0.5 shrink-0 text-green-2" aria-hidden="true"><path d="M4 5c0 8.3 6.7 15 15 15l2.5-2.5-4-3-2 1.5a11 11 0 0 1-5.5-5.5L13 8.5l-3-4Z"/></svg>
-          <dd><a href={a.phoneHref} dir="ltr" class="text-[#dfe4e0] hover:text-white" style="display:inline-block">{a.phone}</a></dd>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="mt-0.5 shrink-0 text-blue-bright" aria-hidden="true"><path d="M4 5c0 8.3 6.7 15 15 15l2.5-2.5-4-3-2 1.5a11 11 0 0 1-5.5-5.5L13 8.5l-3-4Z"/></svg>
+          <dd><a href={a.phoneHref} dir="ltr" class="text-[#cdd9e6] hover:text-white" style="display:inline-block">{a.phone}</a></dd>
         </div>
         <div class="flex gap-3.5">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="mt-0.5 shrink-0 text-green-2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
-          <dd><a href={t.utility.emailHref} class="text-[#dfe4e0] hover:text-white">{t.utility.email}</a></dd>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="mt-0.5 shrink-0 text-blue-bright" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></svg>
+          <dd><a href={t.utility.emailHref} class="text-[#cdd9e6] hover:text-white">{t.utility.email}</a></dd>
         </div>
       </dl>
-      <div class="mt-7 overflow-hidden rounded-[3px] border border-white/10" style="aspect-ratio:16/10">
+      <div class="mt-7 overflow-hidden rounded-xl border border-white/10" style="aspect-ratio:16/10">
         <iframe
           title="Map" loading="lazy" class="h-full w-full grayscale-[0.3]" style="border:0;filter:invert(0.9) hue-rotate(160deg) saturate(0.6)"
           src="https://maps.google.com/maps?q=Menachem%20Begin%20156%20Tel%20Aviv&z=15&output=embed"
@@ -88,7 +88,7 @@ const field = 'w-full rounded-[3px] border border-white/15 bg-white/5 px-4 py-3 
     const show = (msg, ok) => {
       status.textContent = msg;
       status.classList.remove('hidden');
-      status.style.background = ok ? 'rgba(60,122,110,0.18)' : 'rgba(194,90,70,0.18)';
+      status.style.background = ok ? 'rgba(45,114,176,0.20)' : 'rgba(194,90,70,0.18)';
       status.style.color = ok ? '#cfe9e2' : '#f3c9c1';
     };
     form.addEventListener('submit', async (e) => {
