@@ -13,6 +13,7 @@
     "@astrojs/vercel": "^8.2.7",
     "@fontsource-variable/assistant": "^5.2.5",
     "@fontsource-variable/frank-ruhl-libre": "^5.2.5",
+    "@fontsource-variable/rubik": "^5.2.8",
     "@tailwindcss/vite": "^4.1.13",
     "astro": "^5.14.1",
     "resend": "^4.6.0",

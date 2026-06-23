@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* Self-hosted variable fonts (Hebrew + Latin subsets included) */
-@import "@fontsource-variable/frank-ruhl-libre";
+@import "@fontsource-variable/rubik";
 @import "@fontsource-variable/assistant";
 
 /* ----------------------------------------------------------------------------
@@ -25,7 +25,8 @@
   --color-cloud: #aec3d8;      /* secondary text on navy */
   --color-brass: #c6a15c;      /* review stars only */
 
-  --font-serif: "Frank Ruhl Libre Variable", Georgia, "Times New Roman", serif;
+  /* display = Rubik (modern, strong Hebrew); body = Assistant (humanist) */
+  --font-serif: "Rubik Variable", system-ui, -apple-system, sans-serif;
   --font-sans: "Assistant Variable", system-ui, -apple-system, sans-serif;
 
   /* soft, wide, blue-tinted diffusion shadows */

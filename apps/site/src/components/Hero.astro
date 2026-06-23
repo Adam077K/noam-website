@@ -34,11 +34,11 @@ const isHe = locale === 'he';
         </a>
       </div>
       <!-- quiet credential line (decluttered) -->
-      <ul class="reveal flex flex-wrap items-center gap-x-3.5 gap-y-2 border-t border-white/10 pt-5 text-[13.5px] text-[#9fb3c7]" style="transition-delay:.2s">
+      <ul class="reveal flex flex-wrap items-center gap-x-3.5 gap-y-2 border-t border-white/15 pt-5 text-[13.5px] text-[#cddcea]" style="transition-delay:.2s">
         {t.hero.rail.map((r, i) => (
           <li class="flex items-center gap-3.5">
-            {i > 0 && <span class="text-white/20" aria-hidden="true">·</span>}
-            <span><span class="font-semibold text-blue-bright" dir="ltr">{r.kicker}</span> {r.label}</span>
+            {i > 0 && <span class="text-white/30" aria-hidden="true">·</span>}
+            <span><span class="font-semibold text-white" dir="ltr">{r.kicker}</span> {r.label}</span>
           </li>
         ))}
       </ul>
