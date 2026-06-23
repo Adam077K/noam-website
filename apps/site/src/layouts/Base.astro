@@ -33,17 +33,44 @@ const d = dir(locale);
     <slot />
 
     <script>
-      // Reveal-on-scroll (progressive enhancement)
-      const els = document.querySelectorAll('.reveal');
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const els = document.querySelectorAll('.reveal, .reveal-title');
+      const counters = document.querySelectorAll('[data-count-to]');
+
+      const runCount = (el) => {
+        const to = parseFloat(el.dataset.countTo || '0');
+        const decimals = parseInt(el.dataset.countDecimals || '0', 10);
+        const prefix = el.dataset.countPrefix || '';
+        const suffix = el.dataset.countSuffix || '';
+        if (reduce) { el.textContent = prefix + to.toFixed(decimals) + suffix; return; }
+        const dur = 1200, start = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + (to * eased).toFixed(decimals) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      // Reveal-on-scroll + count-up (progressive enhancement)
+      if (!reduce && 'IntersectionObserver' in window) {
         const io = new IntersectionObserver((entries) => {
           for (const e of entries) {
             if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
           }
         }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
         els.forEach((el) => io.observe(el));
+
+        const cio = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); }
+          }
+        }, { threshold: 0.6 });
+        counters.forEach((el) => cio.observe(el));
       } else {
         els.forEach((el) => el.classList.add('in'));
+        counters.forEach(runCount);
       }
     </script>
   </body>

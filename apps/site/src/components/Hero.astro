@@ -20,7 +20,7 @@ const isHe = locale === 'he';
         <span class="inline-block h-0.5 w-8 shrink-0 bg-blue-bright"></span>
         {t.hero.eyebrow}
       </p>
-      <h1 class="reveal mb-5 font-serif text-[clamp(3.2rem,9vw,5.4rem)] font-bold leading-[0.97] text-white" style="transition-delay:.05s">
+      <h1 class="reveal-title mb-5 font-serif text-[clamp(3.2rem,9vw,5.4rem)] font-bold leading-[0.97] text-white" style="transition-delay:.05s">
         {t.hero.name}
       </h1>
       <p class="reveal mb-8 max-w-[34rem] text-[18px] font-light leading-relaxed text-[#cdd9e6] sm:text-[19.5px]" style="transition-delay:.1s">
@@ -44,8 +44,8 @@ const isHe = locale === 'he';
       </ul>
     </div>
 
-    <!-- portrait: melts into the dark -->
-    <div class="relative order-first h-[380px] self-end sm:h-[460px] lg:order-none lg:h-[560px]">
+    <!-- portrait: melts into the dark (text leads on mobile; portrait beside on desktop) -->
+    <div class="relative h-[400px] self-end sm:h-[480px] lg:h-[560px]">
       <img
         src="/img/noam-hero.avif" alt={t.hero.photoAlt} width="900" height="1200"
         fetchpriority="high" decoding="async"

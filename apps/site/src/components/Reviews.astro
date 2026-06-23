@@ -6,6 +6,8 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = getContent(locale);
 const Stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < n);
+const STAR = 'M12 3.5 14.6 9l5.9.5-4.5 3.9 1.4 5.8L12 16.9 6.6 19.2 8 13.4 3.5 9.5 9.4 9Z';
+const ratingPct = Math.max(0, Math.min(100, (parseFloat(t.reviews.rating) / 5) * 100));
 ---
 <section id="reviews" class="scroll-mt-24 border-t border-line bg-paper">
   <div class="mx-auto max-w-[1240px] px-6 py-20 lg:px-10 lg:py-28">
@@ -17,10 +19,19 @@ const Stars = (n: number) => Array.from({ length: 5 }, (_, i) => i < n);
       <div class="flex items-center gap-4">
         <div class="font-serif text-[44px] font-bold leading-none text-ink">{t.reviews.rating}</div>
         <div>
-          <div class="flex gap-0.5 text-brass" aria-hidden="true">
-            {Stars(5).map(() => (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5 14.6 9l5.9.5-4.5 3.9 1.4 5.8L12 16.9 6.6 19.2 8 13.4 3.5 9.5 9.4 9Z"/></svg>
-            ))}
+          <div class="relative inline-flex" dir="ltr" aria-hidden="true">
+            <div class="flex gap-0.5 text-brass/25">
+              {Stars(5).map(() => (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d={STAR}/></svg>
+              ))}
+            </div>
+            <div class="absolute inset-y-0 left-0 overflow-hidden text-brass" style={`width:${ratingPct}%`}>
+              <div class="flex gap-0.5">
+                {Stars(5).map(() => (
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d={STAR}/></svg>
+                ))}
+              </div>
+            </div>
           </div>
           <div class="mt-1 text-[13.5px] text-slate">{t.reviews.count}</div>
         </div>

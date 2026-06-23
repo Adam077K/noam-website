@@ -93,7 +93,7 @@ const he: SiteContent = {
     eyebrow: 'מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה · המרכז הרפואי שיבא',
     name: 'ד״ר נעם כתרי',
     lead:
-      'מומחה בכירורגיה אורולוגית, בהפרעות בתפקוד המיני ובהטלת השתן. ליווי רפואי אישי ודיסקרטי, מבוסס על למעלה מ-25 שנות ניסיון ברפואה מהשורה הראשונה.',
+      'מומחה בכירורגיה אורולוגית, בהפרעות בתפקוד המיני ובהטלת השתן. ליווי אישי ודיסקרטי, מבוסס על למעלה מ-25 שנות ניסיון קליני, ניתוחי ומחקרי.',
     ctaPrimary: 'קביעת תור',
     ctaSecondary: 'צרו קשר',
     rail: [
@@ -253,7 +253,7 @@ const en: SiteContent = {
     eyebrow: 'Head of the Functional Urology & Andrology Unit · Sheba Medical Center',
     name: 'Dr. Noam Kitrey',
     lead:
-      'Specialist in urological surgery, focusing on male sexual dysfunction and urinary disorders. Personal, discreet care built on 25+ years at the front line of medicine.',
+      'Specialist in urological surgery, focusing on male sexual dysfunction and urinary disorders. Personal, discreet care built on 25+ years of clinical, surgical and research experience.',
     ctaPrimary: 'Book Appointment',
     ctaSecondary: 'Get in touch',
     rail: [
