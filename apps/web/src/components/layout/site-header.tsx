@@ -93,7 +93,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
           {/* Primary CTA — mist pill, ink text, min-height 48px */}
           <Link
             href={localeHref(locale, "/contact")}
-            className="hidden h-12 items-center justify-center rounded-full bg-mist px-6 text-[0.875rem] font-semibold text-ink transition-colors duration-200 hover:bg-mist-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2 lg:inline-flex"
+            className="hidden h-11 items-center justify-center rounded-xl bg-mist px-5 text-[0.875rem] font-semibold text-ink transition-colors duration-200 hover:bg-mist-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mist focus-visible:ring-offset-2 lg:inline-flex"
           >
             {t(cta.consult, locale)}
           </Link>

@@ -74,8 +74,8 @@ function classesFor(props: CommonProps) {
   const isLinkVariant = variant === "link";
   return cn(
     "group/btn relative inline-flex items-center justify-center font-semibold transition-[background-color,transform,box-shadow,color,ring-color] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)]",
-    /* pill shape for all solid/ghost variants */
-    isLinkVariant ? "rounded-sm" : "rounded-full",
+    /* crisp architectural radius for all solid/ghost variants (not a bubbly stadium pill) */
+    isLinkVariant ? "rounded-sm" : "rounded-xl",
     isLinkVariant ? "" : SIZE[size],
     VARIANT[variant],
     focusRing,

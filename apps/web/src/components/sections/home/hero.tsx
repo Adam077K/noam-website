@@ -59,11 +59,11 @@ export function Hero({ locale }: { locale: Locale }) {
         }}
       />
 
-      <div className="mx-auto max-w-[1200px] py-[clamp(3.5rem,7vw,6rem)]">
-        <div className="grid items-center gap-x-[clamp(2rem,5vw,4.5rem)] gap-y-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.85fr)]">
+      <div className="mx-auto max-w-[1200px] py-[clamp(2.5rem,4.5vw,4.25rem)]">
+        <div className="grid items-center gap-x-[clamp(2rem,5vw,4rem)] gap-y-9 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.85fr)]">
 
           {/* ── TEXT COLUMN ─────────────────────────────────────────────── */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-5">
 
             <InView as="div" motion="fade-in-up" delay={0}>
               <Eyebrow withRule>
