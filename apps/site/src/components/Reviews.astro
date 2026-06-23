@@ -40,8 +40,8 @@ const ratingPct = Math.max(0, Math.min(100, (parseFloat(t.reviews.rating) / 5) *
 
     <div class="grid grid-cols-1 gap-6 lg:grid-cols-[1.45fr_1fr] lg:gap-10">
       <!-- oversized featured testimonial -->
-      <figure class="reveal relative flex flex-col justify-center overflow-hidden rounded-[26px] bg-sky p-9 lg:p-14">
-        <span class="pointer-events-none absolute -top-6 select-none font-serif text-[150px] leading-none text-blue/10 ltr:left-6 rtl:right-6" aria-hidden="true">&rdquo;</span>
+      <figure class="reveal relative flex flex-col justify-center rounded-[26px] bg-sky p-9 lg:p-14">
+        <span class="pointer-events-none absolute top-3 select-none font-serif text-[120px] leading-none text-blue/15 ltr:left-7 rtl:right-7" aria-hidden="true">&ldquo;</span>
         <div class="mb-5 flex gap-0.5 text-brass" aria-label={`${t.reviews.items[0].stars} / 5`}>
           {Stars(t.reviews.items[0].stars).map(() => (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d={STAR}/></svg>

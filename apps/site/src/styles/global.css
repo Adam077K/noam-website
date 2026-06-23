@@ -23,7 +23,7 @@
   --color-line: #e5ecf3;       /* cool hairline divider */
   --color-slate: #546880;      /* secondary text on white */
   --color-cloud: #aec3d8;      /* secondary text on navy */
-  --color-brass: #c6a15c;      /* review stars only */
+  --color-brass: #9a7416;      /* review stars — darkened to clear 3:1 on white */
 
   /* display = Rubik (modern, strong Hebrew); body = Assistant (humanist) */
   --font-serif: "Rubik Variable", system-ui, -apple-system, sans-serif;

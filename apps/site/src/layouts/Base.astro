@@ -43,6 +43,7 @@ const d = dir(locale);
         const prefix = el.dataset.countPrefix || '';
         const suffix = el.dataset.countSuffix || '';
         if (reduce) { el.textContent = prefix + to.toFixed(decimals) + suffix; return; }
+        el.textContent = prefix + (0).toFixed(decimals) + suffix;
         const dur = 1200, start = performance.now();
         const tick = (now) => {
           const p = Math.min(1, (now - start) / dur);

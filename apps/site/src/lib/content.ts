@@ -121,7 +121,7 @@ const he: SiteContent = {
     ],
     cta: 'קביעת תור',
     stats: [
-      { n: '+25', label: 'שנות ניסיון קליני' },
+      { n: '25+', label: 'שנות ניסיון קליני' },
       { n: 'שיבא', label: 'מנהל יחידה ומנהל שסק' },
       { n: 'EAU', label: 'יו״ר ועדת הנחיות' },
       { n: '4.7★', label: '46 חוות דעת מטופלים' },
@@ -177,7 +177,7 @@ const he: SiteContent = {
     ],
   },
   statsBand: [
-    { n: '+25', label: 'שנות ניסיון קליני' },
+    { n: '25+', label: 'שנות ניסיון קליני' },
     { n: '1997', label: 'בוגר ביה״ס לרפואה ע״ש סאקלר, אונ׳ ת״א' },
     { n: 'EAU', label: 'יו״ר ועדת ההנחיות הקליניות — טראומה אורולוגית' },
   ],
@@ -189,7 +189,7 @@ const he: SiteContent = {
     sourceLabel: 'מקור: MedReviews',
     sourceHref: MEDREVIEWS,
     items: [
-      { stars: 5, name: 'ח.א., תל אביב', meta: 'הפרעות בתפקוד המיני', quote: 'מקצוען, אדיב, לא מחפש "לדחוף" פרוצדורות מיותרות. רופא מצוין.' },
+      { stars: 5, name: 'ח.א., תל אביב', meta: 'הפרעות בתפקוד המיני', quote: 'מקצוען, אדיב, לא מחפש „לדחוף” פרוצדורות מיותרות. רופא מצוין.' },
       { stars: 5, name: 'ישי ק., אור יהודה', meta: 'הפרעות בתפקוד המיני', quote: 'המקצוענות. האנושיות. בגובה העיניים, מפשט מצבים מורכבים ומציע פתרונות בשקיפות מלאה.' },
       { stars: 5, name: 'א. א., חדרה', meta: 'טיפול לאחר ניתוח', quote: 'יודע להרגיע ולהסביר. היה אנושי ומסביר פנים. הגענו די נסערים בעקבות המצב — ויצאנו מעודדים ועם תקווה.' },
     ],
@@ -350,7 +350,7 @@ const en: SiteContent = {
     sourceHref: MEDREVIEWS,
     items: [
       { stars: 5, name: 'H.A., Tel Aviv', meta: 'Sexual dysfunction', quote: 'Professional, courteous, doesn’t look to push unnecessary procedures. An excellent doctor.' },
-      { stars: 5, name: 'Yishai K., Or Yehuda', meta: 'Sexual dysfunction', quote: 'The professionalism. The humanity. Eye to eye — simplifies complex situations and offers solutions in full transparency.' },
+      { stars: 5, name: 'Yishai K., Or Yehuda', meta: 'Sexual dysfunction', quote: 'The professionalism. The humanity. Treats you as an equal — simplifies complex situations and offers solutions in full transparency.' },
       { stars: 5, name: 'A.A., Hadera', meta: 'Post-surgical care', quote: 'Knows how to reassure and explain. Human and welcoming. We arrived quite distressed — and left encouraged, with hope.' },
     ],
   },

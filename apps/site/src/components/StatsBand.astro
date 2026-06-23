@@ -21,10 +21,10 @@ const parseStat = (n: string) => {
         <div class="reveal px-4 py-6 text-center sm:py-2" style={`transition-delay:${i * 0.08}s`}>
           <div class="font-serif text-[clamp(2.6rem,5vw,3.4rem)] font-bold leading-none text-white" dir="ltr">
             {p.countable
-              ? <span data-count-to={p.num} data-count-prefix={p.prefix} data-count-suffix={p.suffix} data-count-decimals={p.decimals}>{p.prefix}0{p.suffix}</span>
+              ? <span data-count-to={p.num} data-count-prefix={p.prefix} data-count-suffix={p.suffix} data-count-decimals={p.decimals}>{p.prefix}{p.num.toFixed(p.decimals)}{p.suffix}</span>
               : s.n}
           </div>
-          <div class="mx-auto mt-3 max-w-[18rem] text-[14px] leading-snug text-white/90">{s.label}</div>
+          <div class="mx-auto mt-3 max-w-[18rem] text-[14px] leading-snug text-white">{s.label}</div>
         </div>
       );
     })}

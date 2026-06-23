@@ -6,7 +6,7 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = getContent(locale);
 ---
-<header id="top" class="absolute inset-x-0 top-0 z-40" data-nav>
+<header id="top" class="fixed inset-x-0 top-0 z-40 transition-shadow duration-300" data-nav>
   <!-- utility bar -->
   <div class="hidden border-b border-white/8 bg-ink/95 text-cloud md:block" data-util>
     <div class="mx-auto flex max-w-[1240px] items-center justify-between px-6 py-2 text-[13px] lg:px-10">
@@ -86,11 +86,9 @@ const t = getContent(locale);
   toggle?.addEventListener('click', () => setOpen(panel?.classList.contains('hidden') ?? true));
   header?.querySelectorAll('[data-menu-link]').forEach((l) => l.addEventListener('click', () => setOpen(false)));
 
-  // sticky: fix to top + ink background after scrolling past hero top
+  // header is always fixed (no position flip = no jump); only fade in bg + shadow on scroll
   const onScroll = () => {
     const scrolled = window.scrollY > 24;
-    header?.classList.toggle('fixed', scrolled);
-    header?.classList.toggle('absolute', !scrolled);
     header?.classList.toggle('shadow-[0_10px_30px_-18px_rgba(0,0,0,0.6)]', scrolled);
     bar?.classList.toggle('bg-ink/95', scrolled);
     bar?.classList.toggle('backdrop-blur', scrolled);
