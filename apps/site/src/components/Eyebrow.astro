@@ -1,12 +1,10 @@
 ---
 interface Props { text: string; tone?: 'blue' | 'light'; class?: string }
 const { text, tone = 'blue', class: cls = '' } = Astro.props;
-const shell = tone === 'blue'
-  ? 'bg-blue/8 text-blue ring-1 ring-blue/12'
-  : 'bg-white/10 text-blue-bright ring-1 ring-white/15';
-const dot = tone === 'blue' ? 'bg-blue' : 'bg-blue-bright';
+const color = tone === 'blue' ? 'text-blue' : 'text-blue-bright';
+const bar = tone === 'blue' ? 'bg-blue' : 'bg-blue-bright';
 ---
-<span class={`inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[11px] font-semibold tracking-[0.16em] uppercase ${shell} ${cls}`}>
-  <span class={`inline-block h-1.5 w-1.5 rounded-full ${dot}`}></span>
-  {text}
+<span class={`inline-flex items-center gap-2.5 ${cls}`}>
+  <span class={`h-3 w-[3px] rounded-full ${bar}`} aria-hidden="true"></span>
+  <span class={`text-[12.5px] font-semibold uppercase tracking-[0.18em] ${color}`}>{text}</span>
 </span>
