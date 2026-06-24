@@ -51,16 +51,16 @@ export const POST: APIRoute = async ({ request }) => {
       from,
       to,
       replyTo: email,
-      subject: `פנייה חדשה מהאתר — ${name}`,
+      subject: `פנייה חדשה מהאתר - ${name}`,
       html: `
         <div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;color:#16201d;line-height:1.6">
           <h2 style="margin:0 0 12px">פנייה חדשה מאתר ד״ר נעם כתרי</h2>
           <p><strong>שם:</strong> ${esc(name)}</p>
           <p><strong>טלפון:</strong> ${esc(phone)}</p>
           <p><strong>אימייל:</strong> ${esc(email)}</p>
-          <p><strong>הודעה:</strong><br>${esc(message).replace(/\n/g, '<br>') || '—'}</p>
+          <p><strong>הודעה:</strong><br>${esc(message).replace(/\n/g, '<br>') || '-'}</p>
         </div>`,
-      text: `פנייה חדשה\nשם: ${name}\nטלפון: ${phone}\nאימייל: ${email}\nהודעה: ${message || '—'}`,
+      text: `פנייה חדשה\nשם: ${name}\nטלפון: ${phone}\nאימייל: ${email}\nהודעה: ${message || '-'}`,
     });
     if (error) {
       console.error('[contact] resend error', error);

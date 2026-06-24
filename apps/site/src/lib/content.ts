@@ -71,7 +71,7 @@ const MEDREVIEWS = 'https://www.medreviews.co.il/provider/dr-kitrey-noam';
 const he: SiteContent = {
   htmlLang: 'he',
   meta: {
-    title: 'ד״ר נעם כתרי — מומחה בכירורגיה אורולוגית | תפקוד מיני ואורולוגיה תפקודית',
+    title: 'ד״ר נעם כתרי - מומחה בכירורגיה אורולוגית | תפקוד מיני ואורולוגיה תפקודית',
     description:
       'ד״ר נעם כתרי, מומחה בכירורגיה אורולוגית, מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה בשיבא. אבחון וטיפול אישי ודיסקרטי בהפרעות בתפקוד המיני ובהטלת השתן.',
   },
@@ -115,9 +115,9 @@ const he: SiteContent = {
   },
   about: {
     eyebrow: 'אודות',
-    heading: 'אורולוגיה תפקודית ורפואת מין — באופן אישי',
+    heading: 'אורולוגיה תפקודית ורפואת מין - באופן אישי',
     body: [
-      'ד״ר נעם כתרי הוא מומחה בכירורגיה אורולוגית, המתמחה בהפרעות בתפקוד המיני ובהטלת השתן. הוא מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה ומנהל שסק — המרכז לבריאות מינית, במרכז הרפואי שיבא, תל השומר.',
+      'ד״ר נעם כתרי הוא מומחה בכירורגיה אורולוגית, המתמחה בהפרעות בתפקוד המיני ובהטלת השתן. הוא מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה ומנהל שסק - המרכז לבריאות מינית, במרכז הרפואי שיבא, תל השומר.',
       'לאורך למעלה משני עשורים מלווה ד״ר כתרי גברים ונשים בבעיות רפואיות רגישות, מתוך מחויבות לטיפול מקצועי, דיסקרטי ומכבד. הוא משלב ניסיון קליני עשיר עם פעילות מחקרית ובין-לאומית, וכיהן כיו״ר ועדת ההנחיות הקליניות של האיגוד האורולוגי האירופי (EAU) בנושא טראומה אורולוגית.',
     ],
     cta: 'קביעת תור',
@@ -132,7 +132,7 @@ const he: SiteContent = {
   services: {
     eyebrow: 'תחומי התמחות',
     heading: 'תחומי הטיפול',
-    intro: 'אבחון וטיפול אישי במגוון תחומי האורולוגיה התפקודית ורפואת המין — בגישה מקצועית, מבוססת-ניסיון ודיסקרטית.',
+    intro: 'אבחון וטיפול אישי במגוון תחומי האורולוגיה התפקודית ורפואת המין - בגישה מקצועית, מבוססת-ניסיון ודיסקרטית.',
     readMore: 'לפרטים',
     items: [
       { id: 'ed', icon: 'heart', title: 'הפרעות בזקפה (אין-אונות)', body: 'אבחון וטיפול בהפרעות במנגנון הזקפה, בהתאמה אישית לכל מטופל.' },
@@ -146,7 +146,7 @@ const he: SiteContent = {
   appointment: {
     eyebrow: 'קביעת תור',
     heading: 'קביעת תור וייעוץ',
-    sub: 'השאירו פרטים ואחזור אליכם בהקדם — בדיסקרטיות מלאה.',
+    sub: 'השאירו פרטים ואחזור אליכם בהקדם - בדיסקרטיות מלאה.',
     fields: { name: 'שם מלא', email: 'אימייל', phone: 'טלפון', message: 'הודעה' },
     submit: 'שליחת פנייה',
     sending: 'שולח…',
@@ -163,7 +163,7 @@ const he: SiteContent = {
     watch: 'צפייה בסרטון',
     benefits: [
       { icon: 'expertise', title: 'מומחיות-על בתחום ייחודי', body: 'התמחות ממוקדת בתפקוד מיני ובאורולוגיה תפקודית, לצד ניסיון ניתוחי וקליני רב-שנים.' },
-      { icon: 'discretion', title: 'דיסקרטיות ופרטיות מלאה', body: 'מרחב מכבד ומוגן לשיחה על נושאים אישיים ורגישים — בגובה העיניים.' },
+      { icon: 'discretion', title: 'דיסקרטיות ופרטיות מלאה', body: 'מרחב מכבד ומוגן לשיחה על נושאים אישיים ורגישים - בגובה העיניים.' },
       { icon: 'globe', title: 'ניסיון בין-לאומי ומחקרי', body: 'יו״ר ועדת ההנחיות של האיגוד האורולוגי האירופי (EAU) ופעילות מחקרית בארץ ובעולם.' },
     ],
     featured: { id: 'cQez-hgDyZQ', kicker: 'סרטון הסבר', title: 'בואו נרגיע: טיפול תרופתי בשלפוחית רגיזה' },
@@ -172,7 +172,7 @@ const he: SiteContent = {
     eyebrow: 'הכרה והשתייכות מקצועית',
     heading: 'מוסדות ואיגודים',
     cards: [
-      { org: 'המרכז הרפואי שיבא', detail: 'מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה ומנהל שסק — המרכז לבריאות מינית.' },
+      { org: 'המרכז הרפואי שיבא', detail: 'מנהל היחידה לאורולוגיה תפקודית ואנדרולוגיה ומנהל שסק - המרכז לבריאות מינית.' },
       { org: 'האיגוד האורולוגי האירופי (EAU)', detail: 'יו״ר ועדת ההנחיות הקליניות בנושא טראומה אורולוגית.' },
       { org: 'היל״ם · ESSM', detail: 'חבר האיגוד הישראלי והאירופי לרפואה מינית.' },
     ],
@@ -180,7 +180,7 @@ const he: SiteContent = {
   statsBand: [
     { n: '25+', label: 'שנות ניסיון קליני' },
     { n: '1997', label: 'בוגר ביה״ס לרפואה ע״ש סאקלר, אונ׳ ת״א' },
-    { n: 'EAU', label: 'יו״ר ועדת ההנחיות הקליניות — טראומה אורולוגית' },
+    { n: 'EAU', label: 'יו״ר ועדת ההנחיות הקליניות - טראומה אורולוגית' },
   ],
   reviews: {
     eyebrow: 'מה אומרים המטופלים',
@@ -197,7 +197,7 @@ const he: SiteContent = {
     items: [
       { stars: 5, name: 'ח.א., תל אביב', meta: 'הפרעות בתפקוד המיני', quote: 'מקצוען, אדיב, לא מחפש „לדחוף” פרוצדורות מיותרות. רופא מצוין.' },
       { stars: 5, name: 'ישי ק., אור יהודה', meta: 'הפרעות בתפקוד המיני', quote: 'המקצוענות. האנושיות. בגובה העיניים, מפשט מצבים מורכבים ומציע פתרונות בשקיפות מלאה.' },
-      { stars: 5, name: 'א. א., חדרה', meta: 'טיפול לאחר ניתוח', quote: 'יודע להרגיע ולהסביר. היה אנושי ומסביר פנים. הגענו די נסערים בעקבות המצב — ויצאנו מעודדים ועם תקווה.' },
+      { stars: 5, name: 'א. א., חדרה', meta: 'טיפול לאחר ניתוח', quote: 'יודע להרגיע ולהסביר. היה אנושי ומסביר פנים. הגענו די נסערים בעקבות המצב - ויצאנו מעודדים ועם תקווה.' },
     ],
   },
   resources: {
@@ -226,7 +226,7 @@ const he: SiteContent = {
     clinic: 'אייל מרפאות מומחים',
     address: 'מגדל רסיטל, דרך מנחם בגין 156, תל אביב, קומה 17',
     bookTitle: 'קביעת תור',
-    bookBody: 'לקביעת תור ולפרטים נוספים — השאירו פנייה ואחזור אליכם בהקדם.',
+    bookBody: 'לקביעת תור ולפרטים נוספים - השאירו פנייה ואחזור אליכם בהקדם.',
     book: 'קביעת תור',
     rights: 'כל הזכויות שמורות',
     disclaimer: 'המידע באתר הוא כללי ואינו מהווה ייעוץ רפואי או תחליף לבדיקה ולאבחון אישיים.',
@@ -236,7 +236,7 @@ const he: SiteContent = {
 const en: SiteContent = {
   htmlLang: 'en',
   meta: {
-    title: 'Dr. Noam Kitrey — Urological Surgeon | Sexual & Functional Urology',
+    title: 'Dr. Noam Kitrey - Urological Surgeon | Sexual & Functional Urology',
     description:
       'Dr. Noam Kitrey, specialist in urological surgery and Head of the Functional Urology & Andrology Unit at Sheba. Personal, discreet care for male sexual dysfunction and urinary disorders.',
   },
@@ -280,9 +280,9 @@ const en: SiteContent = {
   },
   about: {
     eyebrow: 'About',
-    heading: 'Functional urology & sexual medicine — made personal',
+    heading: 'Functional urology & sexual medicine - made personal',
     body: [
-      'Dr. Noam Kitrey is a specialist in urological surgery, focusing on male sexual dysfunction and urinary disorders. He heads the Functional Urology & Andrology Unit and directs SHSQ — the Center for Sexual Health — at Sheba Medical Center, Tel HaShomer.',
+      'Dr. Noam Kitrey is a specialist in urological surgery, focusing on male sexual dysfunction and urinary disorders. He heads the Functional Urology & Andrology Unit and directs SHSQ - the Center for Sexual Health - at Sheba Medical Center, Tel HaShomer.',
       'For over two decades he has cared for men and women with sensitive medical conditions, with a commitment to professional, discreet and respectful treatment. He combines deep clinical experience with research and international work, and chaired the European Association of Urology (EAU) clinical-guidelines committee on urological trauma.',
     ],
     cta: 'Book Appointment',
@@ -297,7 +297,7 @@ const en: SiteContent = {
   services: {
     eyebrow: 'Expertise',
     heading: 'Areas of care',
-    intro: 'Personal diagnosis and treatment across functional urology and sexual medicine — professional, experienced and discreet.',
+    intro: 'Personal diagnosis and treatment across functional urology and sexual medicine - professional, experienced and discreet.',
     readMore: 'Learn more',
     items: [
       { id: 'ed', icon: 'heart', title: 'Erectile dysfunction', body: 'Diagnosis and treatment of erectile dysfunction, tailored to each patient.' },
@@ -311,7 +311,7 @@ const en: SiteContent = {
   appointment: {
     eyebrow: 'Appointments',
     heading: 'Book a consultation',
-    sub: 'Leave your details and I’ll get back to you shortly — in full confidence.',
+    sub: 'Leave your details and I’ll get back to you shortly - in full confidence.',
     fields: { name: 'Full name', email: 'Email', phone: 'Phone', message: 'Message' },
     submit: 'Send request',
     sending: 'Sending…',
@@ -328,16 +328,16 @@ const en: SiteContent = {
     watch: 'Watch',
     benefits: [
       { icon: 'expertise', title: 'Deep sub-specialty expertise', body: 'Focused expertise in sexual function and functional urology, alongside years of surgical and clinical experience.' },
-      { icon: 'discretion', title: 'Full discretion and privacy', body: 'A respectful, protected space to discuss personal and sensitive matters — eye to eye.' },
+      { icon: 'discretion', title: 'Full discretion and privacy', body: 'A respectful, protected space to discuss personal and sensitive matters - eye to eye.' },
       { icon: 'globe', title: 'International & research experience', body: 'Chair of the EAU clinical-guidelines committee, with research activity in Israel and abroad.' },
     ],
-    featured: { id: 'cQez-hgDyZQ', kicker: 'Explainer', title: 'Treating overactive bladder — a calm guide' },
+    featured: { id: 'cQez-hgDyZQ', kicker: 'Explainer', title: 'Treating overactive bladder - a calm guide' },
   },
   recognition: {
     eyebrow: 'Recognition & affiliations',
     heading: 'Institutions & societies',
     cards: [
-      { org: 'Sheba Medical Center', detail: 'Head of the Functional Urology & Andrology Unit and Director of SHSQ — the Center for Sexual Health.' },
+      { org: 'Sheba Medical Center', detail: 'Head of the Functional Urology & Andrology Unit and Director of SHSQ - the Center for Sexual Health.' },
       { org: 'European Association of Urology (EAU)', detail: 'Chair of the clinical-guidelines committee on urological trauma.' },
       { org: 'ESSM · ILSSM', detail: 'Member of the Israeli and European societies for sexual medicine.' },
     ],
@@ -345,7 +345,7 @@ const en: SiteContent = {
   statsBand: [
     { n: '25+', label: 'Years of clinical experience' },
     { n: '1997', label: 'Sackler School of Medicine, Tel Aviv University' },
-    { n: 'EAU', label: 'Chair, clinical-guidelines committee — urological trauma' },
+    { n: 'EAU', label: 'Chair, clinical-guidelines committee - urological trauma' },
   ],
   reviews: {
     eyebrow: 'What patients say',
@@ -361,8 +361,8 @@ const en: SiteContent = {
     sourceHref: MEDREVIEWS,
     items: [
       { stars: 5, name: 'H.A., Tel Aviv', meta: 'Sexual dysfunction', quote: 'Professional, courteous, doesn’t look to push unnecessary procedures. An excellent doctor.' },
-      { stars: 5, name: 'Yishai K., Or Yehuda', meta: 'Sexual dysfunction', quote: 'The professionalism. The humanity. Treats you as an equal — simplifies complex situations and offers solutions in full transparency.' },
-      { stars: 5, name: 'A.A., Hadera', meta: 'Post-surgical care', quote: 'Knows how to reassure and explain. Human and welcoming. We arrived quite distressed — and left encouraged, with hope.' },
+      { stars: 5, name: 'Yishai K., Or Yehuda', meta: 'Sexual dysfunction', quote: 'The professionalism. The humanity. Treats you as an equal - simplifies complex situations and offers solutions in full transparency.' },
+      { stars: 5, name: 'A.A., Hadera', meta: 'Post-surgical care', quote: 'Knows how to reassure and explain. Human and welcoming. We arrived quite distressed - and left encouraged, with hope.' },
     ],
   },
   resources: {
@@ -391,7 +391,7 @@ const en: SiteContent = {
     clinic: 'Ayal Specialist Clinics',
     address: 'Recital Tower, 156 Menachem Begin Rd, Tel Aviv, Floor 17',
     bookTitle: 'Book',
-    bookBody: 'To book an appointment or for more information — leave a message and I’ll get back to you shortly.',
+    bookBody: 'To book an appointment or for more information - leave a message and I’ll get back to you shortly.',
     book: 'Book Appointment',
     rights: 'All rights reserved',
     disclaimer: 'Information on this site is general and does not constitute medical advice or a substitute for personal examination and diagnosis.',
