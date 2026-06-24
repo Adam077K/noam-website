@@ -17,7 +17,7 @@ const isHe = locale === 'he';
     <!-- copy -->
     <div class="pb-12 lg:pb-24">
       <p class="reveal mb-6 flex items-center gap-3 text-[14px] font-medium leading-snug text-[#b9c9da] sm:text-[15px]">
-        <span class="inline-block h-0.5 w-8 shrink-0 bg-blue-bright"></span>
+        <span class="inline-block h-0.5 w-4 shrink-0 bg-blue-bright"></span>
         {t.hero.eyebrow}
       </p>
       <h1 class="reveal-title mb-5 font-serif text-[clamp(3.2rem,9vw,5.4rem)] font-bold leading-[0.97] text-white" style="transition-delay:.05s">
@@ -34,10 +34,10 @@ const isHe = locale === 'he';
         </a>
       </div>
       <!-- quiet credential line (decluttered) -->
-      <ul class="reveal flex flex-wrap items-center gap-x-3.5 gap-y-2 border-t border-white/15 pt-5 text-[13.5px] text-[#cddcea]" style="transition-delay:.2s">
+      <ul class="reveal flex flex-col gap-2.5 border-t border-white/15 pt-5 text-[13.5px] text-[#cddcea] sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3.5 sm:gap-y-2" style="transition-delay:.2s">
         {t.hero.rail.map((r, i) => (
           <li class="flex items-center gap-3.5">
-            {i > 0 && <span class="text-white/30" aria-hidden="true">·</span>}
+            {i > 0 && <span class="hidden text-white/30 sm:inline" aria-hidden="true">·</span>}
             <span><span class="font-semibold text-white" dir="ltr">{r.kicker}</span> {r.label}</span>
           </li>
         ))}
