@@ -119,3 +119,30 @@
     .js .reveal-title { opacity: 1; clip-path: none; transform: none; }
   }
 }
+
+/* ----------------------------------------------------------------------------
+   Nav: transparent + white text over the dark hero; on scroll it becomes a
+   solid white bar with ink text so it stays legible over white sections.
+---------------------------------------------------------------------------- */
+[data-nav] [data-util],
+[data-nav] [data-bar],
+[data-nav] .nav-brand,
+[data-nav] .nav-sub,
+[data-nav] .nav-link,
+[data-nav] .nav-burger {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+[data-nav].scrolled [data-util] {
+  background: var(--color-paper);
+  border-color: var(--color-line);
+  color: var(--color-slate);
+}
+[data-nav].scrolled [data-bar] {
+  background: var(--color-paper);
+  box-shadow: 0 10px 28px -20px rgba(18, 48, 84, 0.35);
+}
+[data-nav].scrolled .nav-brand { color: var(--color-ink); }
+[data-nav].scrolled .nav-sub { color: var(--color-blue); }
+[data-nav].scrolled .nav-link { color: var(--color-ink); opacity: 0.85; }
+[data-nav].scrolled .nav-link:hover { color: var(--color-blue); opacity: 1; }
+[data-nav].scrolled .nav-burger { color: var(--color-ink); border-color: var(--color-line); }
