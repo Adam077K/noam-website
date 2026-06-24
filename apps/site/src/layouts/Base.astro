@@ -1,0 +1,78 @@
+---
+import '@/styles/global.css';
+import type { Locale } from '@/lib/i18n';
+import { dir } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+const d = dir(locale);
+---
+<!doctype html>
+<html lang={t.htmlLang} dir={d}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{t.meta.title}</title>
+    <meta name="description" content={t.meta.description} />
+    <meta property="og:title" content={t.meta.title} />
+    <meta property="og:description" content={t.meta.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={locale === 'he' ? 'he_IL' : 'en_US'} />
+    <link rel="alternate" hreflang="he" href={`${Astro.site}he`} />
+    <link rel="alternate" hreflang="en" href={`${Astro.site}en`} />
+    <link rel="alternate" hreflang="x-default" href={`${Astro.site}he`} />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-3 focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-bone">
+      {t.skip}
+    </a>
+    <slot />
+
+    <script>
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const els = document.querySelectorAll('.reveal, .reveal-title');
+      const counters = document.querySelectorAll('[data-count-to]');
+
+      const runCount = (el) => {
+        const to = parseFloat(el.dataset.countTo || '0');
+        const decimals = parseInt(el.dataset.countDecimals || '0', 10);
+        const prefix = el.dataset.countPrefix || '';
+        const suffix = el.dataset.countSuffix || '';
+        if (reduce) { el.textContent = prefix + to.toFixed(decimals) + suffix; return; }
+        el.textContent = prefix + (0).toFixed(decimals) + suffix;
+        const dur = 1200, start = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / dur);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = prefix + (to * eased).toFixed(decimals) + suffix;
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+
+      // Reveal-on-scroll + count-up (progressive enhancement)
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          }
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+        els.forEach((el) => io.observe(el));
+
+        const cio = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) { runCount(e.target); cio.unobserve(e.target); }
+          }
+        }, { threshold: 0.6 });
+        counters.forEach((el) => cio.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('in'));
+        counters.forEach(runCount);
+      }
+    </script>
+  </body>
+</html>

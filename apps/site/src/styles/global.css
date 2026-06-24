@@ -1,0 +1,148 @@
+@import "tailwindcss";
+
+/* Self-hosted variable fonts (Hebrew + Latin subsets included) */
+@import "@fontsource-variable/rubik";
+@import "@fontsource-variable/assistant";
+
+/* ----------------------------------------------------------------------------
+   Quiet Authority · Blue edition — design tokens
+   Dr. Noam Kitrey. White-dominant, refined navy + steel-blue + soft sky.
+   Soft Structuralism: airy floating cards, ultra-soft blue-tinted shadows.
+---------------------------------------------------------------------------- */
+@theme {
+  --color-ink: #0e2236;        /* deep navy — dark sections, headings, body text on white */
+  --color-ink-2: #14304a;      /* raised dark surface */
+  --color-ink-3: #21425e;      /* hairline / tertiary on dark */
+  --color-paper: #ffffff;      /* primary background */
+  --color-paper-2: #ffffff;    /* white cards */
+  --color-blue: #2d72b0;       /* the single accent */
+  --color-blue-bright: #4a92d1;/* hover / brighter on dark */
+  --color-blue-deep: #1c4f7a;  /* pressed / deep */
+  --color-sky: #eef4fa;        /* light tint strips */
+  --color-sky-2: #e3edf7;      /* input / soft card tint */
+  --color-line: #e5ecf3;       /* cool hairline divider */
+  --color-slate: #546880;      /* secondary text on white */
+  --color-cloud: #aec3d8;      /* secondary text on navy */
+  --color-brass: #9a7416;      /* review stars — darkened to clear 3:1 on white */
+
+  /* display = Rubik (modern, strong Hebrew); body = Assistant (humanist) */
+  --font-serif: "Rubik Variable", system-ui, -apple-system, sans-serif;
+  --font-sans: "Assistant Variable", system-ui, -apple-system, sans-serif;
+
+  /* soft, wide, blue-tinted diffusion shadows */
+  --shadow-card: 0 2px 4px -2px rgba(18, 48, 84, 0.06), 0 14px 32px -14px rgba(18, 48, 84, 0.16);
+  --shadow-card-hover: 0 4px 10px -2px rgba(18, 48, 84, 0.09), 0 26px 54px -18px rgba(18, 48, 84, 0.22);
+  --shadow-float: 0 4px 10px -4px rgba(18, 48, 84, 0.08), 0 28px 60px -22px rgba(18, 48, 84, 0.24);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+@layer base {
+  :root { color-scheme: light; }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  ::selection { background: var(--color-blue); color: #fff; }
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* Hebrew typography: letters must not be tracked apart or tight-tracked.
+     Zero letter-spacing on Hebrew headings and on any tracked label,
+     while preserving tracking on explicitly-LTR runs (Latin acronyms). */
+  html[lang="he"] :is(h1, h2, h3, h4) { letter-spacing: 0; }
+  html[lang="he"] [class*="tracking-"]:not([dir="ltr"]) { letter-spacing: normal; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Only hide when JS is present (progressive enhancement: no-JS = fully visible) */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(6px);
+    transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), filter 0.8s var(--ease-out);
+    will-change: opacity, transform;
+  }
+  .js .reveal.in {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal { opacity: 1; transform: none; filter: none; }
+  }
+
+  /* Distinct entrance for section titles: a clip-wipe from the leading edge,
+     so headings don't share the body's plain fade (motion choreography by role) */
+  .js .reveal-title {
+    opacity: 0;
+    clip-path: inset(0 0 0.6em 0);
+    transform: translateY(10px);
+    transition: opacity 0.9s var(--ease-out), clip-path 1s var(--ease-spring), transform 0.9s var(--ease-spring);
+    will-change: opacity, clip-path, transform;
+  }
+  .js .reveal-title.in {
+    opacity: 1;
+    clip-path: inset(0 0 -0.15em 0);
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal-title { opacity: 1; clip-path: none; transform: none; }
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Nav: transparent + white text over the dark hero; on scroll it becomes a
+   solid white bar with ink text so it stays legible over white sections.
+---------------------------------------------------------------------------- */
+[data-nav] [data-util],
+[data-nav] [data-bar],
+[data-nav] .nav-brand,
+[data-nav] .nav-sub,
+[data-nav] .nav-link,
+[data-nav] .nav-burger {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+[data-nav].scrolled [data-util] {
+  background: var(--color-paper);
+  border-color: var(--color-line);
+  color: var(--color-slate);
+}
+[data-nav].scrolled [data-bar] {
+  background: var(--color-paper);
+  box-shadow: 0 10px 28px -20px rgba(18, 48, 84, 0.35);
+}
+[data-nav].scrolled .nav-brand { color: var(--color-ink); }
+[data-nav].scrolled .nav-sub { color: var(--color-blue); }
+[data-nav].scrolled .nav-link { color: var(--color-ink); opacity: 0.85; }
+[data-nav].scrolled .nav-link:hover { color: var(--color-blue); opacity: 1; }
+[data-nav].scrolled .nav-burger { color: var(--color-ink); border-color: var(--color-line); }

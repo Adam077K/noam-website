@@ -1,0 +1,57 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+import CtaButton from './CtaButton.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+const isHe = locale === 'he';
+---
+<section class="relative overflow-hidden bg-ink">
+  <!-- ambient warmth -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true"
+    style="background:radial-gradient(120% 95% at 85% 12%, rgba(45,114,176,0.20), transparent 58%);"></div>
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent to-ink" aria-hidden="true"></div>
+
+  <div class="relative mx-auto grid max-w-[1240px] grid-cols-1 items-end gap-6 px-6 pt-32 md:pt-36 lg:grid-cols-[1.12fr_0.88fr] lg:gap-8 lg:px-10 lg:pt-40">
+    <!-- copy -->
+    <div class="pb-12 lg:pb-24">
+      <p class="reveal mb-6 flex items-center gap-3 text-[14px] font-medium leading-snug text-[#b9c9da] sm:text-[15px]">
+        <span class="inline-block h-0.5 w-4 shrink-0 bg-blue-bright"></span>
+        {t.hero.eyebrow}
+      </p>
+      <h1 class="reveal-title mb-5 font-serif text-[clamp(3.2rem,9vw,5.4rem)] font-bold leading-[0.97] text-white" style="transition-delay:.05s">
+        {t.hero.name}
+      </h1>
+      <p class="reveal mb-8 max-w-[34rem] text-[18px] font-light leading-relaxed text-[#cdd9e6] sm:text-[19.5px]" style="transition-delay:.1s">
+        {t.hero.lead}
+      </p>
+      <div class="reveal mb-11 flex flex-wrap items-center gap-x-4 gap-y-3" style="transition-delay:.15s">
+        <CtaButton href="#contact" label={t.hero.ctaPrimary} locale={locale} variant="solid" />
+        <a href="#contact" class="group inline-flex items-center gap-2.5 px-2 py-3.5 text-[16.5px] font-semibold text-[#dde7f1]">
+          {t.hero.ctaSecondary}
+          <span class="text-blue-bright transition-transform group-hover:-translate-x-1 rtl:group-hover:translate-x-0 rtl:group-hover:-translate-x-1">{isHe ? '←' : '→'}</span>
+        </a>
+      </div>
+      <!-- quiet credential line (decluttered) -->
+      <ul class="reveal flex flex-col gap-2.5 border-t border-white/15 pt-5 text-[13.5px] text-[#cddcea] sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-3.5 sm:gap-y-2" style="transition-delay:.2s">
+        {t.hero.rail.map((r, i) => (
+          <li class="flex items-center gap-3.5">
+            {i > 0 && <span class="hidden text-white/30 sm:inline" aria-hidden="true">·</span>}
+            <span><span class="font-semibold text-white" dir="ltr">{r.kicker}</span> {r.label}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- portrait: melts into the dark (text leads on mobile; portrait beside on desktop) -->
+    <div class="relative h-[400px] self-end sm:h-[480px] lg:h-[560px]">
+      <img
+        src="/img/noam-hero.avif" alt={t.hero.photoAlt} width="900" height="1200"
+        fetchpriority="high" decoding="async"
+        class="h-full w-full object-contain object-bottom"
+        style="-webkit-mask-image:linear-gradient(to bottom,transparent,#000 13%),linear-gradient(to left,transparent,#000 11%,#000 89%,transparent);-webkit-mask-composite:source-in;mask-composite:intersect;filter:saturate(1.02);"
+      />
+    </div>
+  </div>
+</section>

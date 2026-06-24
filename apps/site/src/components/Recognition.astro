@@ -1,0 +1,30 @@
+---
+import type { Locale } from '@/lib/i18n';
+import { getContent } from '@/lib/content';
+import Eyebrow from './Eyebrow.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = getContent(locale);
+---
+<section class="bg-sky">
+  <div class="mx-auto grid max-w-[1240px] grid-cols-1 gap-10 px-6 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20 lg:px-10 lg:py-24">
+    <!-- heading rail (sticky on desktop) -->
+    <div class="reveal lg:sticky lg:top-28 lg:self-start">
+      <Eyebrow text={t.recognition.eyebrow} class="mb-5" />
+      <h2 class="font-serif text-[clamp(1.8rem,3.4vw,2.6rem)] font-bold leading-[1.12] text-ink">{t.recognition.heading}</h2>
+    </div>
+
+    <!-- affiliations as an editorial divided list (not a 3-up card grid) -->
+    <ul class="reveal" style="transition-delay:.08s">
+      {t.recognition.cards.map((c, i) => (
+        <li class={`flex items-start gap-5 py-7 ${i > 0 ? 'border-t border-blue/15' : ''}`}>
+          <span class="mt-2.5 h-2 w-2 shrink-0 rounded-full bg-blue" aria-hidden="true"></span>
+          <div>
+            <h3 class="mb-1.5 font-serif text-[21px] font-bold leading-snug text-ink">{c.org}</h3>
+            <p class="max-w-[42rem] text-[15.5px] leading-relaxed text-slate">{c.detail}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

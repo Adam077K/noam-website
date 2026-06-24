@@ -1,0 +1,55 @@
+---
+interface Props { id: string; title: string; kicker: string; watch: string; variant?: 'card' | 'feature' }
+const { id, title, kicker, watch, variant = 'card' } = Astro.props;
+const thumb = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+const fallback = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+const isFeature = variant === 'feature';
+---
+<article class={`group relative overflow-hidden rounded-[22px] bg-ink ${isFeature ? 'shadow-[var(--shadow-float)]' : 'shadow-[var(--shadow-card)]'}`}>
+  <button
+    type="button" class="yt-facade relative block w-full overflow-hidden text-start" data-yt={id}
+    style={`aspect-ratio:${isFeature ? '16/10' : '16/11'}`} aria-label={`${watch}: ${title}`}
+  >
+    <img
+      src={thumb} data-fallback={fallback} alt="" loading="lazy" decoding="async"
+      class="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+      onerror="if(this.src!==this.dataset.fallback){this.src=this.dataset.fallback}"
+    />
+    <!-- bottom scrim only (for title legibility) — no color overlay -->
+    <span class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/40 to-transparent" aria-hidden="true"></span>
+
+    <!-- play -->
+    <span class="absolute inset-0 grid place-items-center">
+      <span class={`grid place-items-center rounded-full bg-white/95 text-ink shadow-lg ring-1 ring-white/40 backdrop-blur-sm transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-110 ${isFeature ? 'h-16 w-16' : 'h-14 w-14'}`}>
+        <svg width={isFeature ? 26 : 22} height={isFeature ? 26 : 22} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5Z"/></svg>
+      </span>
+    </span>
+
+    <!-- title overlaid on the poster -->
+    <span class="absolute inset-x-0 bottom-0 p-5 lg:p-6">
+      <span class="block text-[11px] font-semibold tracking-[0.14em] text-blue-bright uppercase">{kicker}</span>
+      <span class={`mt-1.5 block font-serif font-bold leading-snug text-white ${isFeature ? 'text-[22px]' : 'text-[17px]'}`}>{title}</span>
+    </span>
+  </button>
+</article>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.yt-facade') as HTMLElement | null;
+    if (!btn) return;
+    const id = btn.dataset.yt;
+    if (!id) return;
+    const iframe = document.createElement('iframe');
+    iframe.width = '100%';
+    iframe.height = '100%';
+    iframe.style.position = 'absolute';
+    iframe.style.inset = '0';
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    iframe.title = btn.getAttribute('aria-label') || 'YouTube video';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.border = '0';
+    btn.replaceChildren(iframe);
+    btn.classList.remove('group');
+  });
+</script>

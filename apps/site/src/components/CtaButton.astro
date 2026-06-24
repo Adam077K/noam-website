@@ -1,0 +1,32 @@
+---
+import type { Locale } from '@/lib/i18n';
+interface Props {
+  href: string; label: string; locale: Locale;
+  variant?: 'solid' | 'ghost' | 'light'; size?: 'md' | 'sm'; class?: string;
+}
+const { href, label, locale, variant = 'solid', size = 'md', class: cls = '' } = Astro.props;
+const isHe = locale === 'he';
+const pad = size === 'sm' ? 'ps-5 pe-1.5 py-1.5 text-[14.5px]' : 'ps-7 pe-2 py-2 text-[16px]';
+const circle = size === 'sm' ? 'h-7 w-7' : 'h-9 w-9';
+const shell: Record<string, string> = {
+  solid: 'bg-blue text-white hover:bg-blue-deep',
+  light: 'bg-white text-ink hover:bg-sky',
+  ghost: 'bg-white/8 text-white ring-1 ring-white/15 hover:bg-white/12',
+};
+const dot: Record<string, string> = {
+  solid: 'bg-white/18 text-white',
+  light: 'bg-blue/12 text-blue',
+  ghost: 'bg-white/12 text-white',
+};
+---
+<a
+  href={href}
+  class={`group inline-flex items-center gap-3 rounded-full font-semibold ${pad} ${shell[variant]} ${cls} transition-[background-color,transform] duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98]`}
+>
+  <span>{label}</span>
+  <span class={`grid ${circle} place-items-center rounded-full ${dot[variant]} transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:-translate-x-0.5 ${isHe ? '' : 'group-hover:translate-x-0.5'}`}>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      {isHe ? <path d="M15 6l-6 6 6 6" /> : <path d="M9 6l6 6-6 6" />}
+    </svg>
+  </span>
+</a>
