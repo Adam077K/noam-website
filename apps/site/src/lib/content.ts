@@ -49,6 +49,7 @@ export interface SiteContent {
   statsBand: Stat[];
   reviews: {
     eyebrow: string; heading: string; rating: string; count: string;
+    reviewCount: number; verified: string; seeAll: string; asOf: string; onSource: string;
     items: Review[]; sourceLabel: string; sourceHref: string;
   };
   resources: { eyebrow: string; heading: string; intro: string; videos: VideoCard[]; watch: string };
@@ -185,7 +186,12 @@ const he: SiteContent = {
     eyebrow: 'מה אומרים המטופלים',
     heading: 'חוות דעת מטופלים',
     rating: '4.7',
-    count: 'מתוך 46 חוות דעת',
+    count: 'מתוך 47 חוות דעת',
+    reviewCount: 47,
+    verified: 'מאומת ב-MedReviews',
+    seeAll: 'לכל 47 הביקורות ב-MedReviews',
+    asOf: 'נכון ליוני 2026',
+    onSource: 'ב-MedReviews',
     sourceLabel: 'מקור: MedReviews',
     sourceHref: MEDREVIEWS,
     items: [
@@ -345,7 +351,12 @@ const en: SiteContent = {
     eyebrow: 'What patients say',
     heading: 'Patient reviews',
     rating: '4.7',
-    count: 'from 46 reviews',
+    count: 'from 47 reviews',
+    reviewCount: 47,
+    verified: 'Verified on MedReviews',
+    seeAll: 'See all 47 reviews on MedReviews',
+    asOf: 'As of June 2026',
+    onSource: 'on MedReviews',
     sourceLabel: 'Source: MedReviews',
     sourceHref: MEDREVIEWS,
     items: [
